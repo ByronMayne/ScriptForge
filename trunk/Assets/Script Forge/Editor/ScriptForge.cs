@@ -98,6 +98,12 @@ namespace ScriptForge
 
 		public void OnGUI()
 		{
+			GUILayout.Space(-10.0f);
+			GUILayout.BeginHorizontal();
+			GUILayout.Space(-10.0f);
+			GUILayout.Box( GUIContent.none, GUILayout.Width(Screen.width + 20.0f), GUILayout.Height(55.0f));
+			GUILayout.EndHorizontal();
+
 			_scrollPostion = EditorGUILayout.BeginScrollView( _scrollPostion, false, true, GUIStyle.none, GUI.skin.verticalScrollbar, GUI.skin.scrollView);
 			GUILayout.Space( 5.0f );
 			EditorWidget.Spacer();
