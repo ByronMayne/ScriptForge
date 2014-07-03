@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic; 
 
 namespace ScriptForge
 {
@@ -10,26 +11,31 @@ namespace ScriptForge
 	/// </summary>
 	public class ScriptForge : EditorWindow 
 	{
-		#pragma warning disable 0414 
-		//TODO: Change this. I should really not need these defines here.
-        private static LayersWidget _Layers = new LayersWidget("Layers", "This forge is used to crate a static class for all Layers in your Unity Project. It makes both Bitwise value and Intagers.", 175.0f);
-        private static TagsWidget _Tags = new TagsWidget("Tags", "This forge is used to crate a static class for all the tags in your Unity project.", 175.0f);
-        private static SortingLayersWidget _SortingLayers = new SortingLayersWidget("Sorting Layers", "This forge is used to creat a static class for all the sorting layers in your Unity project", 175.0f);
-
-		// Future Widgets. No point to uncomment these as the scripts are not included with this release. 
-		private static SceneWidget _Scene = new SceneWidget("Scenes", "This forge is used to keep track of all your scenes in your project", 200.0f);
-		//private static InputWidget _Input = new InputWidget("Input", "This forge tracks all the axis used in Unity's Input Manager", 175.0f);
-		//
-
-		private static SettingsWidget _Settings = new SettingsWidget("Settings", "This is where you can adjust any settings for ScriptForge", 100.0f);
-        private static AboutWidget _About = new AboutWidget("About", "Who made ScriptForge and what does it do?", 200.0f);
 		private static Vector2 _scrollPostion = Vector2.zero;
-		#pragma warning restore 0414
 
 		public static ScriptForge Instance { get; protected set; }
 
+		public static List<EditorWidget> _widgets; 
+
+		public static void AddWidget<T_WidgetType>() where T_WidgetType : EditorWidget, new()
+		{
+			_widgets.Add( new T_WidgetType() );
+		}
+
+		public static void RemoveWidget(EditorWidget widget)
+		{
+			if( _widgets.Contains( widget ) )
+			{
+				widget.Destroy();
+
+				_widgets.Remove( widget );
+			}
+		}
+
 		public void OnEnable()
 		{
+			_widgets = new List<EditorWidget>();
+
 			name = " Script Forge";
 			Instance =  this; //EditorWindow.GetWindow<ScriptForge>();
 
@@ -38,6 +44,18 @@ namespace ScriptForge
 				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
 				EditorPrefs.SetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, false );
 			}
+
+			AddWidget<LayersWidget>();
+			AddWidget<SortingLayersWidget>();
+			AddWidget<TagsWidget>();
+			AddWidget<SceneWidget>();
+			AddWidget<SettingsWidget>();
+			AddWidget<AboutWidget>();
+		}
+
+		public void OnDisable()
+		{
+			_widgets = new List<EditorWidget>();
 		}
 
 		/// <summary>

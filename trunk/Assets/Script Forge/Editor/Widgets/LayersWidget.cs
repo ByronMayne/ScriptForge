@@ -15,7 +15,7 @@ namespace ScriptForge
         /// <param name="Name">This is the name that will showup on the foldout at the top.</param>
         /// <param name="Tooltip">This is the message that the user will see when they put their mouse over the foldout.</param>
         /// <param name="Height">How tall will the editor box be when fully opened?</param>
-        public LayersWidget(string Name, string Tooltip, float Height) : base(Name, Tooltip, Height)
+        public LayersWidget() : base()
         {
             _OnGenerateAll += OnGenerate;
 			_widgetSkinName = "Layers";
@@ -24,7 +24,7 @@ namespace ScriptForge
         /// <summary>
         /// This is the deconstructor. It's only used to unsubscribe our OnGenerate method from the static delegate. (It will cause errors if you don't);
         /// </summary>
-        ~LayersWidget()
+		public override void Destroy()
         {
             _OnGenerateAll -= OnGenerate;
         }
@@ -72,6 +72,10 @@ namespace ScriptForge
             }
         }
 
+		protected override GUIContent Description ()
+		{
+			return sf_Descriptions.DESCRIPTION_LAYERS_WIDGET;
+		}
     }
 
 }

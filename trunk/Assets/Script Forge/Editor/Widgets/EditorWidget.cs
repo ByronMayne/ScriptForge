@@ -143,10 +143,9 @@ namespace ScriptForge
             /// <param name="Name">This is the name that will showup on the foldout at the top.</param>
             /// <param name="Tooltip">This is the message that the user will see when they put their mouse over the foldout.</param>
             /// <param name="Height">How tall will the editor box be when fully opened?</param>
-            public EditorWidget(string Name, string Tooltip, float Height)
+            public EditorWidget()
             {
-                _content = new GUIContent(Name, Tooltip);
-                _expandedHeight = Height;
+				_content = Description();
 
                 _OnGUI += OnGUI;
                 _OnUpdate += Update;
@@ -156,12 +155,14 @@ namespace ScriptForge
                 _ID = _nextID++;
 
 				LoadPrefValues();
+
+				_expandedHeight = 200.0f;
             }
 
             /// <summary>
             /// This is the deconstructor. It's only used to unsubscribe our OnGUI method from the static delegate. (It will cause errors if you don't);
             /// </summary>
-            ~EditorWidget()
+			public virtual void Destroy()
             {
                 _OnGUI -= OnGUI;
 
@@ -198,6 +199,7 @@ namespace ScriptForge
                                              lastRect.y + EDITOR_WINDOW_SPACING * 2,
                                              Screen.width - EDITOR_WINDOW_INSET * 2 - (10),
                                              contentHeight);
+
 
                 //The background for the foldout
 
@@ -281,17 +283,34 @@ namespace ScriptForge
                     // WINDOW CONTENT END
                 }
                 if (_animateBoxes)  GUI.color = Color.white;
+
+				Rect currentRect = GUILayoutUtility.GetLastRect();
+				
+				if( Event.current.type == EventType.Repaint ) 
+				{
+					
+					_expandedHeight = currentRect.y + EditorGUIUtility.singleLineHeight * 2.0f;
+				}
+
+
                 //End our layout group
                 GUILayout.EndArea();
 
+				
+
                 //End our gui group
                 GUI.EndGroup();
+
+
 
                 //Lave a spacer at the bottom so the spacer does not overlap. 
                 GUILayout.Space(10.0f);
 
                 ///The footer for our box.
                 Spacer();
+
+
+
             }
 
             /// <summary>
@@ -349,6 +368,11 @@ namespace ScriptForge
 			{
 				currentBuildFlashTimeLeft = Time.realtimeSinceStartup + buildFlashTime;
 			}
+
+			/// <summary>
+			/// Description this instance.
+			/// </summary>
+			protected abstract GUIContent Description();
         #endregion 
     }
 

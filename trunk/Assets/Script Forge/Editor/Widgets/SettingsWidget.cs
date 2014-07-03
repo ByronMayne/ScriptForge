@@ -12,11 +12,12 @@ namespace ScriptForge
 
     public class SettingsWidget : EditorWidget
     {
-		public SettingsWidget(string Name, string Tooltip, float Height) : base(Name, Tooltip, Height) 
+		public SettingsWidget() : base() 
 		{ 
 			_widgetSkinName = "Settings"; 
 		}
-        ~SettingsWidget() 
+
+		public override void Destroy()
 		{ 
 			_OnGUI -= OnGUI; 
 		}
@@ -65,5 +66,10 @@ namespace ScriptForge
 				SavePrefValues();
 			}
         }
+
+		protected override GUIContent Description ()
+		{
+			return sf_Descriptions.DESCRIPTION_SETTINGS_WIDGET;
+		}
     } 
 }
