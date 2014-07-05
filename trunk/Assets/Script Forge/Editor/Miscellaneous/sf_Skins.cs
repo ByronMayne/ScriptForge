@@ -24,6 +24,7 @@ namespace ScriptForge
 			protected static string _widgetTitleStyleName = "Widget Title";
 			protected static string _scriptForgeTitleStyleName = "Inspector Title";
 			protected static string _scriptForgeSubTitleStyleName = "Inspector Sub Title";
+			protected static string _fontAwesomeButtonStyleName = "Font Awesome Button";
 			protected static Color _unityProColor =  new Color(1.0f, 1.0f, 1.0f); 
 			protected static Color _unityColor = new Color(0.0f, 0.0f, 0.0f);
 
@@ -63,6 +64,7 @@ namespace ScriptForge
 			/// </summary>
 			public static void ChangeToUnitySkin()
 			{
+				//Labels
 				EDITOR_SKIN.GetStyle( _fontAwesomeStyleName ).normal.textColor = _unityColor;
 				EDITOR_SKIN.GetStyle( _fontAwesomeLargeStyleName ).normal.textColor = _unityColor;
 				EDITOR_SKIN.GetStyle( _widgetTitleStyleName ).normal.textColor = _unityColor;
@@ -133,6 +135,62 @@ namespace ScriptForge
 				get
 				{
 					return EDITOR_SKIN.GetStyle( _scriptForgeSubTitleStyleName );
+				}
+			}
+
+			public static GUIStyle Button
+			{
+				get
+				{
+					GUIStyle edtiorStyle = 	EditorStyles.miniButton;
+					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
+				
+					edtiorStyle.font = customStyle.font;
+					edtiorStyle.fontSize = customStyle.fontSize;
+					edtiorStyle.contentOffset = customStyle.contentOffset;
+					return edtiorStyle; 
+				}
+			}
+
+			public static GUIStyle MiniButtonLeft
+			{
+				get
+				{
+					GUIStyle edtiorStyle = EditorStyles.miniButtonLeft;
+					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
+					
+					edtiorStyle.font = customStyle.font;
+					edtiorStyle.fontSize = customStyle.fontSize;
+					edtiorStyle.contentOffset = customStyle.contentOffset;
+					return edtiorStyle; 
+				}
+			}
+
+			public static GUIStyle MiniButtonMiddle
+			{
+				get
+				{
+					GUIStyle edtiorStyle = EditorStyles.miniButtonMid;
+					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
+					
+					edtiorStyle.font = customStyle.font;
+					edtiorStyle.fontSize = customStyle.fontSize;
+					edtiorStyle.contentOffset = customStyle.contentOffset;
+					return edtiorStyle; 
+				}
+			}
+
+			public static GUIStyle MiniButtonRight
+			{
+				get
+				{
+					GUIStyle edtiorStyle = EditorStyles.miniButtonRight;
+					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
+
+					edtiorStyle.font = customStyle.font;
+					edtiorStyle.fontSize = customStyle.fontSize;
+					edtiorStyle.contentOffset = customStyle.contentOffset;
+					return edtiorStyle; 
 				}
 			}
 

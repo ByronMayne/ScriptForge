@@ -97,6 +97,7 @@ namespace ScriptForge
 
 		private GUIContent openAllContent = new GUIContent("Open All", "This will open all the forges in  Script Forge");
 		private GUIContent closeAllConent = new GUIContent("Close All", "This will close all open forges in  Script Forge");
+		private GUIContent addForgeContent = new GUIContent("Add Forge", "This will add a new forge that is not already part of Script Forge");
 		private GUIContent generateAllContent = new GUIContent("Generate All", "This will tell all forges to generate their scripts if they have changed since last time");
 		private GUIContent setCommonPathContent = new GUIContent("Set Common Path", "This is the path that all forges will build their scripts to.");
 		private GUIContent resetForgesContenet = new GUIContent("Reset Forges", "This will reset all forges to their default values.");
@@ -123,31 +124,40 @@ namespace ScriptForge
 					GUILayout.Label( sf_Descriptions.DESCRIPTION_SCRIPTFORGE_SUBTITLE, sf_Skins.InspectorSubTitleStyle );
 				GUILayout.EndVertical();
 				GUILayout.Label( sf_FontAwesome.fa_Cubes.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
-				GUILayout.Space(10.0f);
+			GUILayout.Space(10);
 			GUILayout.EndHorizontal();
 
 			GUILayout.EndArea();
 
 			GUILayout.Space(2.0f);
 
-			_scrollPostion = EditorGUILayout.BeginScrollView( _scrollPostion, false, true, GUIStyle.none, GUI.skin.verticalScrollbar, GUI.skin.scrollView);
+		
 			GUILayout.Space( 3.0f );
 
 			GUILayout.BeginHorizontal();
-			if( GUILayout.Button(generateAllContent, EditorStyles.miniButtonLeft, GUILayout.Height(30)) )
-				if( ForgeWidget._OnGenerateAll != null )
-					ForgeWidget._OnGenerateAll();
-			if( GUILayout.Button(setCommonPathContent, EditorStyles.miniButtonMid, GUILayout.Height(30)) )
+				if( GUILayout.Button(generateAllContent, sf_Skins.Button, GUILayout.Height(30) ) )
+				{
+					if( ForgeWidget._OnGenerateAll != null )
+						ForgeWidget._OnGenerateAll();
+				}
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			if( GUILayout.Button(addForgeContent, EditorStyles.miniButtonLeft, GUILayout.Height(30)) )
 			{
-				if( ForgeWidget._OnSetCommonPath != null )
-					ForgeWidget._OnSetCommonPath( EditorUtility.OpenFolderPanel( "Set Path", "", Application.dataPath + "/"));
-			}
-			if( GUILayout.Button(resetForgesContenet, EditorStyles.miniButtonRight, GUILayout.Height(30)) )
-			{
-				if( ForgeWidget._OnReset != null )
-					ForgeWidget._OnReset(); 
-			}
-			GUILayout.Space(15);
+
+				}
+
+				if( GUILayout.Button(setCommonPathContent, EditorStyles.miniButtonMid, GUILayout.Height(30)) )
+				{
+					if( ForgeWidget._OnSetCommonPath != null )
+						ForgeWidget._OnSetCommonPath( EditorUtility.OpenFolderPanel( "Set Path", "", Application.dataPath + "/"));
+				}
+				if( GUILayout.Button(resetForgesContenet, EditorStyles.miniButtonRight, GUILayout.Height(30)) )
+				{
+					if( ForgeWidget._OnReset != null )
+						ForgeWidget._OnReset(); 
+				}
 			GUILayout.EndHorizontal();
 
 			//Top Header
@@ -158,17 +168,29 @@ namespace ScriptForge
 			if( GUILayout.Button(closeAllConent, EditorStyles.miniButtonRight, GUILayout.Height(20)))
 				if( ForgeWidget._OnClose != null )
 					ForgeWidget._OnClose();
-			GUILayout.Space(15);
 			GUILayout.EndHorizontal();
-			
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Space( -5.0f );
+			GUILayout.Box( GUIContent.none, GUILayout.Width(Screen.width + 5.0f ), GUILayout.Height(6));
+
+			GUILayout.EndHorizontal();
+
+			GUILayout.Space( -3.0f );
+
+			_scrollPostion = EditorGUILayout.BeginScrollView( _scrollPostion, false, true, GUIStyle.none, GUI.skin.verticalScrollbar, GUI.skin.scrollView);
+
 			EditorWidget.Spacer();
+			
 			
 			if( EditorWidget._OnGUI != null )
 				ForgeWidget._OnGUI();
 
+			
 			EditorGUILayout.EndScrollView();
 
 
 		}
+
 	}
 }

@@ -169,7 +169,7 @@ namespace ScriptForge
             GUILayout.BeginHorizontal();
 			GUILayout.Label(_buildPathContent, EditorStyles.boldLabel, GUILayout.Width (CONTENT_TITLE_WIDTH));
 				GUILayout.Label(_buildPath, EditorStyles.miniLabel);
-			if( GUILayout.Button(changePathContent, GUILayout.Width(CONTENT_TITLE_WIDTH) ))
+			if( GUILayout.Button(changePathContent, sf_Skins.Button, GUILayout.Width(CONTENT_TITLE_WIDTH) ))
 					SetPath( EditorUtility.OpenFolderPanel( "Set Path", _buildPath, Application.dataPath + "/") );
             GUILayout.EndHorizontal();
 
@@ -198,11 +198,11 @@ namespace ScriptForge
 			GUILayout.Space(4);
 
             GUILayout.BeginHorizontal();
-			if (GUILayout.Button(generateContent, EditorStyles.miniButtonLeft, GUILayout.Height(20)))
+			if (GUILayout.Button(generateContent, sf_Skins.MiniButtonLeft, GUILayout.Height(20)))
 				OnGenerate();
-			if (GUILayout.Button(resetContent, EditorStyles.miniButtonMid, GUILayout.Height(20)))
+			if (GUILayout.Button(resetContent, sf_Skins.MiniButtonMiddle, GUILayout.Height(20)))
 				OnReset();
-			if (GUILayout.Button(_removeForgeContent, EditorStyles.miniButtonRight, GUILayout.Height(20)))
+			if (GUILayout.Button(_removeForgeContent, sf_Skins.MiniButtonRight, GUILayout.Height(20)))
 				OnRemoved();
             GUILayout.EndHorizontal();
 
