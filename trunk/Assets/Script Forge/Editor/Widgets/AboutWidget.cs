@@ -7,8 +7,17 @@ namespace ScriptForge
     public class AboutWidget : EditorWidget
     {
 		private Vector2 _infoTextScrollArea = Vector2.zero;
-		public AboutWidget() : base() {}
-		public override void Destroy() { _OnGUI -= OnGUI; }
+		public AboutWidget()
+		{
+
+		}
+		public override void Destroy() 
+		{ 
+			base.Destroy();
+
+			_OnGUI -= OnGUI; 
+		}
+
 		public GUIContent _infoContent = new GUIContent("This tool was developed by Byron Mayne on April 2014. If you have any questions or would like some custom modifcations please feel free to reach out to to me at Byronmayne@gmail.com or on LinkedIn at ca.linkedin.com/in/byronmayne/ \n\nRegards, \nByron M. (aspiring tools developer)" );
 
         protected override void DrawWindowContent()
@@ -29,7 +38,7 @@ namespace ScriptForge
 			//if( Event.current.type == EventType.Layout )
 				//_expandedHeight = GUILayoutUtility.GetRect(_infoContent, EditorStyles.label ).y;
 
-			if( GUILayout.Button("Documentation") )
+			if( GUILayout.Button("Documentation", sf_Skins.Button) )
 			{
 				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
 			}

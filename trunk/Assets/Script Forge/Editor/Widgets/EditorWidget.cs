@@ -5,6 +5,7 @@ using System.Collections;
 
 namespace ScriptForge
 {
+	[System.Serializable]
     public abstract class EditorWidget
     {
         #region -= STATIC ITEMS

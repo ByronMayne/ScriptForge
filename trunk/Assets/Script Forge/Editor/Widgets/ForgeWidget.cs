@@ -118,7 +118,6 @@ namespace ScriptForge
 		public override void Destroy()
         {
 			base.Destroy();
-
             _OnGenerateAll -= OnGenerate;
 			_OnAutoBuild -= OnAutoBuild; 
 			_OnSetCommonPath -= _OnSetCommonPath; 
@@ -198,16 +197,17 @@ namespace ScriptForge
 			GUILayout.Space(4);
 
             GUILayout.BeginHorizontal();
-			if (GUILayout.Button(generateContent, sf_Skins.MiniButtonLeft, GUILayout.Height(20)))
+			if (GUILayout.Button(generateContent, sf_Skins.MiniButtonLeft, GUILayout.Height(25)))
 				OnGenerate();
-			if (GUILayout.Button(resetContent, sf_Skins.MiniButtonMiddle, GUILayout.Height(20)))
+			if (GUILayout.Button(resetContent, sf_Skins.MiniButtonMiddle, GUILayout.Height(25)))
 				OnReset();
-			if (GUILayout.Button(_removeForgeContent, sf_Skins.MiniButtonRight, GUILayout.Height(20)))
+			if (GUILayout.Button(_removeForgeContent, sf_Skins.MiniButtonRight, GUILayout.Height(25)))
 				OnRemoved();
             GUILayout.EndHorizontal();
 
             if (EditorGUI.EndChangeCheck())
                 SavePrefValues();
+
         }
 
 		private GUIContent generateContent = new GUIContent("Generate", "This will make this forge generate its script if the values have changed since last build.");
@@ -240,7 +240,10 @@ namespace ScriptForge
 		/// </summary>
 		protected virtual void OnRemoved()
 		{
+
 			ScriptForge.RemoveWidget( this );
+			Destroy();
+
 		}
 
 		/// <summary>

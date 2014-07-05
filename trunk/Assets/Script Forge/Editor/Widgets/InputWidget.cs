@@ -30,6 +30,7 @@ namespace ScriptForge
 			base.Destroy();
 
 			_OnGenerateAll -= OnGenerate;
+
 		}
 		
 		public override void GenerateCode()

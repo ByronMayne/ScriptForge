@@ -60,6 +60,13 @@ namespace ScriptForge
 			/// </summary>
 			public static readonly PrefInfo<int> EP_INSPECTOR_SKIN_TYPE = new PrefInfo<int>( "Skin Type", 0 );
 		                                                                               
+
+			public static readonly PrefInfo<bool> EP_HAS_LAYERS_WIDGET_ACTIVE = new PrefInfo<bool>( "Layers Widget Active", false );
+			public static readonly PrefInfo<bool> EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE = new PrefInfo<bool>( "Sorting Layers Widget Active", false );
+			public static readonly PrefInfo<bool> EP_HAS_TAGS_WIDGET_ACTIVE = new PrefInfo<bool>( "Tags Widget Active", false );
+			public static readonly PrefInfo<bool> EP_HAS_SCENE_WIDGET_ACTIVE = new PrefInfo<bool>( "Scene Widget Active", false );
+			public static readonly PrefInfo<bool> EP_HAS_INPUT_WIDGET_ACTIVE = new PrefInfo<bool>( "Input Widget Active", false );
+
 		}
 }
 

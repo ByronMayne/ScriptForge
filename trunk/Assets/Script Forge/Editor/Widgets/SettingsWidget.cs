@@ -60,7 +60,7 @@ namespace ScriptForge
 			}
 		}
 
-		public SettingsWidget() : base() 
+		public SettingsWidget() 
 		{ 
 
 		}

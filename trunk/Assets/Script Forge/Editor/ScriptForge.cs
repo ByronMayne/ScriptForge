@@ -3,6 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic; 
+using System.Linq;
 
 namespace ScriptForge
 {
@@ -17,19 +18,19 @@ namespace ScriptForge
 
 		public static List<EditorWidget> _widgets; 
 
+
+
 		public static void AddWidget<T_WidgetType>() where T_WidgetType : EditorWidget, new()
 		{
-			_widgets.Add( new T_WidgetType() );
+			if( !_widgets.OfType<T_WidgetType>().Any() )
+				_widgets.Add( new T_WidgetType() );
 		}
 
 		public static void RemoveWidget(EditorWidget widget)
 		{
-			Debug.Log("Asked to Remove");
 
 			if( _widgets.Contains( widget ) )
 			{
-				Debug.Log("Removed");
-
 				widget.Destroy();
 
 				_widgets.Remove( widget );
@@ -43,23 +44,71 @@ namespace ScriptForge
 			name = " Script Forge";
 			Instance =  this; //EditorWindow.GetWindow<ScriptForge>();
 
+			LoadWidgets();
+		}
+
+
+		private void LoadWidgets()
+		{
+
+			RemoveAllWidgets();
+
 			if( EditorPrefs.GetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Default ) )
 			{
 				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
 				EditorPrefs.SetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, false );
 			}
-
-			AddWidget<LayersWidget>();
-			AddWidget<SortingLayersWidget>();
-			AddWidget<TagsWidget>();
-			AddWidget<SceneWidget>();
-			AddWidget<InputWidget>();
+			
+			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_LAYERS_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_LAYERS_WIDGET_ACTIVE.Default ))
+				AddWidget<LayersWidget>();
+			
+			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Default ))
+				AddWidget<SortingLayersWidget>();
+			
+			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_TAGS_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_TAGS_WIDGET_ACTIVE.Default ))
+				AddWidget<TagsWidget>();
+			
+			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_SCENE_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_SCENE_WIDGET_ACTIVE.Default ))
+				AddWidget<SceneWidget>();
+			
+			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_INPUT_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_INPUT_WIDGET_ACTIVE.Default ))
+				AddWidget<InputWidget>();
+			
 			AddWidget<SettingsWidget>();
 			AddWidget<AboutWidget>();
 		}
 
+		private void SaveWidgets()
+		{
+
+			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_LAYERS_WIDGET_ACTIVE.Name, _widgets.OfType<LayersWidget>().Any() );
+			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Name, _widgets.OfType<SortingLayersWidget>().Any() );
+			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_TAGS_WIDGET_ACTIVE.Name, _widgets.OfType<TagsWidget>().Any() );
+			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_SCENE_WIDGET_ACTIVE.Name, _widgets.OfType<SceneWidget>().Any() );
+			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_INPUT_WIDGET_ACTIVE.Name, _widgets.OfType<InputWidget>().Any() );
+		}
+
+		private void RemoveAllWidgets()
+		{
+			foreach( EditorWidget wig in _widgets )
+			{
+				wig.Destroy();
+			}
+
+			_widgets.Clear();
+		}
+
+		public void RefreshWidgets()
+		{
+			SaveWidgets();
+
+			LoadWidgets();
+		}
+
 		public void OnDisable()
 		{
+			SaveWidgets();
+
 			_widgets.Clear();
 		}
 
@@ -69,6 +118,8 @@ namespace ScriptForge
 		/// </summary>
 		private void OnProjectChange()
 		{
+			_widgets.Clear();
+
 			if( ForgeWidget._OnAutoBuild != null )
 				ForgeWidget._OnAutoBuild();
 		}
@@ -95,8 +146,8 @@ namespace ScriptForge
 			}
 		}
 
-		private GUIContent openAllContent = new GUIContent("Open All", "This will open all the forges in  Script Forge");
-		private GUIContent closeAllConent = new GUIContent("Close All", "This will close all open forges in  Script Forge");
+		private GUIContent openAllContent = new GUIContent("Open All Forges", "This will open all the forges in  Script Forge");
+		private GUIContent closeAllConent = new GUIContent("Close All Forges", "This will close all open forges in  Script Forge");
 		private GUIContent addForgeContent = new GUIContent("Add Forge", "This will add a new forge that is not already part of Script Forge");
 		private GUIContent generateAllContent = new GUIContent("Generate All", "This will tell all forges to generate their scripts if they have changed since last time");
 		private GUIContent setCommonPathContent = new GUIContent("Set Common Path", "This is the path that all forges will build their scripts to.");
@@ -143,10 +194,17 @@ namespace ScriptForge
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
-			if( GUILayout.Button(addForgeContent, EditorStyles.miniButtonLeft, GUILayout.Height(30)) )
-			{
 
+				EditorGUI.BeginChangeCheck();
+				AddForgeWidget.ButtonDownState = GUILayout.Toggle(AddForgeWidget.ButtonDownState, addForgeContent, EditorStyles.miniButtonLeft, GUILayout.Height(30));
+				if( EditorGUI.EndChangeCheck())
+				{
+					if( AddForgeWidget.ButtonDownState )
+						AddForgeWidget.Open();
+					else
+						AddForgeWidget.Close();
 				}
+	
 
 				if( GUILayout.Button(setCommonPathContent, EditorStyles.miniButtonMid, GUILayout.Height(30)) )
 				{
@@ -159,6 +217,9 @@ namespace ScriptForge
 						ForgeWidget._OnReset(); 
 				}
 			GUILayout.EndHorizontal();
+
+
+			AddForgeWidget.OnGUI();
 
 			//Top Header
 			GUILayout.BeginHorizontal();
