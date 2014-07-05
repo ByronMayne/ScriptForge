@@ -12,7 +12,6 @@ namespace ScriptForge
 {
 		public static class sf_Resources
 		{
-			public const string EDITOR_SKIN_UNITY_PRO = "ScriptForgeProSkin";
 			public const string EDITOR_SKIN_UNITY = "ScriptForgeSkin";
 		}
 }

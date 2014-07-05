@@ -32,28 +32,7 @@ namespace ScriptForge
 			GUI.color = Color.white;
         }
 
-		protected static GUISkin _editorSkin; 
-		protected string _widgetSkinName;
-
-		public static GUISkin EDITOR_SKIN
-		{
-			get 
-			{
-				if( _editorSkin == null )
-				{
-					if( EditorGUIUtility.isProSkin )
-					{
-						_editorSkin = Resources.Load<GUISkin>(sf_Resources.EDITOR_SKIN_UNITY_PRO);
-					}
-					else
-					{
-						_editorSkin = Resources.Load<GUISkin>(sf_Resources.EDITOR_SKIN_UNITY);
-					}
-				}
-				
-				return _editorSkin;
-			}
-		}
+	
 
 		/// <summary>
         /// This is the next idea that is used to label the windows. 
@@ -240,7 +219,7 @@ namespace ScriptForge
                 EditorGUI.BeginChangeCheck();
 				GUILayout.BeginHorizontal();
 
-				 EditorGUILayout.LabelField( GUIContent.none ,EDITOR_SKIN.GetStyle(_widgetSkinName), GUILayout.MaxWidth(20), GUILayout.Height(20) );
+				 EditorGUILayout.LabelField( WidgetIcon() , sf_Skins.FontAwesomeStyle, GUILayout.MaxWidth(20), GUILayout.Height(20) );
 					
 				 Rect headerRect = GUILayoutUtility.GetLastRect();
 			  	 headerRect.width = Screen.width;
@@ -255,7 +234,7 @@ namespace ScriptForge
 					boxBackgroundColor = new Color(0.7f, 0.7f, 0.7f );
 				 }
 
-			GUILayout.Label(_content, EDITOR_SKIN.GetStyle("Widget Title"), GUILayout.Width(180));
+			GUILayout.Label(_content, sf_Skins.WidgetTitleStyle );
 
 
 			GUILayout.Label(flashMessage, EditorStyles.miniLabel );
@@ -263,7 +242,6 @@ namespace ScriptForge
 
 			GUILayout.Space(-200);
 					GUILayout.BeginVertical();
-			//GUILayout.Label(_content, EDITOR_SKIN.GetStyle("Widget Title"));
 			GUILayout.EndVertical();
 				GUILayout.EndHorizontal();
                 if (EditorGUI.EndChangeCheck())
@@ -353,6 +331,12 @@ namespace ScriptForge
             /// </summary>
             //TODO: Make this abstract.
             protected abstract void DrawWindowContent();
+
+			/// <summary>
+			/// This is used be each forget to return it's correct font awesome widget. 
+			/// </summary>
+			/// <returns>The icon.</returns>
+			protected abstract string WidgetIcon();
 
 			/// <summary>
 			/// This is called whenever there is an error building. It flashes the widget red.

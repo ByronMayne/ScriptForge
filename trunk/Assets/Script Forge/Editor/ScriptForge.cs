@@ -24,8 +24,12 @@ namespace ScriptForge
 
 		public static void RemoveWidget(EditorWidget widget)
 		{
+			Debug.Log("Asked to Remove");
+
 			if( _widgets.Contains( widget ) )
 			{
+				Debug.Log("Removed");
+
 				widget.Destroy();
 
 				_widgets.Remove( widget );
@@ -49,13 +53,14 @@ namespace ScriptForge
 			AddWidget<SortingLayersWidget>();
 			AddWidget<TagsWidget>();
 			AddWidget<SceneWidget>();
+			AddWidget<InputWidget>();
 			AddWidget<SettingsWidget>();
 			AddWidget<AboutWidget>();
 		}
 
 		public void OnDisable()
 		{
-			_widgets = new List<EditorWidget>();
+			_widgets.Clear();
 		}
 
 		/// <summary>
@@ -98,32 +103,36 @@ namespace ScriptForge
 
 		public void OnGUI()
 		{
+	
 			GUILayout.Space(-10.0f);
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(-10.0f);
-			GUILayout.Box( GUIContent.none, GUILayout.Width(Screen.width + 20.0f), GUILayout.Height(55.0f));
+			GUILayout.Box( GUIContent.none, GUILayout.Width(Screen.width + 20.0f), GUILayout.Height(60.0f));
+	
+			GUILayout.EndHorizontal();
+			GUILayout.Space(-55);
+			GUILayout.Box( GUIContent.none, GUILayout.Width(Screen.width - 9), GUILayout.Height(45.0f));
+
+			GUILayout.BeginArea(new Rect(0.0f, 0.0f, Screen.width, 65.0f ));
+
+			GUILayout.BeginHorizontal();
+				GUILayout.Space(10.0f);
+				GUILayout.Label( sf_FontAwesome.fa_Cubes.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
+				GUILayout.BeginVertical();
+					GUILayout.Label( sf_Descriptions.DESCRIPTION_SCRIPTFORGE_TITLE, sf_Skins.InspectorTitleStyle );
+					GUILayout.Label( sf_Descriptions.DESCRIPTION_SCRIPTFORGE_SUBTITLE, sf_Skins.InspectorSubTitleStyle );
+				GUILayout.EndVertical();
+				GUILayout.Label( sf_FontAwesome.fa_Cubes.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
+				GUILayout.Space(10.0f);
 			GUILayout.EndHorizontal();
 
+			GUILayout.EndArea();
+
+			GUILayout.Space(2.0f);
+
 			_scrollPostion = EditorGUILayout.BeginScrollView( _scrollPostion, false, true, GUIStyle.none, GUI.skin.verticalScrollbar, GUI.skin.scrollView);
-			GUILayout.Space( 5.0f );
-			EditorWidget.Spacer();
-			
-			//Top Header
-			GUILayout.BeginHorizontal();
-			if( GUILayout.Button(openAllContent, EditorStyles.miniButtonLeft, GUILayout.Height(20)) )
-				if( ForgeWidget._OnOpen != null )
-					ForgeWidget._OnOpen();
-			if( GUILayout.Button(closeAllConent, EditorStyles.miniButtonRight, GUILayout.Height(20)))
-				if( ForgeWidget._OnClose != null )
-					ForgeWidget._OnClose();
-			
-			GUILayout.EndHorizontal();
-			
-			EditorWidget.Spacer();
-			
-			if( EditorWidget._OnGUI != null )
-				ForgeWidget._OnGUI();
-			
+			GUILayout.Space( 3.0f );
+
 			GUILayout.BeginHorizontal();
 			if( GUILayout.Button(generateAllContent, EditorStyles.miniButtonLeft, GUILayout.Height(30)) )
 				if( ForgeWidget._OnGenerateAll != null )
@@ -140,9 +149,26 @@ namespace ScriptForge
 			}
 			GUILayout.Space(15);
 			GUILayout.EndHorizontal();
+
+			//Top Header
+			GUILayout.BeginHorizontal();
+			if( GUILayout.Button(openAllContent, EditorStyles.miniButtonLeft, GUILayout.Height(20)) )
+				if( ForgeWidget._OnOpen != null )
+					ForgeWidget._OnOpen();
+			if( GUILayout.Button(closeAllConent, EditorStyles.miniButtonRight, GUILayout.Height(20)))
+				if( ForgeWidget._OnClose != null )
+					ForgeWidget._OnClose();
+			GUILayout.Space(15);
+			GUILayout.EndHorizontal();
 			
 			EditorWidget.Spacer();
+			
+			if( EditorWidget._OnGUI != null )
+				ForgeWidget._OnGUI();
+
 			EditorGUILayout.EndScrollView();
+
+
 		}
 	}
 }

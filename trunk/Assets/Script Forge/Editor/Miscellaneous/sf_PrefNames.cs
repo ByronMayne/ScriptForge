@@ -51,6 +51,15 @@ namespace ScriptForge
 			/// This is the enum used to list all the scenes in the Unity project.
 			/// </summary>
 			public static readonly PrefInfo<string> EP_SCENES_ENUMNAME = new PrefInfo<string>( "Scene Enum Name", "Scenes" );
+			/// <summary>
+			/// This is used to store the custom color of the inspector. 
+			/// </summary>
+			public static readonly PrefInfo<string> EP_CUSTOM_INSPECTOR_COLOR = new PrefInfo<string>( "Scene Type", "0.5,0.5,0.5" );
+			/// <summary>
+			/// This is used to store the default skin type of the inspector. 
+			/// </summary>
+			public static readonly PrefInfo<int> EP_INSPECTOR_SKIN_TYPE = new PrefInfo<int>( "Skin Type", 0 );
+		                                                                               
 		}
 }
 

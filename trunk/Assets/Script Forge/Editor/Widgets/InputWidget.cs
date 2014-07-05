@@ -5,6 +5,7 @@ using UnityEngineInternal;
 using System.Collections;
 using System;
 using System.Reflection;
+using System.IO;
 
 namespace ScriptForge
 {
@@ -19,7 +20,6 @@ namespace ScriptForge
 		public InputWidget() : base()
 		{
 			_OnGenerateAll += OnGenerate;
-			_widgetSkinName = "Input";
 		}
 		
 		/// <summary>
@@ -27,12 +27,14 @@ namespace ScriptForge
 		/// </summary>
 		public override void Destroy()
 		{
+			base.Destroy();
+
 			_OnGenerateAll -= OnGenerate;
 		}
 		
 		public override void GenerateCode()
 		{
-		
+
 		}
 		
 		protected override void DrawForgeContent ()
@@ -40,9 +42,14 @@ namespace ScriptForge
 
 		}
 
+		protected override string WidgetIcon ()
+		{
+			return sf_FontAwesome.fa_Gamepad.ToString();
+		}
+
 		protected override GUIContent Description ()
 		{
-			return GUIContent.none;
+			return sf_Descriptions.DESCRIPTION_INPUT_WIDGET;
 		}
 	}
 }

@@ -21,7 +21,6 @@ namespace ScriptForge
         public SortingLayersWidget() : base()
         {
             _OnGenerateAll += OnGenerate;
-			_widgetSkinName = "Sorting Layers";
         }
 
         /// <summary>
@@ -29,6 +28,8 @@ namespace ScriptForge
         /// </summary>
 		public override void Destroy()
         {
+			base.Destroy();
+
             _OnGenerateAll -= OnGenerate;
         }
 
@@ -76,6 +77,12 @@ namespace ScriptForge
                 Debug.Log("An error occurred while saving file: " + e);
             }
         }
+
+		protected override string WidgetIcon ()
+		{
+			return sf_FontAwesome.fa_SortAmountDesc.ToString();
+		}
+
 		protected override GUIContent Description ()
 		{
 			return sf_Descriptions.DESCRIPTION_SORTINGLAYERS_WIDGET;

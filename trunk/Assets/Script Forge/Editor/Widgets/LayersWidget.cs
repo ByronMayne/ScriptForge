@@ -18,7 +18,6 @@ namespace ScriptForge
         public LayersWidget() : base()
         {
             _OnGenerateAll += OnGenerate;
-			_widgetSkinName = "Layers";
         }
 
         /// <summary>
@@ -26,6 +25,8 @@ namespace ScriptForge
         /// </summary>
 		public override void Destroy()
         {
+			base.Destroy();
+
             _OnGenerateAll -= OnGenerate;
         }
 
@@ -71,6 +72,11 @@ namespace ScriptForge
                 Debug.Log("An error occurred while saving file: " + e);
             }
         }
+
+		protected override string WidgetIcon ()
+		{
+			return sf_FontAwesome.fa_Bars.ToString();
+		}
 
 		protected override GUIContent Description ()
 		{

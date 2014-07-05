@@ -22,7 +22,6 @@ namespace ScriptForge
 		public SceneWidget() : base()
 		{
 			_OnGenerateAll += OnGenerate;
-			_widgetSkinName = "Scene";
 		}
 
 		/// <summary>
@@ -30,6 +29,8 @@ namespace ScriptForge
 		/// </summary>
 		public override void Destroy()
 		{
+			base.Destroy();
+
 			_OnGenerateAll -= OnGenerate;
 		}
 
@@ -45,6 +46,15 @@ namespace ScriptForge
 
 				sceneNames.Add( sceneName );
 			}
+
+			//Now to check if there is any point to build (ie its not new)
+			if( _lastSourceInfo != null )
+			{
+				if( _lastSourceInfo.SequenceEqual( sceneNames.ToArray() ))
+					return;
+			}
+
+			_lastSourceInfo = sceneNames.ToArray();
 
 			// Build the generator with the class name and data source.
 			ScenesGenerator generator = new ScenesGenerator(_scriptName, _buildPath, sceneNames.ToArray(), enumName, _namespace);
@@ -86,6 +96,11 @@ namespace ScriptForge
 			GUILayout.Label(enumContent, EditorStyles.boldLabel, GUILayout.Width (CONTENT_TITLE_WIDTH));
 			enumName = GUILayout.TextField (enumName);
 			GUILayout.EndHorizontal();
+		}
+
+		protected override string WidgetIcon ()
+		{
+			return sf_FontAwesome.fa_PictureO.ToString();
 		}
 
 		protected override GUIContent Description ()

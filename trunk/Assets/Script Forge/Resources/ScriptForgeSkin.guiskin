@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12001, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ScriptForgeSkin
+  m_Name: ScriptForgeProSkin
   m_EditorClassIdentifier: 
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_box:
@@ -1196,7 +1196,7 @@ MonoBehaviour:
   - m_Name: Widget Title
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1311,7 +1311,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Layers
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 5fbe3d7b714af684390249aeae6eab84, type: 3}
+      m_Background: {fileID: 2800000, guid: 500c2eba5328cb04883668db4e04c31f, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 5fbe3d7b714af684390249aeae6eab84, type: 3}
@@ -1369,7 +1369,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Tags
     m_Normal:
-      m_Background: {fileID: 2800000, guid: af5ab060882ab2e4fbe9695c302781eb, type: 3}
+      m_Background: {fileID: 2800000, guid: 048f95cbcafcb634aa54830c83134980, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1427,7 +1427,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Sorting Layers
     m_Normal:
-      m_Background: {fileID: 2800000, guid: f6fa14f5b39a3de4ba7aa85d8dd1ea6b, type: 3}
+      m_Background: {fileID: 2800000, guid: 8d32337fcbcf26240b7866a1d4a1d79b, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1485,8 +1485,8 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: About
     m_Normal:
-      m_Background: {fileID: 2800000, guid: d21824ea89f94fc49ac7722bf6208f1a, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Background: {fileID: 2800000, guid: 6be731209a8794b428ec5b2f9653f7d9, type: 3}
+      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1543,7 +1543,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Settings
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 2455c50cdcb67e444abb9a32f6a08432, type: 3}
+      m_Background: {fileID: 2800000, guid: f9926983f8d692b408414617cff47142, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1601,7 +1601,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Scene
     m_Normal:
-      m_Background: {fileID: 2800000, guid: b5d66c32a5d1f4c4fbc6b7a75fce313c, type: 3}
+      m_Background: {fileID: 2800000, guid: d305ee97b1a0a6d4698c5e0b6fe63685, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1659,7 +1659,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Input
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 08d64471f01ace1428867791441426c3, type: 3}
+      m_Background: {fileID: 2800000, guid: bbb9bdc3e760c8543aa4949998df5c6f, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}

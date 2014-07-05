@@ -18,7 +18,6 @@ namespace ScriptForge
         public TagsWidget() : base()
         {
             _OnGenerateAll += OnGenerate;
-			_widgetSkinName = "Tags";
         }
 
         /// <summary>
@@ -26,6 +25,8 @@ namespace ScriptForge
         /// </summary>
 		public override void Destroy()
         {
+			base.Destroy();
+
             _OnGenerateAll -= OnGenerate;
         }
 
@@ -65,6 +66,11 @@ namespace ScriptForge
                 Debug.Log("An error occurred while saving file: " + e);
             }
         }
+
+		protected override string WidgetIcon ()
+		{
+			return sf_FontAwesome.fa_Bookmark.ToString();
+		}
 
 		protected override GUIContent Description ()
 		{

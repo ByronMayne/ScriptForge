@@ -87,7 +87,11 @@ namespace ScriptForge
 		    /// This is the language of the script that will be generated. 
 		    /// </summary>
             private GUIContent _languageContent = new GUIContent("Language:", "This the language that you would like the editor to compile your scripts too. Right now the only option is C# but JavaScript and Boo will be added in the future.");
-        #endregion 
+       		/// <summary>
+       		/// The is used to remove a forge. 
+       		/// </summary>
+			private GUIContent _removeForgeContent = new GUIContent("Remove Forge", "This will removed the forge from Script Forge and the scripts will not be generated.");
+		#endregion 
 
         #region -= Editor Prefs =-
         #endregion 
@@ -113,6 +117,8 @@ namespace ScriptForge
         /// </summary>
 		public override void Destroy()
         {
+			base.Destroy();
+
             _OnGenerateAll -= OnGenerate;
 			_OnAutoBuild -= OnAutoBuild; 
 			_OnSetCommonPath -= _OnSetCommonPath; 
@@ -194,9 +200,10 @@ namespace ScriptForge
             GUILayout.BeginHorizontal();
 			if (GUILayout.Button(generateContent, EditorStyles.miniButtonLeft, GUILayout.Height(20)))
 				OnGenerate();
-			if (GUILayout.Button(resetContent, EditorStyles.miniButtonRight, GUILayout.Height(20)))
+			if (GUILayout.Button(resetContent, EditorStyles.miniButtonMid, GUILayout.Height(20)))
 				OnReset();
-
+			if (GUILayout.Button(_removeForgeContent, EditorStyles.miniButtonRight, GUILayout.Height(20)))
+				OnRemoved();
             GUILayout.EndHorizontal();
 
             if (EditorGUI.EndChangeCheck())
@@ -227,6 +234,14 @@ namespace ScriptForge
 
 			_buildPath = "Assets" + _buildPath;
         }
+
+		/// <summary>
+		/// Raises the removed event.
+		/// </summary>
+		protected virtual void OnRemoved()
+		{
+			ScriptForge.RemoveWidget( this );
+		}
 
 		/// <summary>
 		/// This function is called from ScriptForge.cs whenever
