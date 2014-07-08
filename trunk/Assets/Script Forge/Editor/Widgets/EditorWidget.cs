@@ -150,7 +150,7 @@ namespace ScriptForge
 
             protected virtual void LoadPrefValues()
             {
-				_isOpen = EditorPrefs.GetBool(this.GetType().ToString() + _ID.ToString() + sf_PrefNames.EP_IS_OPEN.Name, sf_PrefNames.EP_IS_OPEN.Default);
+				_isOpen = EditorPrefs.GetBool(this.GetType().ToString() + sf_PrefNames.EP_IS_OPEN.Name, sf_PrefNames.EP_IS_OPEN.Default);
 
 				if( _isOpen )
 				contentHeight = _expandedHeight;
@@ -160,7 +160,7 @@ namespace ScriptForge
 
             protected virtual void SavePrefValues()
             {
-				EditorPrefs.SetBool(this.GetType().ToString() + _ID.ToString() + sf_PrefNames.EP_IS_OPEN.Name, _isOpen );
+				EditorPrefs.SetBool(this.GetType().ToString() + sf_PrefNames.EP_IS_OPEN.Name, _isOpen );
             }
 
             /// <summary>

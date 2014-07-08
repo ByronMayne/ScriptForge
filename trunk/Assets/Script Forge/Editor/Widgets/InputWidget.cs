@@ -36,6 +36,7 @@ namespace ScriptForge
 		public override void GenerateCode()
 		{
 
+
 		}
 		
 		protected override void DrawForgeContent ()

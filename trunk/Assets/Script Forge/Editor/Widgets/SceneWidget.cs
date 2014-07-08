@@ -81,13 +81,13 @@ namespace ScriptForge
 		protected override void LoadPrefValues ()
 		{
 			base.LoadPrefValues ();
-			enumName = EditorPrefs.GetString(this.GetType().ToString() + _ID.ToString() + sf_PrefNames.EP_SCENES_ENUMNAME.Name, sf_PrefNames.EP_SCENES_ENUMNAME.Default);
+			enumName = EditorPrefs.GetString(this.GetType().ToString() + sf_PrefNames.EP_SCENES_ENUMNAME.Name, sf_PrefNames.EP_SCENES_ENUMNAME.Default);
 		}
 
 		protected override void SavePrefValues ()
 		{
 			base.SavePrefValues ();
-			EditorPrefs.SetString(this.GetType().ToString() + _ID.ToString() + sf_PrefNames.EP_SCENES_ENUMNAME.Name, enumName );
+			EditorPrefs.SetString(this.GetType().ToString() + sf_PrefNames.EP_SCENES_ENUMNAME.Name, enumName );
 		}
 
 		protected override void DrawForgeContent ()
