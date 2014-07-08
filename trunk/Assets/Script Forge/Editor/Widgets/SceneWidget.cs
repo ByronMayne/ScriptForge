@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -81,13 +81,13 @@ namespace ScriptForge
 		protected override void LoadPrefValues ()
 		{
 			base.LoadPrefValues ();
-			enumName = EditorPrefs.GetString(this.GetType().ToString() + sf_PrefNames.EP_SCENES_ENUMNAME.Name, sf_PrefNames.EP_SCENES_ENUMNAME.Default);
+			enumName = sf_EditorPrefs.GetPref(sf_EditorPrefs.EP_SCENES_ENUMNAME, this );
 		}
 
 		protected override void SavePrefValues ()
 		{
 			base.SavePrefValues ();
-			EditorPrefs.SetString(this.GetType().ToString() + sf_PrefNames.EP_SCENES_ENUMNAME.Name, enumName );
+			sf_EditorPrefs.SetPref(sf_EditorPrefs.EP_SCENES_ENUMNAME, enumName, this );
 		}
 
 		protected override void DrawForgeContent ()

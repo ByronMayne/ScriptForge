@@ -76,18 +76,14 @@ namespace ScriptForge
 		{
 			base.LoadPrefValues ();
 
-			string[] ColorString = EditorPrefs.GetString( this.GetType().ToString() + sf_PrefNames.EP_CUSTOM_INSPECTOR_COLOR, sf_PrefNames.EP_CUSTOM_INSPECTOR_COLOR.Default ).Split(COLOR_SPLIT_CHAR);
+			CustomColor = sf_EditorPrefs.GetPref( sf_EditorPrefs.EP_CUSTOM_INSPECTOR_COLOR, this );
 
-			try
-			{
-				CustomColor = new Color( float.Parse( ColorString[0] ), float.Parse( ColorString[1] ), float.Parse( ColorString[2] ) );
-			}
-			catch( Exception e )
-			{
-				CustomColor = Color.gray;
-			}
+			int Value = sf_EditorPrefs.GetPref( sf_EditorPrefs.EP_INSPECTOR_SKIN_TYPE, this);
+			
+			if( Value == sf_EditorPrefs.EP_INSPECTOR_SKIN_TYPE.Default )
+				Value = EditorGUIUtility.isProSkin ? 0 : 1;
 
-			SkinType = (SkinTypes)EditorPrefs.GetInt(this.GetType().ToString() + sf_PrefNames.EP_INSPECTOR_SKIN_TYPE, EditorGUIUtility.isProSkin ? 0 : 1);
+			SkinType = (SkinTypes)Value;
 
 			ScriptForge.Instance.Repaint();
 		}
@@ -96,12 +92,9 @@ namespace ScriptForge
 		protected override void SavePrefValues ()
 		{
 			base.SavePrefValues ();
-
-			string ColorString = CustomColor.r.ToString() + COLOR_SPLIT_CHAR + CustomColor.g.ToString() + COLOR_SPLIT_CHAR + CustomColor.b.ToString();
-
-			EditorPrefs.SetString( this.GetType().ToString() + sf_PrefNames.EP_CUSTOM_INSPECTOR_COLOR, ColorString);
-
-			EditorPrefs.SetInt( this.GetType().ToString() + sf_PrefNames.EP_INSPECTOR_SKIN_TYPE, (int)_skinType) ;
+		
+			sf_EditorPrefs.SetPref(sf_EditorPrefs.EP_CUSTOM_INSPECTOR_COLOR, CustomColor, this );
+			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_INSPECTOR_SKIN_TYPE, (int)SkinType, this );
 		}
 
        
@@ -117,6 +110,7 @@ namespace ScriptForge
 				GUILayout.Label(_animateContent, EditorStyles.boldLabel, GUILayout.Width(147));
             	_animateBoxes = GUILayout.Toggle(_animateBoxes, GUIContent.none);
 			GUILayout.EndHorizontal();
+
 			EditorGUI.BeginChangeCheck();
 
 			GUILayout.BeginHorizontal();

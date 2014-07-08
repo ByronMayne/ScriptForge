@@ -130,10 +130,10 @@ namespace ScriptForge
         {
             base.LoadPrefValues();
 
-			_buildPath  = EditorPrefs.GetString(this.GetType().ToString() + sf_PrefNames.EP_BUILD_PATH.Name,  sf_PrefNames.EP_BUILD_PATH.Default);
-			_namespace  = EditorPrefs.GetString(this.GetType().ToString() + sf_PrefNames.EP_NAMESPACE.Name,   sf_PrefNames.EP_NAMESPACE.Default);
-			_scriptName = EditorPrefs.GetString(this.GetType().ToString() + sf_PrefNames.EP_SCRIPT_NAME.Name, sf_PrefNames.EP_SCRIPT_NAME.Default);
-			_autoBuild  = EditorPrefs.GetBool  (this.GetType().ToString() + sf_PrefNames.EP_AUTO_BUILD.Name,  sf_PrefNames.EP_AUTO_BUILD.Default );
+			_buildPath  = sf_EditorPrefs.GetPref( sf_EditorPrefs.EP_BUILD_PATH, this );
+			_namespace  = sf_EditorPrefs.GetPref( sf_EditorPrefs.EP_NAMESPACE,   this );
+			_scriptName = sf_EditorPrefs.GetPref( sf_EditorPrefs.EP_SCRIPT_NAME, this );
+			_autoBuild  = sf_EditorPrefs.GetPref( sf_EditorPrefs.EP_AUTO_BUILD,  this );
         }
 
 
@@ -141,10 +141,10 @@ namespace ScriptForge
         {
             base.SavePrefValues(); 
 
-			EditorPrefs.SetString(this.GetType().ToString() + sf_PrefNames.EP_BUILD_PATH.Name,  _buildPath);
-			EditorPrefs.SetString(this.GetType().ToString() + sf_PrefNames.EP_SCRIPT_NAME.Name, _scriptName);
-			EditorPrefs.SetString(this.GetType().ToString() + sf_PrefNames.EP_NAMESPACE.Name,   _namespace);
-			EditorPrefs.SetBool  (this.GetType().ToString() + sf_PrefNames.EP_AUTO_BUILD.Name,  _isOpen );
+			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_BUILD_PATH,  _buildPath,  this );
+			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_SCRIPT_NAME, _scriptName, this );
+			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_NAMESPACE,   _namespace,  this );
+			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_AUTO_BUILD,  _isOpen,     this );
         }
 
         /// <summary>

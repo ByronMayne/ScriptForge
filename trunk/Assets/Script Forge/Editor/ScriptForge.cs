@@ -18,8 +18,6 @@ namespace ScriptForge
 
 		public static List<EditorWidget> _widgets; 
 
-
-
 		public static void AddWidget<T_WidgetType>() where T_WidgetType : EditorWidget, new()
 		{
 			if( !_widgets.OfType<T_WidgetType>().Any() )
@@ -53,25 +51,25 @@ namespace ScriptForge
 
 			RemoveAllWidgets();
 
-			if( EditorPrefs.GetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Default ) )
+			if( EditorPrefs.GetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Default ) )
 			{
 				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
-				EditorPrefs.SetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, false );
+				EditorPrefs.SetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, false );
 			}
 			
-			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_LAYERS_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_LAYERS_WIDGET_ACTIVE.Default ))
+			if( EditorPrefs.GetBool( sf_EditorPrefs.EP_HAS_LAYERS_WIDGET_ACTIVE.Name, sf_EditorPrefs.EP_HAS_LAYERS_WIDGET_ACTIVE.Default ))
 				AddWidget<LayersWidget>();
 			
-			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Default ))
+			if( EditorPrefs.GetBool( sf_EditorPrefs.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Name, sf_EditorPrefs.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Default ))
 				AddWidget<SortingLayersWidget>();
 			
-			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_TAGS_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_TAGS_WIDGET_ACTIVE.Default ))
+			if( EditorPrefs.GetBool( sf_EditorPrefs.EP_HAS_TAGS_WIDGET_ACTIVE.Name, sf_EditorPrefs.EP_HAS_TAGS_WIDGET_ACTIVE.Default ))
 				AddWidget<TagsWidget>();
 			
-			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_SCENE_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_SCENE_WIDGET_ACTIVE.Default ))
+			if( EditorPrefs.GetBool( sf_EditorPrefs.EP_HAS_SCENE_WIDGET_ACTIVE.Name, sf_EditorPrefs.EP_HAS_SCENE_WIDGET_ACTIVE.Default ))
 				AddWidget<SceneWidget>();
 			
-			if( EditorPrefs.GetBool( sf_PrefNames.EP_HAS_INPUT_WIDGET_ACTIVE.Name, sf_PrefNames.EP_HAS_INPUT_WIDGET_ACTIVE.Default ))
+			if( EditorPrefs.GetBool( sf_EditorPrefs.EP_HAS_INPUT_WIDGET_ACTIVE.Name, sf_EditorPrefs.EP_HAS_INPUT_WIDGET_ACTIVE.Default ))
 				AddWidget<InputWidget>();
 			
 			AddWidget<SettingsWidget>();
@@ -80,12 +78,11 @@ namespace ScriptForge
 
 		private void SaveWidgets()
 		{
-
-			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_LAYERS_WIDGET_ACTIVE.Name, _widgets.OfType<LayersWidget>().Any() );
-			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Name, _widgets.OfType<SortingLayersWidget>().Any() );
-			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_TAGS_WIDGET_ACTIVE.Name, _widgets.OfType<TagsWidget>().Any() );
-			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_SCENE_WIDGET_ACTIVE.Name, _widgets.OfType<SceneWidget>().Any() );
-			EditorPrefs.SetBool( sf_PrefNames.EP_HAS_INPUT_WIDGET_ACTIVE.Name, _widgets.OfType<InputWidget>().Any() );
+			EditorPrefs.SetBool( sf_EditorPrefs.EP_HAS_LAYERS_WIDGET_ACTIVE.Name, _widgets.OfType<LayersWidget>().Any() );
+			EditorPrefs.SetBool( sf_EditorPrefs.EP_HAS_SORTING_LAYERS_WIDGET_ACTIVE.Name, _widgets.OfType<SortingLayersWidget>().Any() );
+			EditorPrefs.SetBool( sf_EditorPrefs.EP_HAS_TAGS_WIDGET_ACTIVE.Name, _widgets.OfType<TagsWidget>().Any() );
+			EditorPrefs.SetBool( sf_EditorPrefs.EP_HAS_SCENE_WIDGET_ACTIVE.Name, _widgets.OfType<SceneWidget>().Any() );
+			EditorPrefs.SetBool( sf_EditorPrefs.EP_HAS_INPUT_WIDGET_ACTIVE.Name, _widgets.OfType<InputWidget>().Any() );
 		}
 
 		private void RemoveAllWidgets()
@@ -109,7 +106,7 @@ namespace ScriptForge
 		{
 			SaveWidgets();
 
-			_widgets.Clear();
+			RemoveAllWidgets();
 		}
 
 		/// <summary>
@@ -139,10 +136,10 @@ namespace ScriptForge
 			Instance.Show();
 
 
-			if( EditorPrefs.GetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Default ) )
+			if( EditorPrefs.GetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Default ) )
 			{
 				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
-				EditorPrefs.SetBool(sf_PrefNames.EP_FIRST_LAUNCH_BOOL.Name, false );
+				EditorPrefs.SetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, false );
 			}
 		}
 
