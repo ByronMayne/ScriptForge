@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 7fac8f4be5c3f7c4d864072553e4fad0
+labels:
+- ScriptForge
 TrueTypeFontImporter:
   serializedVersion: 2
   fontSize: 16

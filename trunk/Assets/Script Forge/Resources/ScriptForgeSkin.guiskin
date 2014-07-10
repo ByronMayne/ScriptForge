@@ -193,7 +193,7 @@ MonoBehaviour:
     m_Name: label
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .0851535499, g: .243947893, b: .463235289, a: 1}
+      m_TextColor: {r: .299956799, g: .399579406, b: .536764681, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1196,7 +1196,7 @@ MonoBehaviour:
   - m_Name: Widget Title
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .0851535499, g: .243947893, b: .463235289, a: 1}
+      m_TextColor: {r: .299956799, g: .399579406, b: .536764681, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   - m_Name: Font Awesome Large
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .0851535499, g: .243947893, b: .463235289, a: 1}
+      m_TextColor: {r: .299956799, g: .399579406, b: .536764681, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   - m_Name: Font Awesome
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .0851535499, g: .243947893, b: .463235289, a: 1}
+      m_TextColor: {r: .299956799, g: .399579406, b: .536764681, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1370,7 +1370,7 @@ MonoBehaviour:
   - m_Name: Inspector Title
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .0851535499, g: .243947893, b: .463235289, a: 1}
+      m_TextColor: {r: .299956799, g: .399579406, b: .536764681, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   - m_Name: Inspector Sub Title
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .0851535499, g: .243947893, b: .463235289, a: 1}
+      m_TextColor: {r: .299956799, g: .399579406, b: .536764681, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .112132356, g: .279944181, b: .897058845, a: 1}
@@ -1485,16 +1485,16 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: Font Awesome Button
     m_Normal:
-      m_Background: {fileID: 961995203, guid: 0000000000000000d000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 786385072, guid: 0000000000000000d000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
-      m_Background: {fileID: 1962348822, guid: 0000000000000000d000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_OnNormal:
       m_Background: {fileID: 0}

@@ -35,6 +35,7 @@ namespace ScriptForge
 			}
 		}
 
+		[in
 		public void OnEnable()
 		{
 			_widgets = new List<EditorWidget>();
@@ -43,8 +44,8 @@ namespace ScriptForge
 			Instance =  this; //EditorWindow.GetWindow<ScriptForge>();
 
 			LoadWidgets();
+		
 		}
-
 
 		private void LoadWidgets()
 		{

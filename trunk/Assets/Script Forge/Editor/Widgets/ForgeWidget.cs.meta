@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: fa35139a0f6115442a730ff1d37d8ec3
+labels:
+- ScriptForge
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []

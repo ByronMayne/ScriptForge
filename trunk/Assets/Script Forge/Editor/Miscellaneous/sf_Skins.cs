@@ -163,7 +163,7 @@ namespace ScriptForge
 			{
 				get
 				{
-					GUIStyle edtiorStyle = 	EditorStyles.miniButton;
+					GUIStyle edtiorStyle = 	new GUIStyle( EditorStyles.miniButton );
 					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
 				
 					edtiorStyle.font = customStyle.font;
@@ -177,7 +177,7 @@ namespace ScriptForge
 			{
 				get
 				{
-					GUIStyle edtiorStyle = EditorStyles.miniButtonLeft;
+					GUIStyle edtiorStyle = 	new GUIStyle( EditorStyles.miniButtonLeft);
 					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
 					
 					edtiorStyle.font = customStyle.font;
@@ -191,7 +191,7 @@ namespace ScriptForge
 			{
 				get
 				{
-					GUIStyle edtiorStyle = EditorStyles.miniButtonMid;
+					GUIStyle edtiorStyle =  EditorStyles.miniButtonMid;
 					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
 					
 					edtiorStyle.font = customStyle.font;
@@ -205,7 +205,7 @@ namespace ScriptForge
 			{
 				get
 				{
-					GUIStyle edtiorStyle = EditorStyles.miniButtonRight;
+					GUIStyle edtiorStyle =  new GUIStyle( EditorStyles.miniButtonRight );
 					GUIStyle customStyle =  EDITOR_SKIN.GetStyle( _fontAwesomeButtonStyleName );
 
 					edtiorStyle.font = customStyle.font;

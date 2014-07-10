@@ -12,13 +12,37 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ScriptForge
 {
+	public struct InputItem
+	{
+
+		public string serializedVersion; 
+		public string m_Name;
+		public string descriptiveName;
+		public string descriptiveNegativeName;
+		public string negativeButton;
+		public string positiveButton;
+		public string altNegativeButton;
+		public string altPositiveButton;
+		public string gravity;
+		public string dead;
+		public string sensitivty;
+		public string snap;
+		public string invert;
+		public string type;
+		public string axis;
+		public string joyNum;
+	}
+
 	public class sf_ProjectSettingsLoader : MonoBehaviour
 	{
 		public const string SETTINGS_FOLDER_NAME = "\\ProjectSettings\\";
-				
+
+		public static List<InputItem> inputList = new List<InputItem>();
+
 		public static string LoadText( string filename )
 		{
 			DirectoryInfo path = Directory.CreateDirectory( Application.dataPath );
@@ -43,7 +67,47 @@ namespace ScriptForge
 		[MenuItem("Help/Load Input")]
 		public static void LoadInput()
 		{
-		  Debug.Log( LoadText( PROJECTSETTINGS_INPUT_NAME ) );
+			string LoadedText = LoadText( PROJECTSETTINGS_INPUT_NAME );
+
+			string[] AxisList = LoadedText.Split( new string[1]{"m_Axes:"}, StringSplitOptions.RemoveEmptyEntries );
+
+			string[] Axis = AxisList[1].Split(new string[1]{"  - "}, StringSplitOptions.RemoveEmptyEntries );
+
+			foreach( string aix in Axis )
+			{
+				if( aix == Axis[0] )
+					continue;
+
+				SplitInput( aix );
+			}
+
+			Debug.Log( inputList.Count.ToString() );
+		}
+
+		private static void SplitInput(string inputBlock)
+		{
+			InputItem inputEntry = new InputItem();
+
+			string[] splitInput = inputBlock.Split('\n');
+
+			//inputEntry.serializedVersion = splitInput[0].Split(':')[1];
+			inputEntry.m_Name = splitInput[1].Split(':')[1];
+			//inputEntry.descriptiveName = splitInput[2].Split(':')[1];
+			//inputEntry.negativeButton = splitInput[3].Split(':')[1];
+			//inputEntry.positiveButton = splitInput[4].Split(':')[1];
+			//inputEntry.altNegativeButton = splitInput[5].Split(':')[1];
+			//inputEntry.altPositiveButton = splitInput[6].Split(':')[1];
+			//inputEntry.gravity = splitInput[7].Split(':')[1];
+			//inputEntry.dead = splitInput[8].Split(':')[1];
+			//inputEntry.sensitivty = splitInput[9].Split(':')[1];
+			//inputEntry.snap = splitInput[10].Split(':')[1];
+			//inputEntry.invert = splitInput[11].Split(':')[1];
+			//inputEntry.type = splitInput[12].Split(':')[1];
+			//inputEntry.axis = splitInput[13].Split(':')[1];
+			//inputEntry.joyNum = splitInput[14].Split(':')[1];
+
+			inputList.Add( inputEntry );
+
 		}
 	}
 }
