@@ -1,0 +1,3 @@
+[submodule "nucleus"]
+	path = nucleus
+	url = https://MayneB@bitbucket.org/MayneB/nucleus.git
