@@ -17,215 +17,215 @@ namespace ScriptForge {
         public virtual string TransformText() {
             this.GenerationEnvironment = null;
             
-            #line 2 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 2  
             this.Write("\n/// <summary>\n/// This is an enum used for all your scenes. It can be\n/// used a" +
                     "s an int to represent the scene ID number. \n/// </summary>\n");
             
             #line default
             #line hidden
             
-            #line 7 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 7  
  if( NameSpace != "" ) { 
             
             #line default
             #line hidden
             
-            #line 8 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 8  
             this.Write("namespace ");
             
             #line default
             #line hidden
             
-            #line 8 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 8  
             this.Write(this.ToStringHelper.ToStringWithCulture( NameSpace ));
             
             #line default
             #line hidden
             
-            #line 8 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 8  
             this.Write("\n{\n");
             
             #line default
             #line hidden
             
-            #line 10 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 10  
  } 
             
             #line default
             #line hidden
             
-            #line 11 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 11  
             this.Write("\tpublic enum ");
             
             #line default
             #line hidden
             
-            #line 11 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 11  
             this.Write(this.ToStringHelper.ToStringWithCulture( Enumname ));
             
             #line default
             #line hidden
             
-            #line 11 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 11  
             this.Write("\n\t{\n\t");
             
             #line default
             #line hidden
             
-            #line 13 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 13  
  for( int i = 0; i < source.Length; i++ ) { 
 	
             
             #line default
             #line hidden
             
-            #line 15 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 15  
             this.Write("\t");
             
             #line default
             #line hidden
             
-            #line 15 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture( source[i] ));
+            #line 15  
+            this.Write(this.ToStringHelper.ToStringWithCulture( source[i].Replace(" ", "_") ));
             
             #line default
             #line hidden
             
-            #line 15 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 15  
             this.Write(" = ");
             
             #line default
             #line hidden
             
-            #line 15 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 15  
             this.Write(this.ToStringHelper.ToStringWithCulture( i ));
             
             #line default
             #line hidden
             
-            #line 15 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 15  
             this.Write(",\n\t");
             
             #line default
             #line hidden
             
-            #line 16 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 16  
 }
 	
             
             #line default
             #line hidden
             
-            #line 18 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 18  
             this.Write("}\n\n\tpublic static class ");
             
             #line default
             #line hidden
             
-            #line 20 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 20  
             this.Write(this.ToStringHelper.ToStringWithCulture( className ));
             
             #line default
             #line hidden
             
-            #line 20 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
-            this.Write("\n\t{\t\n\t\n\n\t\tprivate static string[] sceneNames = new string[");
+            #line 20  
+            this.Write("\n\t{\t\n\t\tprivate static string[] sceneNames = new string[");
             
             #line default
             #line hidden
             
-            #line 24 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 22  
             this.Write(this.ToStringHelper.ToStringWithCulture( source.Length ));
             
             #line default
             #line hidden
             
-            #line 24 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 22  
             this.Write("] { ");
             
             #line default
             #line hidden
             
-            #line 24 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 22  
  for( int i = 0; i < source.Length; i++ ) {
             
             #line default
             #line hidden
             
-            #line 25 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 23  
             this.Write("\"");
             
             #line default
             #line hidden
             
-            #line 25 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 23  
             this.Write(this.ToStringHelper.ToStringWithCulture( source[i]));
             
             #line default
             #line hidden
             
-            #line 25 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 23  
             this.Write("\", ");
             
             #line default
             #line hidden
             
-            #line 25 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 23  
 }
             
             #line default
             #line hidden
             
-            #line 26 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 24  
             this.Write(" };\n\t\t");
             
             #line default
             #line hidden
             
-            #line 27 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 25  
  for( int i = 0; i < source.Length; i++ ) {
 	  
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 27  
             this.Write("public const string ");
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture( source[i]));
+            #line 27  
+            this.Write(this.ToStringHelper.ToStringWithCulture( source[i].Replace(" ", "_") ));
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 27  
             this.Write("  = \"");
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 27  
             this.Write(this.ToStringHelper.ToStringWithCulture( source[i]));
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
-            this.Write("\";");
+            #line 27  
+            this.Write("\";\n\t  ");
             
             #line default
             #line hidden
             
-            #line 29 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 28  
 }
             
             #line default
             #line hidden
             
-            #line 30 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 29  
             this.Write(@"
 
 		/// <summary>
@@ -242,13 +242,13 @@ namespace ScriptForge {
             #line default
             #line hidden
             
-            #line 41 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 40  
             this.Write(this.ToStringHelper.ToStringWithCulture( source.Length ));
             
             #line default
             #line hidden
             
-            #line 41 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 40  
             this.Write(@"; i++)
 			{
 				if( sceneNames[i] == aName )
@@ -272,13 +272,13 @@ namespace ScriptForge {
             #line default
             #line hidden
             
-            #line 59 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 58  
             this.Write(this.ToStringHelper.ToStringWithCulture( source.Length ));
             
             #line default
             #line hidden
             
-            #line 59 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 58  
             this.Write(@" )
 				return sceneNames[anID];
 			else
@@ -297,13 +297,13 @@ namespace ScriptForge {
             #line default
             #line hidden
             
-            #line 72 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 71  
             this.Write(this.ToStringHelper.ToStringWithCulture( source.Length ));
             
             #line default
             #line hidden
             
-            #line 72 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 71  
             this.Write(@"; i++)
 			{
 				if( sceneNames[i] == aName )
@@ -325,37 +325,37 @@ namespace ScriptForge {
             #line default
             #line hidden
             
-            #line 88 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 87  
             this.Write(this.ToStringHelper.ToStringWithCulture( source.Length ));
             
             #line default
             #line hidden
             
-            #line 88 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 87  
             this.Write(" )\n\t\t\t\t\treturn true;\n\t\t\t\telse\n\t\t\t\t\treturn false;\n\t\t}\n\t}\n");
             
             #line default
             #line hidden
             
-            #line 94 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 93  
  if( NameSpace != "" ) { 
             
             #line default
             #line hidden
             
-            #line 95 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 94  
             this.Write("}\n");
             
             #line default
             #line hidden
             
-            #line 96 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 95  
  } 
             
             #line default
             #line hidden
             
-            #line 97 "C:\Users\ByronMayne\Documents\script-forge\trunk\Assets\Script Forge\Editor\Forges\Scenes\ScenesGenerator.tt"
+            #line 96  
             this.Write("\t\t\n\t\n\t\t\n");
             
             #line default

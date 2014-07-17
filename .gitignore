@@ -34,3 +34,17 @@ Thumbs.db
 trunk/Assets/Asset Store Art.meta
 trunk/Assets/ww_Scenes.cs
 trunk/Assets/ww_Scenes.cs.meta
+trunk/Assets/Asset Store Art/
+*.unity
+trunk/Assets/EmptyScene.unity.meta
+.unity.meta
+trunk/Assets/Level 1.unity.meta
+trunk/Assets/Level 2.unity.meta
+trunk/Assets/Script Forge/TagManager.cs
+trunk/Assets/Script Forge/TagManager.cs.meta
+trunk/Assets/SortingLayers.cs
+trunk/Assets/SortingLayers.cs.meta
+trunk/Assets/Test.tt.meta
+trunk/Assets/feafw.unity.meta
+trunk/Assets/sf_Layers.cs
+trunk/Assets/sf_Layers.cs.meta

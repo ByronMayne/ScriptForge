@@ -7,12 +7,22 @@ namespace ScriptForge
     public class AboutWidget : EditorWidget
     {
 		private Vector2 _infoTextScrollArea = Vector2.zero;
+		public static AboutWidget Instance { get; protected set; }
+
 		public AboutWidget()
 		{
+			if( Instance != null )
+			{
+				Destroy();
+				return;
+			}
 
+			Instance = this;
 		}
 		public override void Destroy() 
 		{ 
+			Instance = null ;
+
 			base.Destroy();
 
 			_OnGUI -= OnGUI; 

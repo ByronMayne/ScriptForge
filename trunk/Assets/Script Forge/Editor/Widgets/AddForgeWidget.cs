@@ -106,7 +106,7 @@ namespace ScriptForge
 					GUILayout.EndHorizontal();
 					hasChoice = true; 
 				}
-
+				/* NOT READY YET
 				if( inputValid )
 				{
 					GUILayout.BeginHorizontal();
@@ -115,9 +115,9 @@ namespace ScriptForge
 					GUILayout.Space(15.0f );
 					GUILayout.EndHorizontal();
 					hasChoice = true; 
-				}
+				}*/
 
-				if( addLayersForge || addSortingLayersForge || addTagsForge || addScenesForge || addInputForge )
+				if( addLayersForge || addSortingLayersForge || addTagsForge || addScenesForge /*|| addInputForge */ )
 				{
 					GUILayout.BeginHorizontal();
 					GUILayout.Space(10.0f );

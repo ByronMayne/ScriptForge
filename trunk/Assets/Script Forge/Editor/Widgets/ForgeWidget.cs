@@ -144,7 +144,7 @@ namespace ScriptForge
 			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_BUILD_PATH,  _buildPath,  this );
 			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_SCRIPT_NAME, _scriptName, this );
 			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_NAMESPACE,   _namespace,  this );
-			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_AUTO_BUILD,  _isOpen,     this );
+			sf_EditorPrefs.SetPref( sf_EditorPrefs.EP_AUTO_BUILD,  _autoBuild,     this );
         }
 
         /// <summary>

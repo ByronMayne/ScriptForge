@@ -35,7 +35,6 @@ namespace ScriptForge
 			}
 		}
 
-		[in
 		public void OnEnable()
 		{
 			_widgets = new List<EditorWidget>();
@@ -100,6 +99,8 @@ namespace ScriptForge
 		{
 			SaveWidgets();
 
+			RemoveAllWidgets();
+
 			LoadWidgets();
 		}
 
@@ -116,7 +117,9 @@ namespace ScriptForge
 		/// </summary>
 		private void OnProjectChange()
 		{
-			_widgets.Clear();
+			RemoveAllWidgets();
+
+			LoadWidgets();
 
 			if( ForgeWidget._OnAutoBuild != null )
 				ForgeWidget._OnAutoBuild();

@@ -19,6 +19,7 @@ namespace ScriptForge
 		private SkinTypes _skinType;
 		private Color _customColor = Color.grey;
 		private const char COLOR_SPLIT_CHAR = ',';
+		public static SettingsWidget instance { get; protected set; }
 
 		public Color CustomColor 
 		{
@@ -62,12 +63,19 @@ namespace ScriptForge
 
 		public SettingsWidget() 
 		{ 
-
+			if( instance != null )
+			{
+				Destroy();
+				return;
+			}
+			instance = this;
 		}
 
 		public override void Destroy()
 		{ 
 			base.Destroy();
+
+			instance = null;
 
 			_OnGUI -= OnGUI; 
 		}
