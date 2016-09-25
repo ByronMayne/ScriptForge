@@ -8,6 +8,7 @@ using Type = System.Type;
 
 namespace ScriptForge
 {
+    [System.Serializable]
     public class ScriptableForge : Editor
     {
         /// <summary>
@@ -122,7 +123,7 @@ namespace ScriptForge
         private List<Widget> m_Widgets = new List<Widget>();
 
         [SerializeField]
-        private bool m_AnimateValues;
+        private bool m_AnimateWidgets;
 
         /// <summary>
         /// Get or set our list of widgets.
@@ -132,6 +133,16 @@ namespace ScriptForge
             get { return m_Widgets; }
             set { m_Widgets = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the setting if we should animate our widgets.
+        /// </summary>
+        public bool animateWidgets
+        {
+            get { return m_AnimateWidgets; }
+            set { m_AnimateWidgets = value; }
+        }
+
 
         /// <summary>
         /// Invoked when a new widget is added.

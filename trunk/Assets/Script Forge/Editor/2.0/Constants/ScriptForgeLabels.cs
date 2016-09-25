@@ -52,6 +52,9 @@ namespace ScriptForge
         public static readonly GUIContent classNameContent;
         public static readonly GUIContent enumNameContent;
 
+        // Settings
+        public static readonly GUIContent animateWidgetsContent;
+
         /// <summary>
         /// Are content is only created when it's first used.
         /// </summary>
@@ -89,6 +92,7 @@ namespace ScriptForge
             changePathContent = new GUIContent("Change Path", "Click this button to allow you to pick a new path in the project to save the output too");
             classNameContent = new GUIContent("Class Name", "What should the name of the class that is generated be called? All invalid characters will be removed");
             enumNameContent = new GUIContent("Enum Name", "The name of the enum that is generated in the class");
+            animateWidgetsContent = new GUIContent("Animate Widgets", "If true the widgets open and close with nice animations otherwise it will be instant.");
         }
 
     }

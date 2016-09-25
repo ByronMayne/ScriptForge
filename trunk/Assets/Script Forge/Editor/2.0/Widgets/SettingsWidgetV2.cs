@@ -35,7 +35,7 @@ namespace ScriptForge
 
         protected override void DrawWidgetContent(ScriptForgeStyles style)
         {
-            GUILayout.Label("Tags");
+            m_ScriptableForge.animateWidgets = EditorGUILayout.Toggle(ScriptForgeLabels.animateWidgetsContent, m_ScriptableForge.animateWidgets);
         }
 
 
@@ -43,5 +43,5 @@ namespace ScriptForge
         {
 
         }
-	}
+    }
 }

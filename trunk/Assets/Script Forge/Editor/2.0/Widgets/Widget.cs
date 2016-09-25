@@ -12,6 +12,7 @@ namespace ScriptForge
         [SerializeField]
         private bool m_IsOpen;
         private AnimBool m_OpenAnimation = new AnimBool();
+        [SerializeField]
         protected ScriptableForge m_ScriptableForge;
 
         // Flashing
@@ -52,6 +53,9 @@ namespace ScriptForge
             }
         }
 
+        /// <summary>
+        /// The string icon for our title bar.
+        /// </summary>
         public virtual string iconString
         {
             get
@@ -125,7 +129,16 @@ namespace ScriptForge
                 EditorGUILayout.EndFadeGroup();
             }
             EditorGUILayout.EndVertical();
-            m_OpenAnimation.target = m_IsOpen;
+
+            if(m_ScriptableForge.animateWidgets)
+            {
+                m_OpenAnimation.target = m_IsOpen;
+            }
+            else
+            {
+                m_OpenAnimation.value = m_IsOpen;
+            }
+
             GUI.backgroundColor = Color.white;
         }
 
