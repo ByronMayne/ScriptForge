@@ -12,7 +12,7 @@ namespace ScriptForge
         /// Creates a text field that a user can modify but when input is confirmed the name
         /// is validated to make sure it does not have any invalid characters. 
         /// </summary>
-        public static string ClassNameTextField(GUIContent label, string scriptName)
+        public static string ClassNameTextField(GUIContent label, string scriptName, string defaultIfNullOrEmpty)
         {
             EditorGUI.BeginChangeCheck();
             {
@@ -21,6 +21,11 @@ namespace ScriptForge
             if(EditorGUI.EndChangeCheck())
             {
                 scriptName = Regex.Replace(scriptName, "[^a-zA-Z0-9_]+", "", RegexOptions.Compiled);
+
+                if(string.IsNullOrEmpty(scriptName))
+                {
+                    scriptName = defaultIfNullOrEmpty;
+                }
             }
             return scriptName; 
         }

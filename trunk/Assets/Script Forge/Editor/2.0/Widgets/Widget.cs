@@ -11,16 +11,16 @@ namespace ScriptForge
     {
         [SerializeField]
         private bool m_IsOpen;
-        private AnimBool m_OpenAnimation;
+        private AnimBool m_OpenAnimation = new AnimBool();
 
         // Flashing
-        private float m_FlashUntil;
-        private float m_FlashStarted;
-        private Color m_FlashColor = Color.gray;
-        private Color m_BackgroundColor;
+        private float m_FlashUntil = 0f;
+        private float m_FlashStarted = 0f;
+        private Color m_FlashColor = Color.white;
+        private Color m_BackgroundColor = Color.white;
 
         // Errors
-        private bool m_HasError;
+        private ScriptForgeErrors.Codes m_ErrorCode;
         private string m_ErrorMessage; 
 
         /// <summary>
@@ -62,12 +62,12 @@ namespace ScriptForge
         private void OnEnable()
         {
             m_BackgroundColor = Color.white;
-            m_OpenAnimation = new AnimBool(m_IsOpen);
+            m_OpenAnimation.value = m_IsOpen;
             m_OpenAnimation.valueChanged.AddListener(ScriptableForge.instance.Repaint);
 
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             m_OpenAnimation.valueChanged.RemoveListener(ScriptableForge.instance.Repaint);
         }
@@ -93,12 +93,14 @@ namespace ScriptForge
                 {
                     FlashColor(Color.gray, 0.25f);
                     m_IsOpen = !m_IsOpen;
+                    GUIUtility.hotControl = -1;
+                    GUIUtility.keyboardControl = -1;
                 }
 
                 if (EditorGUILayout.BeginFadeGroup(m_OpenAnimation.faded))
                 {
                     GUILayout.Box(GUIContent.none, style.spacer);
-                    if (m_HasError)
+                    if (m_ErrorCode != ScriptForgeErrors.Codes.None)
                     {
                         EditorGUILayout.HelpBox(m_ErrorMessage, MessageType.Error);
                     }
@@ -127,12 +129,24 @@ namespace ScriptForge
         /// Flashes this forge, opens it up, and displays
         /// the error message to the user. 
         /// </summary>
-        protected void DisplayError(string errorMessage)
+        protected void DisplayError(ScriptForgeErrors.Codes code, string errorMessage)
         {
-            m_HasError = true;
+            m_ErrorCode = code;
             m_ErrorMessage = errorMessage;
             FlashColor(Color.red, 1.0f);
             m_IsOpen = true;
+        }
+
+        /// <summary>
+        /// Removes any active error messages.
+        /// </summary>
+        protected void ClearErrors(ScriptForgeErrors.Codes code)
+        {
+            if(code == m_ErrorCode)
+            {
+                m_ErrorCode = ScriptForgeErrors.Codes.None;
+                m_ErrorMessage = string.Empty;
+            }
         }
 
         public void FlashColor(Color color, float time = 2.0f)
@@ -156,6 +170,14 @@ namespace ScriptForge
                 EditorApplication.update -= FlashUpdate;
                 m_BackgroundColor = Color.white;
             }
+        }
+
+        /// <summary>
+        /// Called when this forge should generate it's content.
+        /// </summary>
+        public virtual void OnGenerate()
+        {
+            // By default does nothing.
         }
 
         /// <summary>

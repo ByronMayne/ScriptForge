@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEditor;
+using UnityEditorInternal;
+using System.Collections.Generic;
+using System.Reflection;
+using Type = System.Type;
 
 namespace ScriptForge
 {
@@ -34,6 +36,17 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// The default name of this script
+        /// </summary>
+        protected override string defaultName
+        {
+            get
+            {
+                return "SortingLayers";
+            }
+        }
+
+        /// <summary>
         /// Invoked to allow us to draw are GUI content for this forge.
         /// </summary>
         protected override void DrawWidgetContent(ScriptForgeStyles style)
@@ -46,7 +59,32 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate()
         {
-            throw new System.NotImplementedException();
+            string hashInput = string.Empty;
+            List<string> layers = new List<string>();
+            // Sorting layers is hidden so we have to use reflection. 
+            Type internalEditorUtilityType = typeof(InternalEditorUtility);
+            // Grab our static property. 
+            PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
+            // Get the string values.
+            string[] sortingLayers = (string[])sortingLayersProperty.GetValue(null, new object[0]);
+
+            // Loop over everyone and make sure they are not null or empty. 
+            for (int i = 0; i < sortingLayers.Length; i++)
+            {
+                string layerName = sortingLayers[i];
+                layerName = layerName.Replace(' ', '_');
+
+                if (!string.IsNullOrEmpty(layerName))
+                {
+                    layers.Add(layerName);
+                    hashInput += layerName;
+                }
+            }
+
+            if (ShouldRegnerate(hashInput))
+            {
+
+            }
         }
 
         /// <summary>

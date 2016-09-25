@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
+using UnityEditorInternal;
 
 namespace ScriptForge
 {
@@ -40,11 +41,49 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// The default name of this script
+        /// </summary>
+        protected override string defaultName
+        {
+            get
+            {
+                return "Layers";
+            }
+        }
+
+        /// <summary>
+        /// Invoked to allow us to draw are GUI content for this forge.
+        /// </summary>
+        protected override void DrawWidgetContent(ScriptForgeStyles style)
+        {
+            base.DrawWidgetContent(style);
+
+        }
+
+        /// <summary>
         /// Invoked when this widget should generate it's content. 
         /// </summary>
         public override void OnGenerate()
         {
-            throw new System.NotImplementedException();
+            string hashInput = string.Empty;
+            List<string> layers = new List<string>();
+
+            for (int i = 0; i < 32; i++)
+            {
+                string layerName = InternalEditorUtility.GetLayerName(i);
+                layerName = layerName.Replace(' ', '_');
+
+                if (!string.IsNullOrEmpty(layerName))
+                {
+                    layers.Add(layerName);
+                    hashInput += layerName;
+                }
+            }
+
+            if (ShouldRegnerate(hashInput))
+            {
+
+            }
         }
 
         /// <summary>

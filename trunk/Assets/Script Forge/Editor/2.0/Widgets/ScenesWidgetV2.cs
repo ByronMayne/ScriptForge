@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ScriptForge
 {
     public class ScenesWidgetV2 : ForgeWidgetV2
     {
         [SerializeField]
-        private string m_ClassName; 
+        private string m_GeneratorHash = string.Empty;
 
         public override GUIContent label
         {
@@ -37,12 +40,14 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked to allow us to draw are GUI content for this forge.
+        /// The default name of this script
         /// </summary>
-        protected override void DrawWidgetContent(ScriptForgeStyles style)
+        protected override string defaultName
         {
-            base.DrawWidgetContent(style);
-            m_ClassName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.classNameContent, m_ClassName);
+            get
+            {
+                return "Scenes";
+            }
         }
 
         /// <summary>
@@ -50,7 +55,20 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate()
         {
-            throw new System.NotImplementedException();
+            string hashInput = string.Empty;
+            List<string> sceneNames = new List<string>();
+            foreach( var scene in EditorBuildSettings.scenes )
+            {
+                string sceneName = scene.path.Substring(scene.path.LastIndexOf('/') + 1);
+                sceneName = sceneName.Replace(".unity", "");
+                sceneNames.Add(sceneName);
+                hashInput += sceneName;
+            }
+
+            if(ShouldRegnerate(hashInput))
+            {
+
+            }
         }
 
         /// <summary>
