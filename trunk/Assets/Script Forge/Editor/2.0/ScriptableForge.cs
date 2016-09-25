@@ -68,7 +68,7 @@ namespace ScriptForge
                     }
                     else
                     {
-                        if (loadedObject[i] is EditorWidget)
+                        if (loadedObject[i] is Widget)
                         {
                             m_LoadedWidgets.Add(loadedObject[i] as Widget);
                         }

@@ -216,7 +216,7 @@ namespace ScriptForge
             if (string.IsNullOrEmpty(systemLocation))
             {
                 // Nope so we can't regenerate. 
-                DisplayError(ScriptForgeErrors.Codes.Script_Location_Not_Defined, "No build location has been defined for " + defaultName);
+                DisplayError(ScriptForgeErrors.Codes.Script_Location_Not_Defined, "No script location has been defined for " + defaultName + " forge.");
                 return false;
             }
 
@@ -247,6 +247,7 @@ namespace ScriptForge
             m_ScriptLocation = string.Empty;
             m_AssetHash = string.Empty;
             ClearErrors();
+            OnContentChanged();
         }
 
         /// <summary>
