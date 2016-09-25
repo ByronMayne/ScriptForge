@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.Collections.Generic;
 using UnityEditorInternal;
+using System.IO;
 
 namespace ScriptForge
 {
@@ -83,7 +84,24 @@ namespace ScriptForge
 
             if (ShouldRegnerate(hashInput))
             {
+                // Build the generator with the class name and data source.
+                LayersGenerator generator = new LayersGenerator(m_ClassName, GetSystemSaveLocation(), layers.ToArray(), m_Namespace);
 
+                // Generate output (class definition).
+                var classDefintion = generator.TransformText();
+
+                try
+                {
+                    // Save new class to assets folder.
+                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+
+                    // Refresh assets.
+                    AssetDatabase.Refresh();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log("An error occurred while saving file: " + e);
+                }
             }
         }
 

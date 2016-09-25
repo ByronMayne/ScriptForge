@@ -3,6 +3,8 @@ using UnityEditorInternal;
 using System.Collections.Generic;
 using System.Reflection;
 using Type = System.Type;
+using UnityEditor;
+using System.IO;
 
 namespace ScriptForge
 {
@@ -83,7 +85,24 @@ namespace ScriptForge
 
             if (ShouldRegnerate(hashInput))
             {
+                // Build the generator with the class name and data source.
+                TagsGenerator generator = new TagsGenerator(m_ClassName, layers.ToArray(), m_Namespace);
 
+                // Generate output (class definition).
+                var classDefintion = generator.TransformText();
+
+                try
+                {
+                    // Save new class to assets folder.
+                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+
+                    // Refresh assets.
+                    AssetDatabase.Refresh();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log("An error occurred while saving file: " + e);
+                }
             }
         }
 
