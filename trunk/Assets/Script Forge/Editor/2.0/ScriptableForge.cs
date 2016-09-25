@@ -5,6 +5,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using System.Reflection;
 using Type = System.Type;
+using UnityEditor.Callbacks;
 
 namespace ScriptForge
 {
@@ -31,10 +32,19 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Loads the instance from disk.
+        /// </summary>
+        private static ScriptableForge GetInstance()
+        {
+            LoadOrCreateInstance();
+            return Resources.FindObjectsOfTypeAll<ScriptableForge>()[0];
+        }
+
+        /// <summary>
         /// Called by Unity when we want to initialize our object. 
         /// </summary>
         [InitializeOnLoadMethod]
-        public static void LoadOrCreateInstance()
+        private static void LoadOrCreateInstance()
         {
             // Store our path
             string savePath = GetSavePath();
@@ -90,6 +100,16 @@ namespace ScriptForge
             }
         }
 
+        [DidReloadScripts]
+        private static void OnScirptsReloaded()
+        {
+            var instance = GetInstance();
+            for(int i = 0; i < instance.Widgets.Count; i++)
+            {
+                instance.Widgets[i].OnLoaded();
+            }
+        }
+
         /// <summary>
         /// Takes the ScriptableForge and all it's widgets and writes them to disk. 
         /// </summary>
@@ -110,10 +130,9 @@ namespace ScriptForge
         }
 
         [MenuItem("Edit/Project Settings/Script Forge")]
-        public static void OpenSettings()
+        private static void OpenSettings()
         {
-            LoadOrCreateInstance();
-            Selection.activeObject = Resources.FindObjectsOfTypeAll<ScriptableForge>()[0];
+            Selection.activeObject = GetInstance();
         }
 
         [System.NonSerialized]
