@@ -4,6 +4,7 @@ using UnityEditor;
 
 namespace ScriptForge
 {
+    [System.Serializable]
     public class AboutWidgetV2 : Widget
     {
         public override GUIContent label

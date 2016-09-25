@@ -30,12 +30,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0e7b97cedb9724692702a59a6c8b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: Assets/Tags.cs
+  m_ScriptLocation: 
   m_Namespace: 
   m_ClassName: Tags
-  m_AssetHash: a02233b07653991c6b2ebd8bb41d1e68
+  m_AssetHash: 
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,12 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242725863df17cd438f6862b72dd065b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: Assets/Layers.cs
-  m_Namespace: ScriptForge.Generated
+  m_ScriptLocation: 
+  m_Namespace: 
   m_ClassName: Layers
-  m_AssetHash: b6cd20ebf97fc7896b1a1c889e05c706
+  m_AssetHash: 
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,12 +64,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e5821b21c6b2244bd2c9ecea96dbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
-  m_AutomaticallyGenerate: 1
-  m_ScriptLocation: Assets/SortingLayers.cs
-  m_Namespace: ScriptForge.Generated
+  m_IsOpen: 0
+  m_AutomaticallyGenerate: 0
+  m_ScriptLocation: 
+  m_Namespace: 
   m_ClassName: SortingLayers
-  m_AssetHash: f0f09cac5e43e3c935a7cffd83256ebb
+  m_AssetHash: 
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,12 +81,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb382b6d814f40e45826e005e42fb491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
-  m_AutomaticallyGenerate: 1
-  m_ScriptLocation: Assets/Scenes.cs
-  m_Namespace: ScriptForge.Generated
+  m_IsOpen: 0
+  m_AutomaticallyGenerate: 0
+  m_ScriptLocation: 
+  m_Namespace: 
   m_ClassName: Scenes
-  m_AssetHash: 3cb338a7e30759a12a8ee42465e60705
+  m_AssetHash: 
   m_GeneratorHash: 
   m_EnumName: Types
 --- !u!114 &6
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bc1275e3f8ff143a7173e33ba77b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 0

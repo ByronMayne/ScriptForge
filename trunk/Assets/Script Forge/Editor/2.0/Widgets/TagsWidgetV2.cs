@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace ScriptForge
 {
+    [System.Serializable]
     public class TagsWidgetV2 : ForgeWidgetV2
     {
         public override GUIContent label

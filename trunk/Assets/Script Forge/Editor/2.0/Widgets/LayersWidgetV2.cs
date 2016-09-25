@@ -5,6 +5,7 @@ using UnityEditorInternal;
 
 namespace ScriptForge
 {
+    [System.Serializable]
     public class LayersWidgetV2 : ForgeWidgetV2
     {
         /// <summary>

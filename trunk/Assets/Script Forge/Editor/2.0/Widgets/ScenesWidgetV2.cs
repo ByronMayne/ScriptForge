@@ -9,6 +9,7 @@ using System.IO;
 
 namespace ScriptForge
 {
+    [System.Serializable]
     public class ScenesWidgetV2 : ForgeWidgetV2
     {
         [SerializeField]

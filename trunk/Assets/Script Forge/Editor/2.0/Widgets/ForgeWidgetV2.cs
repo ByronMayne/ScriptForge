@@ -7,6 +7,7 @@ using System.IO;
 
 namespace ScriptForge
 {
+    [System.Serializable]
     public abstract class ForgeWidgetV2 : Widget
     {
         [SerializeField]
@@ -28,6 +29,18 @@ namespace ScriptForge
         /// The default name of this class
         /// </summary>
         protected abstract string defaultName { get; }
+
+        /// <summary>
+        /// Invoked when this instance is loaded from disk.
+        /// </summary>
+        public override void OnLoaded()
+        {
+            if(m_AutomaticallyGenerate)
+            {
+                OnGenerate();
+            }
+        }
+
 
         /// <summary>
         /// Returns the path to the save location on disk for this class.

@@ -60,6 +60,14 @@ namespace ScriptForge
             }
         }
 
+        /// <summary>
+        /// Called when this instance is loaded from disk.
+        /// </summary>
+        public virtual void OnLoaded()
+        {
+
+        }
+
         protected void OnDisable()
         {
             if(m_ScriptableForge != null && m_OpenAnimation != null)

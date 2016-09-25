@@ -15,11 +15,6 @@ namespace ScriptForge
         /// </summary>
         public const string SAVE_NAME = "ScriptableForge.asset";
 
-        ///// <summary>
-        ///// This is the internal instance we use to save ScriptForge Settings.
-        ///// </summary>
-        private static ScriptableForge m_Instance;
-
         /// <summary>
         /// Gets the path where we save our scriptable object singleton. 
         /// </summary>
@@ -43,6 +38,7 @@ namespace ScriptForge
             // Store our path
             string savePath = GetSavePath();
 
+            ScriptableForge m_Instance = null;
             List<Widget> m_LoadedWidgets = new List<Widget>();
 
             // Does it exist already?
@@ -85,6 +81,12 @@ namespace ScriptForge
 
             // Save them back to our instance.
             m_Instance.Widgets = m_LoadedWidgets;
+
+            // Regenerate Widgets if they are set to auto build.
+            for (int i = 0; i < m_LoadedWidgets.Count; i++)
+            {
+                m_LoadedWidgets[i].OnLoaded();
+            }
         }
 
         /// <summary>
@@ -95,11 +97,11 @@ namespace ScriptForge
             // Get our path
             string savePath = GetSavePath();
             // Get a handle to our widgets
-            Widget[] widgets = m_Instance.m_Widgets.ToArray();
+            Widget[] widgets = m_Widgets.ToArray();
             // Create an array of objects to save. 
             Object[] savingObjects = new Object[widgets.Length + 1];
             // Set this first instance to our data.  
-            savingObjects[0] = m_Instance;
+            savingObjects[0] = this;
             // Copy our widgets into our array.
             widgets.CopyTo(savingObjects, 1);
             // Save them to disk.
@@ -110,7 +112,7 @@ namespace ScriptForge
         public static void OpenSettings()
         {
             LoadOrCreateInstance();
-            Selection.activeObject = m_Instance;
+            Selection.activeObject = Resources.FindObjectsOfTypeAll<ScriptableForge>()[0];
         }
 
         [System.NonSerialized]
@@ -129,17 +131,6 @@ namespace ScriptForge
         {
             get { return m_Widgets; }
             set { m_Widgets = value; }
-        }
-
-
-        protected virtual void OnEnable()
-        {
-
-        }
-
-        protected virtual void OnDisable()
-        {
-   
         }
 
         /// <summary>
