@@ -56,7 +56,7 @@ namespace ScriptForge
             }
             GUILayout.EndHorizontal();
 
-            m_Namespace = EditorGUILayout.TextField(ScriptForgeLabels.namespaceContent, m_Namespace);
+            m_Namespace = EditorGUILayoutEx.NamespaceTextField(ScriptForgeLabels.namespaceContent, m_Namespace);
         }
 
         /// <summary>

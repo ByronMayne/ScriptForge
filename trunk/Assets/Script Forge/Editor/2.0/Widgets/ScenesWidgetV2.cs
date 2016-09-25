@@ -6,6 +6,9 @@ namespace ScriptForge
 {
     public class ScenesWidgetV2 : ForgeWidgetV2
     {
+        [SerializeField]
+        private string m_ClassName; 
+
         public override GUIContent label
         {
             get
@@ -39,6 +42,7 @@ namespace ScriptForge
         protected override void DrawWidgetContent(ScriptForgeStyles style)
         {
             base.DrawWidgetContent(style);
+            m_ClassName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.classNameContent, m_ClassName);
         }
 
         /// <summary>

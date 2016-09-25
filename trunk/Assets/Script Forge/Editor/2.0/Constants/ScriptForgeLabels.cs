@@ -48,6 +48,9 @@ namespace ScriptForge
         public static readonly GUIContent namespaceContent;
         public static readonly GUIContent changePathContent;
 
+        // Scene Forge
+        public static readonly GUIContent classNameContent; 
+
         /// <summary>
         /// Are content is only created when it's first used.
         /// </summary>
@@ -83,6 +86,7 @@ namespace ScriptForge
             buildPathContent = new GUIContent("Build Path", "Where should the class this forge generates be exported to?");
             namespaceContent = new GUIContent("Namespace", "Which namespace (if any) should the generated class have?");
             changePathContent = new GUIContent("Change Path", "Click this button to allow you to pick a new path in the project to save the output too");
+            classNameContent = new GUIContent("Class Name", "What should the name of the class that is generated be called? All invalid characters will be removed");
         }
 
     }

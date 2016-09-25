@@ -98,6 +98,8 @@ namespace ScriptForge
             button.alignment = TextAnchor.MiddleCenter;
             button.font = thapkieMGFont;
             button.fixedHeight = EditorGUIUtility.singleLineHeight * 2f;
+
+            // Change Button Path
             changePathButton = new GUIStyle(button);
             changePathButton.fixedHeight = EditorGUIUtility.singleLineHeight;
             changePathButton.stretchWidth = false;
