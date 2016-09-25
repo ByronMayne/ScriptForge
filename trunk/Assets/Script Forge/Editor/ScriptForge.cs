@@ -53,7 +53,7 @@ namespace ScriptForge
 
 			if( EditorPrefs.GetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Default ) )
 			{
-				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
+				System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
 				EditorPrefs.SetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, false );
 			}
 			
@@ -142,7 +142,7 @@ namespace ScriptForge
 
 			if( EditorPrefs.GetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Default ) )
 			{
-				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
+				System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
 				EditorPrefs.SetBool(sf_EditorPrefs.EP_FIRST_LAUNCH_BOOL.Name, false );
 			}
 		}
@@ -170,12 +170,12 @@ namespace ScriptForge
 
 			GUILayout.BeginHorizontal();
 				GUILayout.Space(10.0f);
-				GUILayout.Label( sf_FontAwesome.fa_Cubes.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
+				GUILayout.Label( FontAwesomeIcons.CUBES.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
 				GUILayout.BeginVertical();
 					GUILayout.Label( sf_Descriptions.DESCRIPTION_SCRIPTFORGE_TITLE, sf_Skins.InspectorTitleStyle );
 					GUILayout.Label( sf_Descriptions.DESCRIPTION_SCRIPTFORGE_SUBTITLE, sf_Skins.InspectorSubTitleStyle );
 				GUILayout.EndVertical();
-				GUILayout.Label( sf_FontAwesome.fa_Cubes.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
+				GUILayout.Label( FontAwesomeIcons.CUBES.ToString(), sf_Skins.FontAwesomLargeStyle, GUILayout.Width( 50) );
 			GUILayout.Space(10);
 			GUILayout.EndHorizontal();
 

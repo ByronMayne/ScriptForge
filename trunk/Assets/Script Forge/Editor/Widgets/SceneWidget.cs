@@ -100,7 +100,7 @@ namespace ScriptForge
 
 		protected override string WidgetIcon ()
 		{
-			return sf_FontAwesome.fa_PictureO.ToString();
+			return FontAwesomeIcons.PICTURE.ToString();
 		}
 
 		protected override GUIContent Description ()

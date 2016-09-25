@@ -46,7 +46,7 @@ namespace ScriptForge
 
 		protected override string WidgetIcon ()
 		{
-			return sf_FontAwesome.fa_Gamepad.ToString();
+			return FontAwesomeIcons.GAMEPAD.ToString();
 		}
 
 		protected override GUIContent Description ()

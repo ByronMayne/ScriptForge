@@ -75,7 +75,7 @@ namespace ScriptForge
 
 		protected override string WidgetIcon ()
 		{
-			return sf_FontAwesome.fa_Bars.ToString();
+			return FontAwesomeIcons.BARS.ToString();
 		}
 
 		protected override GUIContent Description ()

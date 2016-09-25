@@ -10,19 +10,19 @@
 using System;
 namespace ScriptForge
 {
-	public static class sf_FontAwesome
+	public static class FontAwesomeIcons
 	{
-		public static char fa_LifeRing = '\xf1cd'; 	
-		public static char fa_Magic = '\xf0d0';
-		public static char fa_Bug = '\xf188';
-		public static char fa_Cubes = '\xf1b3';
-		public static char fa_Bookmark = '\xf02e';
-		public static char fa_Bars = '\xf0c9';
-		public static char fa_SortAmountDesc = '\xf161';
-		public static char fa_PictureO = '\xf03e';
-		public static char fa_Gamepad = '\xf11b';
-		public static char fa_Cog = '\xf013';
-		public static char fa_InfoCircle = '\xf05a';
+		public static string LIFE_RING    = new string('\xf1cd', 1); 	
+		public static string MAGIC        = new string('\xf0d0', 1); 
+		public static string BUG          = new string('\xf188', 1); 
+		public static string CUBES        = new string('\xf1b3', 1); 
+		public static string BOOKMARK     = new string('\xf02e', 1); 
+		public static string BARS         = new string('\xf0c9', 1); 
+		public static string SORT_AMOUNT  = new string('\xf161', 1); 
+		public static string PICTURE      = new string('\xf03e', 1); 
+		public static string GAMEPAD      = new string('\xf11b', 1); 
+		public static string COG          = new string('\xf013', 1); 
+		public static string INFO_CIRCLE  = new string('\xf05a', 1); 
 	}
 }
 

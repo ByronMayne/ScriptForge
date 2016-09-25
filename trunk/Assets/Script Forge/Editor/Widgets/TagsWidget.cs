@@ -12,7 +12,7 @@ namespace ScriptForge
          /// <summary>
         /// The constructor we use to build our Forge items. 
         /// </summary>
-        /// <param name="Name">This is the name that will showup on the foldout at the top.</param>
+        /// <param name="Name">This is the name that will show up on the foldout at the top.</param>
         /// <param name="Tooltip">This is the message that the user will see when they put their mouse over the foldout.</param>
         /// <param name="Height">How tall will the editor box be when fully opened?</param>
         public TagsWidget() : base()
@@ -23,30 +23,30 @@ namespace ScriptForge
         /// <summary>
         /// This is the deconstructor. It's only used to unsubscribe our OnGenerate method from the static delegate. (It will cause errors if you don't);
         /// </summary>
-		public override void Destroy()
+        public override void Destroy()
         {
-			base.Destroy();
+            base.Destroy();
 
             _OnGenerateAll -= OnGenerate;
         }
 
         public override void GenerateCode()
         {
-			string[] info = UnityEditorInternal.InternalEditorUtility.tags;
+            string[] info = UnityEditorInternal.InternalEditorUtility.tags;
 
-			if( _lastSourceInfo != null )
-			{
-				if( _lastSourceInfo.SequenceEqual(info) )
-					return; 
-				else
-					_lastSourceInfo = info; 
-			}
-			else
-				_lastSourceInfo = info;
+            if( _lastSourceInfo != null )
+            {
+                if( _lastSourceInfo.SequenceEqual(info) )
+                    return; 
+                else
+                    _lastSourceInfo = info; 
+            }
+            else
+                _lastSourceInfo = info;
 
 
             // Build the generator with the class name and data source.
-			TagsGenerator generator = new TagsGenerator(_scriptName, info, _namespace );
+            TagsGenerator generator = new TagsGenerator(_scriptName, info, _namespace );
 
             // Generate output (class definition).
             var classDefintion = generator.TransformText();
@@ -67,14 +67,14 @@ namespace ScriptForge
             }
         }
 
-		protected override string WidgetIcon ()
-		{
-			return sf_FontAwesome.fa_Bookmark.ToString();
-		}
+        protected override string WidgetIcon ()
+        {
+            return FontAwesomeIcons.BOOKMARK.ToString();
+        }
 
-		protected override GUIContent Description ()
-		{
-			return sf_Descriptions.DESCRIPTION_TAGS_WIDGET;
-		}
+        protected override GUIContent Description ()
+        {
+            return sf_Descriptions.DESCRIPTION_TAGS_WIDGET;
+        }
     } 
 }

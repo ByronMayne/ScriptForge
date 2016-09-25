@@ -50,14 +50,14 @@ namespace ScriptForge
 
 			if( GUILayout.Button("Documentation", sf_Skins.Button) )
 			{
-				System.Diagnostics.Process.Start(sf_Links.SCRIPT_FORGE_GOOLGE_DOC_URL);
+				System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
 			}
 		
 		}
 
 		protected override string WidgetIcon ()
 		{
-			return sf_FontAwesome.fa_InfoCircle.ToString(); 
+			return FontAwesomeIcons.INFO_CIRCLE.ToString(); 
 		}
 
 		protected override GUIContent Description ()

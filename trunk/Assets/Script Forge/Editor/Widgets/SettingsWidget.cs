@@ -141,7 +141,7 @@ namespace ScriptForge
 
 		protected override string WidgetIcon ()
 		{
-			return sf_FontAwesome.fa_Cog.ToString();
+			return FontAwesomeIcons.COG.ToString();
 		}
 
 		protected override GUIContent Description ()

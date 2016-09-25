@@ -80,7 +80,7 @@ namespace ScriptForge
 
 		protected override string WidgetIcon ()
 		{
-			return sf_FontAwesome.fa_SortAmountDesc.ToString();
+			return FontAwesomeIcons.SORT_AMOUNT.ToString();
 		}
 
 		protected override GUIContent Description ()
