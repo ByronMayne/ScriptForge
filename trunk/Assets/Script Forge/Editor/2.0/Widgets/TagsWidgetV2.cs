@@ -125,21 +125,5 @@ namespace ScriptForge
             }
             base.OnGenerate();
         }
-
-        /// <summary>
-        /// Invoked when this forge should be reset to the default values. 
-        /// </summary>
-        public override void OnReset()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Invoked when this forge should be removed. 
-        /// </summary>
-        public override void OnRemove()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

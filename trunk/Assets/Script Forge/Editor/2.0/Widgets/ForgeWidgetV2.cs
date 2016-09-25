@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System;
 
 namespace ScriptForge
 {
@@ -147,7 +148,7 @@ namespace ScriptForge
                     if (!string.IsNullOrEmpty(buildPath))
                     {
                         m_ScriptLocation = buildPath;
-                        ClearErrors(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
+                        ClearError(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
                     }
                 }
 
@@ -204,7 +205,7 @@ namespace ScriptForge
         protected bool ShouldRegnerate()
         {
             // Clear any old errors.
-            ClearErrors(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
+            ClearError(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
 
             bool shouldRegenerate = false;
 
@@ -239,11 +240,23 @@ namespace ScriptForge
         /// <summary>
         /// Called when the settings for this forge should be reset to default. 
         /// </summary>
-        public abstract void OnReset();
+        public virtual void OnReset()
+        {
+            m_ClassName = defaultName;
+            m_Namespace = string.Empty;
+            m_ScriptLocation = string.Empty;
+            m_AssetHash = string.Empty;
+            ClearErrors();
+        }
 
         /// <summary>
         /// Called when this forge should be removed.
         /// </summary>
-        public abstract void OnRemove();
+        public virtual void OnRemove()
+        {
+            m_ScriptableForge.Widgets.Remove(this);
+            DestroyImmediate(this);
+        }
+
     }
 }

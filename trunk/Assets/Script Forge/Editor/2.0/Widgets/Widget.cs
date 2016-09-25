@@ -189,13 +189,21 @@ namespace ScriptForge
         /// <summary>
         /// Removes any active error messages.
         /// </summary>
-        protected void ClearErrors(ScriptForgeErrors.Codes code)
+        protected void ClearError(ScriptForgeErrors.Codes code)
         {
             if(code == m_ErrorCode)
             {
+                ClearErrors();
+            }
+        }
+
+        /// <summary>
+        /// Clears all errors from this widget.
+        /// </summary>
+        protected void ClearErrors()
+        {
                 m_ErrorCode = ScriptForgeErrors.Codes.None;
                 m_ErrorMessage = string.Empty;
-            }
         }
 
         public void FlashColor(Color color, float time = 2.0f)

@@ -135,15 +135,7 @@ namespace ScriptForge
         /// </summary>
         public override void OnReset()
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Invoked when this forge should be removed. 
-        /// </summary>
-        public override void OnRemove()
-        {
-            throw new System.NotImplementedException();
+            m_EnumName = "Types";
         }
     }
 }
