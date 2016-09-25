@@ -18,21 +18,8 @@ MonoBehaviour:
   - {fileID: 5}
   - {fileID: 6}
   - {fileID: 7}
-  - {fileID: 8}
   m_AnimateValues: 0
 --- !u!114 &2
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7e6e6c07c923bb4e9d3bf1326b94e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsOpen: 1
---- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -46,10 +33,10 @@ MonoBehaviour:
   m_IsOpen: 1
   m_AutomaticallyGenerate: 0
   m_ScriptLocation: Assets/Tags.cs
-  m_Namespace: Byron.Mayne
-  m_ClassName: ByronMayne
-  m_AssetHash: 1a567bc4ff9968d283e02522f10d44c4
---- !u!114 &4
+  m_Namespace: 
+  m_ClassName: Tags
+  m_AssetHash: a02233b07653991c6b2ebd8bb41d1e68
+--- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -63,10 +50,10 @@ MonoBehaviour:
   m_IsOpen: 1
   m_AutomaticallyGenerate: 0
   m_ScriptLocation: Assets/Layers.cs
-  m_Namespace: Byron.Mayne
-  m_ClassName: ByronMayne
-  m_AssetHash: 661f53c98995b8a0e76a187ac43254a1
---- !u!114 &5
+  m_Namespace: ScriptForge.Generated
+  m_ClassName: Layers
+  m_AssetHash: b6cd20ebf97fc7896b1a1c889e05c706
+--- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -78,12 +65,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsOpen: 1
-  m_AutomaticallyGenerate: 0
+  m_AutomaticallyGenerate: 1
   m_ScriptLocation: Assets/SortingLayers.cs
-  m_Namespace: Byron.Mayne
-  m_ClassName: ByronMayne
-  m_AssetHash: b8aab16c0d501037acd8498032d0bb18
---- !u!114 &6
+  m_Namespace: ScriptForge.Generated
+  m_ClassName: SortingLayers
+  m_AssetHash: f0f09cac5e43e3c935a7cffd83256ebb
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -97,11 +84,12 @@ MonoBehaviour:
   m_IsOpen: 1
   m_AutomaticallyGenerate: 1
   m_ScriptLocation: Assets/Scenes.cs
-  m_Namespace: Byron.Mayne
-  m_ClassName: ByronMayne
-  m_AssetHash: 77951b858f62244db984b832679cf1f7
+  m_Namespace: ScriptForge.Generated
+  m_ClassName: Scenes
+  m_AssetHash: 3cb338a7e30759a12a8ee42465e60705
   m_GeneratorHash: 
---- !u!114 &7
+  m_EnumName: Types
+--- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -112,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bc1275e3f8ff143a7173e33ba77b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 0
---- !u!114 &8
+  m_IsOpen: 1
+--- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -124,4 +112,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e5d60d701b7994dbfbe4a4c8a96cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 0
+  m_IsOpen: 1

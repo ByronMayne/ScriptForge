@@ -7,11 +7,12 @@ using UnityEngine;
 namespace ScriptForge
 {
     [System.Serializable]
-    public class Widget : ScriptableObject, System.IComparable<Widget>
+    public abstract class Widget : ScriptableObject, System.IComparable<Widget>
     {
         [SerializeField]
         private bool m_IsOpen;
         private AnimBool m_OpenAnimation = new AnimBool();
+        protected ScriptableForge m_ScriptableForge;
 
         // Flashing
         private float m_FlashUntil = 0f;
@@ -59,17 +60,22 @@ namespace ScriptForge
             }
         }
 
-        private void OnEnable()
+        protected void OnDisable()
         {
-            m_BackgroundColor = Color.white;
-            m_OpenAnimation.value = m_IsOpen;
-            m_OpenAnimation.valueChanged.AddListener(ScriptableForge.instance.Repaint);
+            if(m_ScriptableForge != null && m_OpenAnimation != null)
+            {
+                m_OpenAnimation.valueChanged.RemoveListener(m_ScriptableForge.Repaint);
+            }
 
         }
 
-        protected void OnDisable()
+        public void Initalize(ScriptableForge instance)
         {
-            m_OpenAnimation.valueChanged.RemoveListener(ScriptableForge.instance.Repaint);
+            m_ScriptableForge = instance;
+            m_BackgroundColor = Color.white;
+            m_OpenAnimation.value = m_IsOpen;
+            m_OpenAnimation.valueChanged.AddListener(m_ScriptableForge.Repaint);
+            m_ScriptableForge.Repaint();
         }
 
         /// <summary>
@@ -157,6 +163,7 @@ namespace ScriptForge
             EditorApplication.update += FlashUpdate;
         }
 
+
         private void FlashUpdate()
         {
             float lerpTime = m_FlashUntil - Time.realtimeSinceStartup;
@@ -164,7 +171,7 @@ namespace ScriptForge
             lerpTime += 1f;
             lerpTime /= 2f;
             m_BackgroundColor = Color.Lerp(Color.white, m_FlashColor, lerpTime);
-            ScriptableForge.instance.Repaint();
+            m_ScriptableForge.Repaint();
             if(m_FlashUntil < Time.realtimeSinceStartup)
             {
                 EditorApplication.update -= FlashUpdate;

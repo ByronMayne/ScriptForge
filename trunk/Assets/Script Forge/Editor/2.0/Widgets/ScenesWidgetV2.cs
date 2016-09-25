@@ -4,6 +4,8 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System;
+using System.IO;
 
 namespace ScriptForge
 {
@@ -11,6 +13,8 @@ namespace ScriptForge
     {
         [SerializeField]
         private string m_GeneratorHash = string.Empty;
+        [SerializeField]
+        private string m_EnumName = "Types";
 
         public override GUIContent label
         {
@@ -50,6 +54,12 @@ namespace ScriptForge
             }
         }
 
+        protected override void DrawWidgetContent(ScriptForgeStyles style)
+        {
+            base.DrawWidgetContent(style);
+            m_EnumName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.enumNameContent, m_EnumName, "Types");
+        }
+
         /// <summary>
         /// Invoked when this widget should generate it's content. 
         /// </summary>
@@ -67,7 +77,23 @@ namespace ScriptForge
 
             if(ShouldRegnerate(hashInput))
             {
+                // Build the generator with the class name and data source.
+                ScenesGenerator generator = new ScenesGenerator(m_ClassName, GetSystemSaveLocation(), sceneNames.ToArray(), m_EnumName, m_Namespace);
 
+                // Generate output (class definition).
+                var classDefintion = generator.TransformText();
+                try
+                {
+                    // Save new class to assets folder.
+                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+
+                    // Refresh assets.
+                    AssetDatabase.Refresh();
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("An error occurred while saving file: " + e);
+                }
             }
         }
 

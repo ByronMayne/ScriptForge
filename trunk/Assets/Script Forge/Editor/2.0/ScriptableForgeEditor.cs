@@ -14,7 +14,7 @@ namespace ScriptForge
 
         private bool m_AddForgeButtonSelected;
         private ScriptableForge m_Target;
-        private ScriptForgeStyles m_Styles; 
+        private ScriptForgeStyles m_Styles;
 
         private void OnEnable()
         {
@@ -24,7 +24,7 @@ namespace ScriptForge
         private void OnDisable()
         {
         }
-        
+
 
         /// <summary>
         /// Draws the header for our instance.
@@ -55,9 +55,9 @@ namespace ScriptForge
         {
             DrawButtons();
 
-            if(GUILayout.Button("Save"))
+            if (GUILayout.Button("Save"))
             {
-                ScriptableForge.SaveInstance();
+                m_Target.Save();
             }
         }
 
@@ -68,7 +68,7 @@ namespace ScriptForge
         {
             if (GUILayout.Button(ScriptForgeLabels.generateAllForgesLabel, m_Styles.button))
             {
-                for(int i = 0; i < m_Target.Widgets.Count; i++)
+                for (int i = 0; i < m_Target.Widgets.Count; i++)
                 {
                     m_Target.Widgets[i].OnGenerate();
                 }
@@ -198,7 +198,7 @@ namespace ScriptForge
         {
             m_Target.OnWidgetAdded(widgetType);
             m_AddForgeButtonSelected = false;
-         
+
         }
     }
 }

@@ -172,7 +172,7 @@ namespace ScriptForge
                     m_AssetHash = newHash; 
                     shouldRegenerate = true;
                     // Hash changed so lets save.
-                    ScriptableForge.SaveInstance();
+                    m_ScriptableForge.Save();
                 }
             }
 
@@ -183,6 +183,7 @@ namespace ScriptForge
 
             return shouldRegenerate;
         }
+
 
         /// <summary>
         /// Called when the settings for this forge should be reset to default. 

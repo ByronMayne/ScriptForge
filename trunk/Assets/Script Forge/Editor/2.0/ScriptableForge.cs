@@ -15,25 +15,10 @@ namespace ScriptForge
         /// </summary>
         public const string SAVE_NAME = "ScriptableForge.asset";
 
-        /// <summary>
-        /// This is the internal instance we use to save ScriptForge Settings.
-        /// </summary>
+        ///// <summary>
+        ///// This is the internal instance we use to save ScriptForge Settings.
+        ///// </summary>
         private static ScriptableForge m_Instance;
-
-        /// <summary>
-        /// Gets the instance for ScriptableForge or creates a new one. 
-        /// </summary>
-        public static ScriptableForge instance
-        {
-            get
-            {
-                if (m_Instance == null)
-                {
-                    LoadOrCreateInstance();
-                }
-                return m_Instance;
-            }
-        }
 
         /// <summary>
         /// Gets the path where we save our scriptable object singleton. 
@@ -58,6 +43,8 @@ namespace ScriptForge
             // Store our path
             string savePath = GetSavePath();
 
+            List<Widget> m_LoadedWidgets = new List<Widget>();
+
             // Does it exist already?
             if (File.Exists(savePath))
             {
@@ -76,7 +63,7 @@ namespace ScriptForge
                     {
                         if (loadedObject[i] is EditorWidget)
                         {
-                            m_Instance.m_Widgets.Add(loadedObject[i] as Widget);
+                            m_LoadedWidgets.Add(loadedObject[i] as Widget);
                         }
                     }
                 }
@@ -86,12 +73,24 @@ namespace ScriptForge
                 // We don't have a save file so we create a new one.
                 m_Instance = CreateInstance<ScriptableForge>();
             }
+
+            // Initialize all the widgets. 
+            for(int i = 0; i < m_LoadedWidgets.Count; i++)
+            {
+                m_LoadedWidgets[i].Initalize(m_Instance);
+            }
+
+            // Sort them in order.
+            m_LoadedWidgets.Sort();
+
+            // Save them back to our instance.
+            m_Instance.Widgets = m_LoadedWidgets;
         }
 
         /// <summary>
         /// Takes the ScriptableForge and all it's widgets and writes them to disk. 
         /// </summary>
-        public static void SaveInstance()
+        public void Save()
         {
             // Get our path
             string savePath = GetSavePath();
@@ -99,7 +98,7 @@ namespace ScriptForge
             Widget[] widgets = m_Instance.m_Widgets.ToArray();
             // Create an array of objects to save. 
             Object[] savingObjects = new Object[widgets.Length + 1];
-            // Set this first instance to our data. 
+            // Set this first instance to our data.  
             savingObjects[0] = m_Instance;
             // Copy our widgets into our array.
             widgets.CopyTo(savingObjects, 1);
@@ -110,7 +109,8 @@ namespace ScriptForge
         [MenuItem("Edit/Project Settings/Script Forge")]
         public static void OpenSettings()
         {
-            Selection.activeObject = instance;
+            LoadOrCreateInstance();
+            Selection.activeObject = m_Instance;
         }
 
         [System.NonSerialized]
@@ -149,6 +149,7 @@ namespace ScriptForge
         {
             Type type = (Type)widgetType;
             Widget newWidget = (Widget)CreateInstance(type);
+            newWidget.Initalize(this);
             m_Widgets.Add(newWidget);
             m_AddForgeButtonSelected = false;
             m_Widgets.Sort();
