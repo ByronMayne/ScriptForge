@@ -56,13 +56,15 @@ namespace ScriptForge
             base.DrawWidgetContent(style);
         }
 
+
+
         /// <summary>
-        /// Invoked when this widget should generate it's content. 
+        /// Returns an array of all the valid layer names. 
         /// </summary>
-        public override void OnGenerate()
+        /// <returns></returns>
+        private string[] GetValidSortingLayerNames()
         {
-            string hashInput = string.Empty;
-            List<string> layers = new List<string>();
+            List<string> validSortingLayers = new List<string>();
             // Sorting layers is hidden so we have to use reflection. 
             Type internalEditorUtilityType = typeof(InternalEditorUtility);
             // Grab our static property. 
@@ -78,15 +80,40 @@ namespace ScriptForge
 
                 if (!string.IsNullOrEmpty(layerName))
                 {
-                    layers.Add(layerName);
-                    hashInput += layerName;
+                    validSortingLayers.Add(layerName);
                 }
             }
+            return validSortingLayers.ToArray();
+        }
 
-            if (ShouldRegnerate(hashInput))
+        /// <summary>
+        /// Returns one string that contains all the names of all our assets to build
+        /// our hash with.
+        protected override string GetHashInputString()
+        {
+            string hashInput = string.Empty;
+            hashInput += m_Namespace;
+            hashInput += m_ClassName;
+            foreach (var layer in GetValidSortingLayerNames())
             {
+                hashInput += layer;
+            }
+            return hashInput;
+        }
+
+
+        /// <summary>
+        /// Invoked when this widget should generate it's content. 
+        /// </summary>
+        public override void OnGenerate()
+        {
+            if (ShouldRegnerate())
+            {
+                string[] sortingLayerNames = GetValidSortingLayerNames();
+                string savePath = GetSystemSaveLocation();
+
                 // Build the generator with the class name and data source.
-                TagsGenerator generator = new TagsGenerator(m_ClassName, layers.ToArray(), m_Namespace);
+                TagsGenerator generator = new TagsGenerator(m_ClassName, sortingLayerNames, m_Namespace);
 
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
@@ -94,7 +121,7 @@ namespace ScriptForge
                 try
                 {
                     // Save new class to assets folder.
-                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+                    File.WriteAllText(savePath, classDefintion);
 
                     // Refresh assets.
                     AssetDatabase.Refresh();
@@ -104,6 +131,7 @@ namespace ScriptForge
                     Debug.Log("An error occurred while saving file: " + e);
                 }
             }
+            base.OnGenerate();
         }
 
         /// <summary>

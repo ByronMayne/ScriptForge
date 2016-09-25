@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 5}
   - {fileID: 6}
   - {fileID: 7}
-  m_AnimateValues: 0
+  m_AnimateWidgets: 1
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,13 +30,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0e7b97cedb9724692702a59a6c8b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 0
+  m_IsOpen: 1
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: 
+  m_ScriptLocation: Assets/Tags.cs
   m_Namespace: 
   m_ClassName: Tags
-  m_AssetHash: 
+  m_AssetHash: 2cf119d9c0d84d494b0630633c7fb6e2
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,10 +51,10 @@ MonoBehaviour:
   m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: 
+  m_ScriptLocation: Assets/Layers.cs
   m_Namespace: 
   m_ClassName: Layers
-  m_AssetHash: 
+  m_AssetHash: 37953ad98aed40f9e3cfcfb81c883096
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +69,10 @@ MonoBehaviour:
   m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: 
+  m_ScriptLocation: Assets/SortingLayers.cs
   m_Namespace: 
   m_ClassName: SortingLayers
-  m_AssetHash: 
+  m_AssetHash: d307331b652782ef775ecb299061ba0c
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,10 +87,10 @@ MonoBehaviour:
   m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: 
+  m_ScriptLocation: Assets/Scenes.cs
   m_Namespace: 
   m_ClassName: Scenes
-  m_AssetHash: 
+  m_AssetHash: a35905af32b5e8c98b205de4d0e5a8d3
   m_GeneratorHash: 
   m_EnumName: Types
 --- !u!114 &6
@@ -117,5 +117,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e5d60d701b7994dbfbe4a4c8a96cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 0
+  m_IsOpen: 1
   m_ScriptableForge: {fileID: 1}

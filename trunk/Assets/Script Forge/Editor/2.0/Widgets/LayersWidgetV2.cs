@@ -63,11 +63,11 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked when this widget should generate it's content. 
+        /// Returns an array of all the valid layer names. 
         /// </summary>
-        public override void OnGenerate()
+        /// <returns></returns>
+        private string[] GetValidLayerNames()
         {
-            string hashInput = string.Empty;
             List<string> layers = new List<string>();
 
             for (int i = 0; i < 32; i++)
@@ -78,14 +78,38 @@ namespace ScriptForge
                 if (!string.IsNullOrEmpty(layerName))
                 {
                     layers.Add(layerName);
-                    hashInput += layerName;
                 }
             }
+            return layers.ToArray();
+        }
 
-            if (ShouldRegnerate(hashInput))
+        /// <summary>
+        /// Returns one string that contains all the names of all our assets to build
+        /// our hash with.
+        protected override string GetHashInputString()
+        {
+            string hashInput = string.Empty; 
+            hashInput += m_Namespace;
+            hashInput += m_ClassName;
+            foreach(var layer in GetValidLayerNames())
             {
+                hashInput += layer;
+            }
+            return hashInput;
+        }
+
+        /// <summary>
+        /// Invoked when this widget should generate it's content. 
+        /// </summary>
+        public override void OnGenerate()
+        {
+            if (ShouldRegnerate())
+            {
+                string[] validLayerNames = GetValidLayerNames();
+                string savePath = GetSystemSaveLocation();
+
                 // Build the generator with the class name and data source.
-                LayersGenerator generator = new LayersGenerator(m_ClassName, GetSystemSaveLocation(), layers.ToArray(), m_Namespace);
+                LayersGenerator generator = new LayersGenerator(m_ClassName, savePath, validLayerNames, m_Namespace);
 
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
@@ -93,7 +117,7 @@ namespace ScriptForge
                 try
                 {
                     // Save new class to assets folder.
-                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+                    File.WriteAllText(savePath, classDefintion);
 
                     // Refresh assets.
                     AssetDatabase.Refresh();
@@ -103,6 +127,7 @@ namespace ScriptForge
                     Debug.Log("An error occurred while saving file: " + e);
                 }
             }
+            base.OnGenerate();
         }
 
         /// <summary>

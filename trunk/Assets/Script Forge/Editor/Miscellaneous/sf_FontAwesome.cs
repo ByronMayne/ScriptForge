@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using UnityEngine;
+
 namespace ScriptForge
 {
 	public static class FontAwesomeIcons
@@ -23,6 +25,9 @@ namespace ScriptForge
 		public static string GAMEPAD      = new string('\xf11b', 1); 
 		public static string COG          = new string('\xf013', 1); 
 		public static string INFO_CIRCLE  = new string('\xf05a', 1); 
-	}
+        public static string CHECKBOX     = new string('\xf058', 1);
+        public static string REFRESH      = new string('\xf021', 1);
+        public static string WARNING      = new string('\xf071', 1);
+    }
 }
 

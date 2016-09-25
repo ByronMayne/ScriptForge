@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-using System;
 using System.IO;
 
 namespace ScriptForge
@@ -40,7 +36,7 @@ namespace ScriptForge
         {
             get
             {
-                return LayoutSettings.SCENES_WIDGET_SORT_ORDER ;
+                return LayoutSettings.SCENES_WIDGET_SORT_ORDER;
             }
         }
 
@@ -62,40 +58,76 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Returns a list of all the valid scenes that we want to include in our generated class.
+        /// </summary>
+        /// <returns></returns>
+        private string[] GetValidSceneNames()
+        {
+            List<string> validScenes = new List<string>();
+            foreach (var scene in EditorBuildSettings.scenes)
+            {
+                // Make sure the scene exists on disk (this can happen if it was deleted)
+                Object loadedScene = AssetDatabase.LoadAssetAtPath<Object>(scene.path);
+
+                if (loadedScene != null)
+                {
+                    string sceneName = scene.path.Substring(scene.path.LastIndexOf('/') + 1);
+                    sceneName = sceneName.Replace(".unity", "");
+                    validScenes.Add(sceneName);
+                }
+            }
+            return validScenes.ToArray();
+        }
+
+        /// <summary>
+        /// Returns one string that contains all the names of all our assets to build
+        /// our hash with.
+        protected override string GetHashInputString()
+        {
+            string hashInput = string.Empty;
+
+            hashInput += m_Namespace;
+            hashInput += m_ClassName;
+            hashInput += m_EnumName;
+
+            foreach(var scene in GetValidSceneNames())
+            {
+                hashInput += scene;
+            }
+
+            return hashInput;
+        }
+
+
+        /// <summary>
         /// Invoked when this widget should generate it's content. 
         /// </summary>
         public override void OnGenerate()
         {
-            string hashInput = string.Empty;
-            List<string> sceneNames = new List<string>();
-            foreach( var scene in EditorBuildSettings.scenes )
+            if (ShouldRegnerate())
             {
-                string sceneName = scene.path.Substring(scene.path.LastIndexOf('/') + 1);
-                sceneName = sceneName.Replace(".unity", "");
-                sceneNames.Add(sceneName);
-                hashInput += sceneName;
-            }
+                string[] sceneNames = GetValidSceneNames();
+                string savePath = GetSystemSaveLocation();
 
-            if(ShouldRegnerate(hashInput))
-            {
                 // Build the generator with the class name and data source.
-                ScenesGenerator generator = new ScenesGenerator(m_ClassName, GetSystemSaveLocation(), sceneNames.ToArray(), m_EnumName, m_Namespace);
+                ScenesGenerator generator = new ScenesGenerator(m_ClassName, savePath, sceneNames, m_EnumName, m_Namespace);
 
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
                 try
                 {
                     // Save new class to assets folder.
-                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+                    File.WriteAllText(savePath, classDefintion);
 
                     // Refresh assets.
                     AssetDatabase.Refresh();
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
                     Debug.Log("An error occurred while saving file: " + e);
                 }
             }
+            base.OnGenerate();
         }
 
         /// <summary>

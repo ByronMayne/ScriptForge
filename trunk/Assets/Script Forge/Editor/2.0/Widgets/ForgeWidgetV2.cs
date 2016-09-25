@@ -25,6 +25,8 @@ namespace ScriptForge
         [SerializeField]
         protected string m_AssetHash;
 
+        private bool m_IsUpToDate = false;
+
         /// <summary>
         /// The default name of this class
         /// </summary>
@@ -39,6 +41,7 @@ namespace ScriptForge
             {
                 OnGenerate();
             }
+            OnContentChanged();
         }
 
 
@@ -63,6 +66,40 @@ namespace ScriptForge
             {
                 m_ClassName = defaultName;
             }
+        }
+
+        public override void OnTitleBarGUI(ScriptForgeStyles style)
+        {
+            base.OnTitleBarGUI(style);
+
+            GUILayout.FlexibleSpace();
+
+            if (errorCode != ScriptForgeErrors.Codes.None)
+            {
+                GUILayout.Label(FontAwesomeIcons.WARNING, style.widgetHeaderIcon);
+            }
+            else if (m_IsUpToDate)
+            {
+                GUILayout.Label(FontAwesomeIcons.CHECKBOX, style.widgetHeaderIcon);
+            }
+            else
+            {
+                GUILayout.Label(FontAwesomeIcons.REFRESH, style.widgetHeaderIcon);
+            }
+        }
+
+        public override void OnGenerate()
+        {
+            m_AssetHash = CreateAssetHash();
+            m_IsUpToDate = true;
+        }
+
+        /// <summary>
+        /// Invoked whenever we update any of our content.
+        /// </summary>
+        protected override void OnContentChanged()
+        {
+            m_IsUpToDate = string.Compare(m_AssetHash, CreateAssetHash()) == 0;
         }
 
         protected override void DrawWidgetFooter(ScriptForgeStyles style)
@@ -122,20 +159,54 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Generates a hash based on all our current assets.
+        /// </summary>
+        protected string CreateAssetHash()
+        {
+            return ComputeAssetHash(GetHashInputString());
+        }
+
+        /// <summary>
+        /// Returns one string that contains all the names of all our assets to build
+        /// our hash with.
+        protected abstract string GetHashInputString();
+       
+        /// <summary>
+        /// Takes an input string an computes it's hash code. 
+        /// </summary>
+        protected string ComputeAssetHash(string hashInput)
+        {
+            using (MD5 md5Hash = MD5.Create())
+            {
+                // Convert the input string to a byte array and compute the hash.
+                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(hashInput));
+
+                // Create a new string builder to collect the bytes
+                // and create a string.
+                StringBuilder sBuilder = new StringBuilder();
+
+                // Loop through each byte of the hashed data 
+                // and format each one as a hexadecimal string.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+
+                // Get our new hash. 
+                return sBuilder.ToString();
+            }
+        }
+
+        /// <summary>
         /// Checks to see if the input string matches our last asset hash. If it does returns false saying
         /// you don't have to regenerate. If returns true the hash is stored. 
         /// </summary>
-        protected bool ShouldRegnerate(string input)
+        protected bool ShouldRegnerate()
         {
             // Clear any old errors.
             ClearErrors(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
 
             bool shouldRegenerate = false;
-
-            // Our name space should also effect our hash
-            input += m_Namespace;
-            // Same with the class name.
-            input += m_ClassName;
 
             // Get our location to where we want to save this file
             string systemLocation = GetSystemSaveLocation();
@@ -155,48 +226,15 @@ namespace ScriptForge
                 shouldRegenerate = true;
             }
 
-            using (MD5 md5Hash = MD5.Create())
+            string hash = ComputeAssetHash(GetHashInputString());
+
+            if (string.Compare(hash, m_AssetHash) != 0)
             {
-                // Convert the input string to a byte array and compute the hash.
-                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-                // Create a new string builder to collect the bytes
-                // and create a string.
-                StringBuilder sBuilder = new StringBuilder();
-
-                // Loop through each byte of the hashed data 
-                // and format each one as a hexadecimal string.
-                for (int i = 0; i < data.Length; i++)
-                {
-                    sBuilder.Append(data[i].ToString("x2"));
-                }
-
-                // Get our new hash. 
-                string newHash = sBuilder.ToString();
-
-                if (string.Compare(newHash, m_AssetHash) == 0)
-                {
-                    // We have the same hash so we don't have to regenerate. (Unless our file is already missing). 
-                    shouldRegenerate |= false;
-                }
-                else
-                {
-                    // Save our new hash and force a regeneration.
-                    m_AssetHash = newHash; 
-                    shouldRegenerate = true;
-                    // Hash changed so lets save.
-                    m_ScriptableForge.Save();
-                }
-            }
-
-            if(shouldRegenerate)
-            {
-                FlashColor(Color.green, 1.0f);
+                shouldRegenerate = true;
             }
 
             return shouldRegenerate;
         }
-
 
         /// <summary>
         /// Called when the settings for this forge should be reset to default. 

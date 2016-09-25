@@ -35,6 +35,14 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Gets the error code if any are active.
+        /// </summary>
+        public ScriptForgeErrors.Codes errorCode
+        {
+            get { return m_ErrorCode; }
+        }
+
+        /// <summary>
         /// Gets the sorting order for this widget.
         /// </summary>
         public virtual int sortOrder
@@ -100,8 +108,7 @@ namespace ScriptForge
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(iconString, style.widgetHeaderIcon);
-                    GUILayout.Label(label, style.widgetHeaderText);
+                    OnTitleBarGUI(style);
                 }
                 GUILayout.EndHorizontal();
 
@@ -122,7 +129,14 @@ namespace ScriptForge
                     {
                         EditorGUILayout.HelpBox(m_ErrorMessage, MessageType.Error);
                     }
-                    DrawWidgetContent(style);
+                    EditorGUI.BeginChangeCheck();
+                    {
+                        DrawWidgetContent(style);
+                    }
+                    if(EditorGUI.EndChangeCheck())
+                    {
+                        OnContentChanged();
+                    }
                     GUILayout.Box(GUIContent.none, style.spacer);
                     DrawWidgetFooter(style);
                 }
@@ -140,6 +154,15 @@ namespace ScriptForge
             }
 
             GUI.backgroundColor = Color.white;
+        }
+
+        /// <summary>
+        /// Callback used to draw GUI in the title bar.
+        /// </summary>
+        public virtual void OnTitleBarGUI(ScriptForgeStyles style)
+        {
+            GUILayout.Label(iconString, style.widgetHeaderIcon);
+            GUILayout.Label(label, style.widgetHeaderText);
         }
 
         protected virtual void DrawWidgetContent(ScriptForgeStyles style)
@@ -161,7 +184,6 @@ namespace ScriptForge
             m_ErrorCode = code;
             m_ErrorMessage = errorMessage;
             FlashColor(Color.red, 1.0f);
-            m_IsOpen = true;
         }
 
         /// <summary>
@@ -184,6 +206,10 @@ namespace ScriptForge
             EditorApplication.update += FlashUpdate;
         }
 
+        protected virtual void OnContentChanged()
+        {
+            
+        }
 
         private void FlashUpdate()
         {

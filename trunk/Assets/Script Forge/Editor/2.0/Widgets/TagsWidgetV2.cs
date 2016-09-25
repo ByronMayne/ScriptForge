@@ -56,11 +56,11 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked when this widget should generate it's content. 
+        /// Returns a list of all the valid tags that we want to include in our generated class.
         /// </summary>
-        public override void OnGenerate()
+        /// <returns></returns>
+        private string[] GetValidTagNames()
         {
-            string hashInput = string.Empty;
             List<string> validTags = new List<string>();
             string[] tags = UnityEditorInternal.InternalEditorUtility.tags;
 
@@ -72,14 +72,40 @@ namespace ScriptForge
                 if (!string.IsNullOrEmpty(tag))
                 {
                     validTags.Add(tag);
-                    hashInput += tag;
                 }
             }
+            return validTags.ToArray();
+        }
 
-            if (ShouldRegnerate(hashInput))
+        /// <summary>
+        /// Returns one string that contains all the names of all our assets to build
+        /// our hash with.
+        protected override string GetHashInputString()
+        {
+            string hashInput = string.Empty;
+
+            hashInput += m_Namespace;
+            hashInput += m_ClassName;
+
+            foreach (var tag in GetValidTagNames())
             {
+                hashInput += tag;
+            }
+
+            return hashInput;
+        }
+        /// <summary>
+        /// Invoked when this widget should generate it's content. 
+        /// </summary>
+        public override void OnGenerate()
+        {
+            if (ShouldRegnerate())
+            {
+                string[] validTags = GetValidTagNames();
+                string savePath = GetSystemSaveLocation();
+
                 // Build the generator with the class name and data source.
-                TagsGenerator generator = new TagsGenerator(m_ClassName, validTags.ToArray(), m_Namespace);
+                TagsGenerator generator = new TagsGenerator(m_ClassName, validTags, m_Namespace);
 
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
@@ -87,7 +113,7 @@ namespace ScriptForge
                 try
                 {
                     // Save new class to assets folder.
-                    File.WriteAllText(GetSystemSaveLocation(), classDefintion);
+                    File.WriteAllText(savePath, classDefintion);
 
                     // Refresh assets.
                     AssetDatabase.Refresh();
@@ -97,6 +123,7 @@ namespace ScriptForge
                     Debug.Log("An error occurred while saving file: " + e);
                 }
             }
+            base.OnGenerate();
         }
 
         /// <summary>
