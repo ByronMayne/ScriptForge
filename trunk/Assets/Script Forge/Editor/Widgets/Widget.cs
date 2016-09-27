@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ScriptForge
 {
     [System.Serializable]
-    public abstract class Widget : ScriptableObject, System.IComparable<Widget>
+    public abstract class Widget : ScriptableObject, IComparable<Widget>
     {
         [SerializeField]
         private bool m_IsOpen;

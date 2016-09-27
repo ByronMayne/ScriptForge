@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace ScriptForge
 {
-    public class SettingsWidgetV2 : Widget
+    public class SettingsWidget : Widget
     {
         public override GUIContent label
         {

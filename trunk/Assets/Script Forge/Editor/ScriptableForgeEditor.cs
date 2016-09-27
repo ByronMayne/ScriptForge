@@ -15,6 +15,7 @@ namespace ScriptForge
         private bool m_AddForgeButtonSelected;
         private ScriptableForge m_Target;
         private ScriptForgeStyles m_Styles;
+        private Vector2 m_ScrollPosition;
 
         private void OnEnable()
         {
@@ -36,7 +37,7 @@ namespace ScriptForge
                 m_Styles = new ScriptForgeStyles();
             }
 
-            GUILayout.BeginHorizontal(GUI.skin.box);
+            GUILayout.BeginHorizontal((GUIStyle)"ShurikenEffectBg");
             {
                 GUILayout.Label(FontAwesomeIcons.CUBES, m_Styles.titleBarIcon);
                 GUILayout.FlexibleSpace();
@@ -50,15 +51,47 @@ namespace ScriptForge
                 GUILayout.Label(FontAwesomeIcons.CUBES, m_Styles.titleBarIcon);
             }
             GUILayout.EndHorizontal();
+  
         }
         public override void OnInspectorGUI()
         {
-            DrawButtons();
-
-            if (GUILayout.Button("Save"))
+            GUILayout.BeginArea(new Rect(0, 50, Screen.width, Screen.height - 70));
             {
-                m_Target.Save();
+                DrawButtons();
+
+                DrawWidgets();
             }
+            GUILayout.EndArea();
+        }
+
+        private void DrawWidgets()
+        {
+            m_ScrollPosition = GUILayout.BeginScrollView(m_ScrollPosition);
+            {
+                GUILayout.BeginVertical((GUIStyle)"GameViewBackground");
+                {
+                    DrawSpacer();
+
+                    GUILayout.Space(5.0f);
+                    for (int i = 0; i < m_Target.Widgets.Count; i++)
+                    {
+                        m_Target.Widgets[i].OnWidgetGUI(m_Styles);
+
+                        DrawSpacer();
+                    }
+
+                    GUILayout.FlexibleSpace();
+                }
+                GUILayout.EndVertical();
+            }
+            GUILayout.EndScrollView();
+        }
+
+        private void DrawSpacer()
+        {
+            GUILayout.Space(5.0f);
+            GUILayout.Label(GUIContent.none, "TE NodeBoxSelected", GUILayout.ExpandWidth(true), GUILayout.Height(5f));
+            GUILayout.Space(5.0f);
         }
 
         /// <summary>
@@ -66,66 +99,41 @@ namespace ScriptForge
         /// </summary>
         private void DrawButtons()
         {
-            if (GUILayout.Button(ScriptForgeLabels.generateAllForgesLabel, m_Styles.button))
+            GUILayout.BeginVertical((GUIStyle)"ProfilerTimelineLeftPane");
             {
-                for (int i = 0; i < m_Target.Widgets.Count; i++)
-                {
-                    m_Target.Widgets[i].OnGenerate();
-                }
-            }
-            EditorGUILayout.BeginHorizontal();
-            {
-                DrawAddForgeButton();
+                DrawSpacer();
 
-                if (GUILayout.Button(ScriptForgeLabels.setCommonPathLabel, m_Styles.buttonMiddle))
-                {
-
-                }
-
-                if (GUILayout.Button(ScriptForgeLabels.setCommonPathLabel, m_Styles.buttonMiddle))
-                {
-
-                }
-            }
-            EditorGUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
-            {
-                if (GUILayout.Button(ScriptForgeLabels.openAllWidgetsLabel, m_Styles.miniButtonMiddle))
+                if (GUILayout.Button(ScriptForgeLabels.generateAllForgesLabel, m_Styles.button))
                 {
                     for (int i = 0; i < m_Target.Widgets.Count; i++)
                     {
-                        m_Target.Widgets[i].isOpen = true;
+                        m_Target.Widgets[i].OnGenerate();
                     }
                 }
-
-                if (GUILayout.Button(ScriptForgeLabels.closeAllWidgetsLabel, m_Styles.miniButtonMiddle))
+                EditorGUILayout.BeginHorizontal();
                 {
-                    for (int i = 0; i < m_Target.Widgets.Count; i++)
+                    DrawAddForgeButton();
+
+                    if (GUILayout.Button(ScriptForgeLabels.openAllWidgetsLabel, m_Styles.buttonMiddle))
                     {
-                        m_Target.Widgets[i].isOpen = false;
+                        for (int i = 0; i < m_Target.Widgets.Count; i++)
+                        {
+                            m_Target.Widgets[i].isOpen = true;
+                        }
+                    }
+
+                    if (GUILayout.Button(ScriptForgeLabels.closeAllWidgetsLabel, m_Styles.buttonRight))
+                    {
+                        for (int i = 0; i < m_Target.Widgets.Count; i++)
+                        {
+                            m_Target.Widgets[i].isOpen = false;
+                        }
                     }
                 }
-            }
-            GUILayout.EndHorizontal();
-
-
-            GUILayout.Space(5.0f);
-            Rect rect = GUILayoutUtility.GetRect(GUIContent.none, m_Styles.spacer);
-            GUI.Label(rect, GUIContent.none, m_Styles.spacer);
-            GUI.Label(rect, GUIContent.none, m_Styles.spacer);
-            GUI.Label(rect, GUIContent.none, m_Styles.spacer);
-            GUILayout.Space(5.0f);
-            for (int i = 0; i < m_Target.Widgets.Count; i++)
-            {
-                m_Target.Widgets[i].OnWidgetGUI(m_Styles);
-
-                GUILayout.Space(5.0f);
-                rect = GUILayoutUtility.GetRect(GUIContent.none, m_Styles.spacer);
-                GUI.Label(rect, GUIContent.none, m_Styles.spacer);
-                GUI.Label(rect, GUIContent.none, m_Styles.spacer);
-                GUI.Label(rect, GUIContent.none, m_Styles.spacer);
+                EditorGUILayout.EndHorizontal();
                 GUILayout.Space(5.0f);
             }
+            GUILayout.EndVertical();
         }
 
         /// <summary>
@@ -145,37 +153,48 @@ namespace ScriptForge
                 current.Use();
                 Repaint();
 
-                GenericMenu menu = new GenericMenu();
 
-                Assembly assembly = Assembly.GetCallingAssembly();
-                Type[] types = assembly.GetTypes();
+            }
 
-                for (int i = 0; i < types.Length; i++)
+            if (current.type == EventType.MouseUp)
+            {
+                m_AddForgeButtonSelected = false;
+
+                if (buttonRect.Contains(current.mousePosition) && GUIUtility.hotControl == controlID)
                 {
-                    if (!types[i].IsAbstract && typeof(Widget).IsAssignableFrom(types[i]))
-                    {
-                        bool hasInstance = false;
+                    GenericMenu menu = new GenericMenu();
 
-                        for (int x = 0; x < m_Target.Widgets.Count; x++)
+                    Assembly assembly = Assembly.GetCallingAssembly();
+                    Type[] types = assembly.GetTypes();
+
+                    for (int i = 0; i < types.Length; i++)
+                    {
+                        if (!types[i].IsAbstract && typeof(Widget).IsAssignableFrom(types[i]))
                         {
-                            if (m_Target.Widgets[x].GetType() == types[i])
+                            bool hasInstance = false;
+
+                            for (int x = 0; x < m_Target.Widgets.Count; x++)
                             {
-                                hasInstance = true;
-                                break;
+                                if (m_Target.Widgets[x].GetType() == types[i])
+                                {
+                                    hasInstance = true;
+                                    break;
+                                }
                             }
+                            if (hasInstance)
+                            {
+                                menu.AddDisabledItem(new GUIContent(types[i].Name));
+                            }
+                            else
+                            {
+                                menu.AddItem(new GUIContent(types[i].Name), false, OnWidgetAdded, types[i]);
+                            }
+                            menu.ShowAsContext();
                         }
-                        if (hasInstance)
-                        {
-                            menu.AddDisabledItem(new GUIContent(types[i].Name));
-                        }
-                        else
-                        {
-                            menu.AddItem(new GUIContent(types[i].Name), false, OnWidgetAdded, types[i]);
-                        }
-                        menu.ShowAsContext();
                     }
                 }
             }
+
 
             else if (m_AddForgeButtonSelected && current.type == EventType.MouseUp)
             {

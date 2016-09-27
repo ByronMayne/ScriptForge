@@ -9,7 +9,7 @@ using System;
 namespace ScriptForge
 {
     [System.Serializable]
-    public abstract class ForgeWidgetV2 : Widget
+    public abstract class ForgeWidget : Widget
     {
         [SerializeField]
         protected bool m_AutomaticallyGenerate = false;

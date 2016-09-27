@@ -7,7 +7,7 @@ using System.IO;
 namespace ScriptForge
 {
     [System.Serializable]
-    public class TagsWidgetV2 : ForgeWidgetV2
+    public class TagsWidget : ForgeWidget
     {
         public override GUIContent label
         {

@@ -15,16 +15,16 @@ namespace ScriptForge
         /// The search filter we use to find our font. 
         /// </summary>
         private const string FONT_AWESOME_SEARCH_FILTER = "t:Font fontawesome-webfont";
-        private const string RUST_FONT_SEARCH_FILTER = "t:Font Rust";
-        private const string THAPKIE_MG_FONT_FILTER = "t:Font Thapkie MG";
+        private const string TITLE_FONT_NAME = "t:Font AlegreyaSansSC-Bold";
+        private const string NORMAL_FONT_NAME = "t:Font Catamaran-Regular";
         // Fonts
         private Font m_FontAwesomeFont;
-        private Font m_RustFont;
-        private Font m_ThapkieMGFont;
+        private Font m_TitleFont;
+        private Font m_NormalFont;
 
         public Font fontAwesomeFont { get { return m_FontAwesomeFont; } }
-        public Font rustFont { get { return m_RustFont; } }
-        public Font thapkieMGFont { get { return m_ThapkieMGFont; } }
+        public Font rustFont { get { return m_TitleFont; } }
+        public Font thapkieMGFont { get { return m_NormalFont; } }
 
         public GUIStyle spacer { get; protected set; }
         public GUIStyle titleBarIcon { get; protected set; }
@@ -44,8 +44,8 @@ namespace ScriptForge
         public ScriptForgeStyles()
         {
             LoadFont(FONT_AWESOME_SEARCH_FILTER, ref m_FontAwesomeFont);
-            LoadFont(RUST_FONT_SEARCH_FILTER, ref m_RustFont);
-            LoadFont(THAPKIE_MG_FONT_FILTER, ref m_ThapkieMGFont);
+            LoadFont(TITLE_FONT_NAME, ref m_TitleFont);
+            LoadFont(NORMAL_FONT_NAME, ref m_NormalFont);
 
             // Spacer
             spacer = new GUIStyle(GUI.skin.box);
@@ -67,12 +67,12 @@ namespace ScriptForge
 
             // Title
             title = new GUIStyle(GUI.skin.label);
-            title.fontSize = 22;
+            title.fontSize = 30;
             title.fixedWidth = 50f;
             title.fontStyle = FontStyle.Normal;
             title.alignment = TextAnchor.MiddleCenter;
             title.wordWrap = false;
-            title.contentOffset = new Vector2(0f, 5f);
+            title.contentOffset = new Vector2(0f, -2f);
             title.clipping = TextClipping.Overflow;
             title.imagePosition = ImagePosition.TextOnly;
             title.font = rustFont;
@@ -80,12 +80,12 @@ namespace ScriptForge
 
             // Sub Title
             subTitle = new GUIStyle(GUI.skin.label);
-            subTitle.fontSize = 10;
+            subTitle.fontSize = 15;
             subTitle.fixedWidth = 50f;
             subTitle.fontStyle = FontStyle.Normal;
             subTitle.alignment = TextAnchor.MiddleCenter;
             subTitle.wordWrap = false;
-            subTitle.contentOffset = new Vector2(0f, 5f);
+            subTitle.contentOffset = new Vector2(0f, -15f);
             subTitle.clipping = TextClipping.Overflow;
             subTitle.imagePosition = ImagePosition.TextOnly;
             subTitle.font = rustFont;
@@ -93,7 +93,7 @@ namespace ScriptForge
 
             // Button
             button = new GUIStyle(GUI.skin.button);
-            button.fontSize = 10;
+            button.fontSize = 20;
             button.fontStyle = FontStyle.Normal;
             button.alignment = TextAnchor.MiddleCenter;
             button.font = thapkieMGFont;
@@ -104,48 +104,51 @@ namespace ScriptForge
             changePathButton.fixedHeight = EditorGUIUtility.singleLineHeight;
             changePathButton.stretchWidth = false;
             changePathButton.fixedWidth = 100f;
-            changePathButton.fontSize = 8;
-            changePathButton.contentOffset = new Vector2(0, 2f);
+            changePathButton.fontSize = 12;
+            changePathButton.contentOffset = new Vector2(0, 1f);
             changePathButton.margin = new RectOffset(0, 0, 1, 1);
 
             // Mini Button Left
             miniButtonLeft = new GUIStyle(EditorStyles.miniButtonLeft);
-            miniButtonLeft.fontSize = 10;
+            miniButtonLeft.fontSize = 12;
             miniButtonLeft.fontStyle = FontStyle.Normal;
             miniButtonLeft.alignment = TextAnchor.MiddleCenter;
             miniButtonLeft.font = thapkieMGFont;
             buttonLeft = new GUIStyle(miniButtonLeft);
+            buttonLeft.fontSize = 15;
             buttonLeft.fixedHeight = EditorGUIUtility.singleLineHeight * 2f;
 
             // Mini Button Middle
             miniButtonMiddle = new GUIStyle(EditorStyles.miniButtonMid);
-            miniButtonMiddle.fontSize = 10;
+            miniButtonMiddle.fontSize = 12;
             miniButtonMiddle.fontStyle = FontStyle.Normal;
             miniButtonMiddle.alignment = TextAnchor.MiddleCenter;
             miniButtonMiddle.font = thapkieMGFont;
             buttonMiddle = new GUIStyle(miniButtonMiddle);
+            buttonMiddle.fontSize = 15;
             buttonMiddle.fixedHeight = EditorGUIUtility.singleLineHeight * 2f;
 
             // Mini Button Right
             miniButtonRight = new GUIStyle(EditorStyles.miniButtonRight);
-            miniButtonRight.fontSize = 10;
+            miniButtonRight.fontSize = 12;
             miniButtonRight.fontStyle = FontStyle.Normal;
             miniButtonRight.alignment = TextAnchor.MiddleCenter;
             miniButtonRight.font = thapkieMGFont;
             buttonRight = new GUIStyle(miniButtonRight);
+            buttonRight.fontSize = 15;
             buttonRight.fixedHeight = EditorGUIUtility.singleLineHeight * 2f;
 
             // Widget Header Text
             widgetHeaderText = new GUIStyle(GUI.skin.label);
-            widgetHeaderText.fontSize = 18;
+            widgetHeaderText.fontSize = 22;
             widgetHeaderText.alignment = TextAnchor.UpperLeft;
             widgetHeaderText.wordWrap = true;
             widgetHeaderText.richText = true;
             widgetHeaderText.contentOffset = new Vector2(8f, 1f);
             widgetHeaderText.font = rustFont;
             widgetHeaderIcon = new GUIStyle(widgetHeaderText);
-            widgetHeaderIcon.fixedHeight = 25f;
-            widgetHeaderIcon.fixedWidth = 25f;
+            widgetHeaderIcon.fixedHeight = 28f;
+            widgetHeaderIcon.fixedWidth = 28f;
             widgetHeaderIcon.font = fontAwesomeFont;
             widgetHeaderIcon.contentOffset = new Vector2(5, 2);
         }

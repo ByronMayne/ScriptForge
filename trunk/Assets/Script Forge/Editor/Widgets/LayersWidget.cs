@@ -7,7 +7,7 @@ using System.IO;
 namespace ScriptForge
 {
     [System.Serializable]
-    public class LayersWidgetV2 : ForgeWidgetV2
+    public class LayersWidget : ForgeWidget
     {
         /// <summary>
         /// The label that will be shown on the title of the widget.

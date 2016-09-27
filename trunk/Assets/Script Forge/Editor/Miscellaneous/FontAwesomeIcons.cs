@@ -17,7 +17,7 @@ namespace ScriptForge
 		public static string LIFE_RING    = new string('\xf1cd', 1); 	
 		public static string MAGIC        = new string('\xf0d0', 1); 
 		public static string BUG          = new string('\xf188', 1); 
-		public static string CUBES        = new string('\xf1b3', 1); 
+		public static string CUBES        = new string('\xf085', 1); 
 		public static string BOOKMARK     = new string('\xf02e', 1); 
 		public static string BARS         = new string('\xf0c9', 1); 
 		public static string SORT_AMOUNT  = new string('\xf161', 1); 

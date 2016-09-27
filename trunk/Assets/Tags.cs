@@ -4,8 +4,6 @@
 // Window->Script Forge and on that window hit generate. 
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace ScriptForge.Generated 
-{
 
 	/// <summary>
 	/// Generates a safe wrapper for Tags.
@@ -30,4 +28,3 @@ namespace ScriptForge.Generated
 		    public static readonly string Trap = "Trap";
 		    public static readonly string Wall_that_no_one_can_enter = "Wall_that_no_one_can_enter";
 		}
-}

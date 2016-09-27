@@ -8,7 +8,7 @@ using System.IO;
 
 namespace ScriptForge
 {
-    public class SortingLayersWidgetV2 : ForgeWidgetV2
+    public class SortingLayersWidget : ForgeWidget
     {
         public override GUIContent label
         {
