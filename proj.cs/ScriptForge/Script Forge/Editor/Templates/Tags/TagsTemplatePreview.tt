@@ -1,0 +1,24 @@
+﻿<#@ template debug="true" hostSpecific="false" inherits="ScriptForge.TagsTemplate"#>
+<#@ output extension=".cs" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ assembly name="$(TargetPath)" #> 
+<#
+	Dictionary<string, object> session = new Dictionary<string, object>();
+	session["m_ClassName"] = "Tags";
+	session["m_Namespace"] = "ScriptforgeGenerated";
+	session["m_IsPartialClass"] = true;
+	session["m_IsStaticClass"] = true;
+	session["m_Indent"] = "	";
+	session["m_SaveLocation"] = @"C:\Users\byron\Desktop\" + session["m_ClassName"] + ".cs";
+	session["m_AssetHash"] = "b62288ca78c2769c271afefe24922517";
+	session["m_EnumName"] = "Types";
+	session["m_IsEnumDefinedInClass"] = true;
+	session["m_Tags"] = new string[] { "Default", "UI", "Editor_Only", "Player", "Pickups" };
+	session["m_CreateEnum"] = true;
+	this.Session = session;
+	this.Initialize();
+#>
+<#@ include once="true" file=".\TagsTemplate.tt" #>
+

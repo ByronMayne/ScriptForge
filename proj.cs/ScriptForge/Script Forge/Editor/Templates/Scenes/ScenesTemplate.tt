@@ -1,0 +1,64 @@
+﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseScriptForgeTemplate"#>
+<#@ parameter type="System.String" name="m_EnumName" #>
+<#@ parameter type="System.String[]" name="m_Scenes" #>
+<#@ parameter type="System.Boolean" name="m_CreateEnum" #>
+<# WriteClassOutline(); #>
+<#+
+    /// <summary>
+    /// A function used to define any content that should exist in this classes namespace.
+    /// </summary>
+    public override void WriteNamespaceContent()
+    {
+    }
+
+	/// <summary>
+    /// This class contains all our GUI Content labels that we use in Script Forge
+    /// </summary>
+    public override void WriteClassContent()
+    {
+		for(int i = 0; i < m_Scenes.Length; i++)
+        {
+			Write("public const string ");
+			Write(m_Scenes[i].ToUpper());
+			Write(" = \"");
+			Write(m_Scenes[i]);
+			WriteLine("\";");
+        }
+    }
+
+	/// <summary>
+    /// Invoked when the enum should be defined by this widget.
+    /// </summary>
+    public override void WriteEnumContent()
+    {
+		if(!m_CreateEnum)
+        {
+			return;
+        }
+#>
+/// <summary>
+/// An enum that contains the names of every scene that
+/// is in your project.
+/// </summary>
+<#+
+		Write("public enum ");
+		WriteLine(m_EnumName);
+		WriteLine("{");
+		PushIndent(indent);
+		for(int i = 0; i < m_Scenes.Length; i++)
+        {
+			Write(m_Scenes[i]);
+			if( i < m_Scenes.Length - 1)
+            {
+				WriteLine(",");
+            }
+			else
+            {
+				WriteLine(string.Empty);
+            }
+        }
+		PopIndent();
+		WriteLine("}");
+		WriteLine(string.Empty);
+    }
+#>
