@@ -19,6 +19,11 @@ namespace ScriptForge
         public const string SAVE_NAME = "ScriptableForge.asset";
 
         /// <summary>
+        /// We save this key in Editor Prefs to see if we have used script forge before. 
+        /// </summary>
+        public const string FIRST_LAUNCH_KEY = "ScriptForge.FirstLaunch";
+
+        /// <summary>
         /// Gets the path where we save our scriptable object singleton. 
         /// </summary>
         /// <returns></returns>
@@ -44,6 +49,12 @@ namespace ScriptForge
             if(instance == null)
             {
                 Debug.Log("Unable to load or create Scriptable Forge instance");
+            }
+
+            if(!EditorPrefs.HasKey(FIRST_LAUNCH_KEY))
+            {
+                EditorPrefs.SetBool(FIRST_LAUNCH_KEY, true);
+                ScriptableForge.OpenDocumentation();
             }
         }
 
@@ -211,6 +222,14 @@ namespace ScriptForge
         private static void OpenSettings()
         {
             Selection.activeObject = GetInstance();
+        }
+
+        /// <summary>
+        /// Opens the google doc that has the documentation for Script Forge. 
+        /// </summary>
+        public static void OpenDocumentation()
+        {
+            System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
         }
 
         [System.NonSerialized]

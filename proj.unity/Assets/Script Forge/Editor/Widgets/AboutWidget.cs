@@ -36,8 +36,10 @@ namespace ScriptForge
         {
             if (GUILayout.Button("Documentation", style.button))
             {
-                System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
+                ScriptableForge.OpenDocumentation();
             }
         }
+
+
 	}
 }
