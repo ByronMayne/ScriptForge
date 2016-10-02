@@ -74,7 +74,7 @@ namespace ScriptForge
             DESCRIPTION_ABOUT_WIDGET = new GUIContent("About", "This is where you can adjust any settings for ScriptForge.");
             DESCRIPTION_SETTINGS_WIDGET = new GUIContent("Settings", "Who made ScriptForge and what does it do?");
             HEADER_TITLE = new GUIContent("cript Forge", "Making jobs simpler since 2014.");
-            HEADER_SUB_TITLE = new GUIContent("v 2.1", "Last update July 2016/10/01.");
+            HEADER_SUB_TITLE = new GUIContent("v" + ProjectVersion.PROJECT_VERSION, "Last update July 2016/10/01.");
             defaultWidgetTitle = new GUIContent("Default", "This is a debugging default widget");
             aboutWidgetContent = new GUIContent("ScriptForge is a tool used to auto generate classes the are frequently used by developers who use Unity. If you have any questions, suggestions or issues please feel free to reach out to me at Byronmayne@gmail.com.");
             aboutWidgetTitle = new GUIContent("About");
