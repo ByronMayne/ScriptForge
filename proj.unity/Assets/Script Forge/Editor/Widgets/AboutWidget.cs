@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
+using System;
 
 namespace ScriptForge
 {
-    [System.Serializable]
+    [RequiredWidget, Serializable]
     public class AboutWidget : Widget
     {
         public override GUIContent label

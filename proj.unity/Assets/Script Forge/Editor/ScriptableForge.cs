@@ -5,6 +5,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using System.Reflection;
 using Type = System.Type;
+using Attribute = System.Attribute;
 using UnityEditor.Callbacks;
 
 namespace ScriptForge
@@ -62,13 +63,44 @@ namespace ScriptForge
             {
                 for (int i = 1; i < instances.Length; i++)
                 {
-                    Debug.Log("Cleaning up extra instances of Scriptable Forge");
                     DestroyImmediate(instances[i], true);
                 }
             }
             return instances[0];
         }
 
+        /// <summary>
+        /// Gets all the types of all widgets that are defined in this assembly. 
+        /// </summary>
+        public static List<Type> GetDefinedWidgetTypes(bool includeAbstractTypes)
+        {
+            // Get our current assembly
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            // Get all the types
+            Type[] types = assembly.GetTypes();
+            // Create a holder
+            List<Type> widgetTypes = new List<Type>();
+            // Loop over all types and see if they are correct
+            for(int i = 0; i < types.Length; i++)
+            {
+                if(!includeAbstractTypes && types[i].IsAbstract)
+                {
+                    // We don't want abstract types and this type is.
+                    continue;
+                }
+
+                if(typeof(Widget).IsAssignableFrom(types[i]))
+                {
+                    widgetTypes.Add(types[i]);
+                }
+            }
+            return widgetTypes;
+        }
+
+        /// <summary>
+        /// Reads the yaml defined on disk if there is one for a Scriptable Forge or
+        /// creates a new one.
+        /// </summary>
         private static void ReadInstanceFromDiskOrCreateNew()
         {
             // Store our path
@@ -123,6 +155,31 @@ namespace ScriptForge
             {
                 m_LoadedWidgets[i].OnLoaded();
             }
+
+            // Get all our widget types.
+            List<Type> widgetTypes = GetDefinedWidgetTypes(includeAbstractTypes: false);
+            // Remove all that are not required. 
+            for (int i = widgetTypes.Count - 1; i >= 0; i--)
+            {
+                if (Attribute.GetCustomAttribute(widgetTypes[i], typeof(RequiredWidgetAttribute)) != null)
+                {
+                    bool foundWidget = false;
+                    for (int x = 0; x < m_LoadedWidgets.Count; x++)
+                    {
+
+                        if( m_LoadedWidgets[x].GetType() == widgetTypes[i] )
+                        {
+                            foundWidget = true; 
+                            // We found the type so we move on.
+                            break;
+                        }
+                    }
+                    if(!foundWidget)
+                    {
+                        m_Instance.OnWidgetAdded(widgetTypes[i]);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -146,7 +203,6 @@ namespace ScriptForge
             }
             ScriptableForge[] instances = Resources.FindObjectsOfTypeAll<ScriptableForge>();
 
-            Debug.Log("Savinging INstances: " + instances.Length + " Widget Count: " + m_Widgets.Count.ToString());
             // Save them to disk. 
             InternalEditorUtility.SaveToSerializedFileAndForget(saveList.ToArray(), savePath, true);
         }

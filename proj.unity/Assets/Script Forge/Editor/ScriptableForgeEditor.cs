@@ -46,10 +46,12 @@ namespace ScriptForge
                 GUILayout.Box(GUIContent.none, m_Styles.scriptForgeIconSmall);
                 GUILayout.Label(ScriptForgeLabels.HEADER_TITLE, m_Styles.title);
                 GUILayout.Label(ScriptForgeLabels.HEADER_SUB_TITLE, m_Styles.subTitle);
+                GUILayout.FlexibleSpace();
+            
             }
             GUILayout.EndHorizontal();
 
-
+            GUILayout.Box(FontAwesomeIcons.INFO, GUIStyle.none);
 
         }
         public override void OnInspectorGUI()

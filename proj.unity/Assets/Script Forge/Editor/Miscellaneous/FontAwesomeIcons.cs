@@ -28,6 +28,7 @@ namespace ScriptForge
         public static string CHECKBOX     = new string('\xf058', 1);
         public static string REFRESH      = new string('\xf021', 1);
         public static string WARNING      = new string('\xf071', 1);
+        public static string INFO         = new string('\x129', 1);
     }
 }
 

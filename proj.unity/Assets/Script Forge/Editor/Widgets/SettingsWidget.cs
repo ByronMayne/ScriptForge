@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
+using System;
 
 namespace ScriptForge
 {
+    [RequiredWidget, Serializable]
     public class SettingsWidget : Widget
     {
         public override GUIContent label
