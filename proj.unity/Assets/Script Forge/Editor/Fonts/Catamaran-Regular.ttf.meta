@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: fb76d23270e533f4a8fc63d97099108f
+labels:
+- ScriptForge
+timeCreated: 1474937196
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames: []
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

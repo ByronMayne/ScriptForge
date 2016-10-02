@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b6905938b8243994087ab128af4c9fd2
+labels:
+- ScriptForge
+timeCreated: 1475367180
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - m_ScriptForgeIcon: {fileID: 2800000, guid: 9b2bc2b064fb627448b92ca5c5f30968, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
