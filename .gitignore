@@ -5,14 +5,16 @@ Temp/
 Obj/
 UnityGenerated/
 Library/
-
+proj.unity/*.csproj
+**/*Test*
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
 ExportedObj/
 *.svd
 *.userprefs
-*.csproj
+*/proj.cs/*.csproj
+/proj.cs/ScriptForge
 *.pidb
 *.suo
 *.sln
@@ -47,3 +49,4 @@ trunk/Assets/Test.tt.meta
 trunk/Assets/feafw.unity.meta
 trunk/Assets/sf_Layers.cs
 trunk/Assets/sf_Layers.cs.meta
+
