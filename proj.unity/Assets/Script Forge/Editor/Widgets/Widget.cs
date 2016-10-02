@@ -23,7 +23,7 @@ namespace ScriptForge
 
         // Errors
         private ScriptForgeErrors.Codes m_ErrorCode;
-        private string m_ErrorMessage; 
+        private string m_ErrorMessage;
 
         /// <summary>
         /// Is this widget current open?
@@ -80,13 +80,12 @@ namespace ScriptForge
 
         }
 
+        /// <summary>
+        /// Invoked when this instance is created. 
+        /// </summary>
         protected void OnDisable()
         {
-            if(m_ScriptableForge != null && m_OpenAnimation != null)
-            {
-                m_OpenAnimation.valueChanged.RemoveListener(m_ScriptableForge.Repaint);
-            }
-
+            m_OpenAnimation.valueChanged.RemoveAllListeners();
         }
 
         public void Initalize(ScriptableForge instance)
@@ -133,7 +132,7 @@ namespace ScriptForge
                     {
                         DrawWidgetContent(style);
                     }
-                    if(EditorGUI.EndChangeCheck())
+                    if (EditorGUI.EndChangeCheck())
                     {
                         OnContentChanged();
                     }
@@ -144,7 +143,7 @@ namespace ScriptForge
             }
             EditorGUILayout.EndVertical();
 
-            if(m_ScriptableForge.animateWidgets)
+            if (m_ScriptableForge.animateWidgets)
             {
                 m_OpenAnimation.target = m_IsOpen;
             }
@@ -191,7 +190,7 @@ namespace ScriptForge
         /// </summary>
         protected void ClearError(ScriptForgeErrors.Codes code)
         {
-            if(code == m_ErrorCode)
+            if (code == m_ErrorCode)
             {
                 ClearErrors();
             }
@@ -202,8 +201,8 @@ namespace ScriptForge
         /// </summary>
         protected void ClearErrors()
         {
-                m_ErrorCode = ScriptForgeErrors.Codes.None;
-                m_ErrorMessage = string.Empty;
+            m_ErrorCode = ScriptForgeErrors.Codes.None;
+            m_ErrorMessage = string.Empty;
         }
 
         public void FlashColor(Color color, float time = 2.0f)
@@ -216,7 +215,7 @@ namespace ScriptForge
 
         protected virtual void OnContentChanged()
         {
-            
+
         }
 
         private void FlashUpdate()
@@ -227,7 +226,7 @@ namespace ScriptForge
             lerpTime /= 2f;
             m_BackgroundColor = Color.Lerp(Color.white, m_FlashColor, lerpTime);
             m_ScriptableForge.Repaint();
-            if(m_FlashUntil < Time.realtimeSinceStartup)
+            if (m_FlashUntil < Time.realtimeSinceStartup)
             {
                 EditorApplication.update -= FlashUpdate;
                 m_BackgroundColor = Color.white;
