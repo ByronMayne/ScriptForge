@@ -15,7 +15,7 @@ namespace ScriptForge
 
         public static readonly GUIContent openAllWidgetsLabel;
         public static readonly GUIContent closeAllWidgetsLabel;
-        public static readonly GUIContent addForgeLabel;
+        public static readonly GUIContent addWidget;
         public static readonly GUIContent generateAllForgesLabel;
         public static readonly GUIContent setCommonPathLabel;
         public static readonly GUIContent RESET_ALL_FORGES_BUTTON_LABEL;
@@ -60,10 +60,10 @@ namespace ScriptForge
         /// </summary>
         static ScriptForgeLabels()
         {
-            openAllWidgetsLabel = new GUIContent("Open All Forges", "This will open all the forges in  Script Forge");
-            closeAllWidgetsLabel = new GUIContent("Close All Forges", "This will close all open forges in  Script Forge");
-            addForgeLabel = new GUIContent("Add Forge", "This will add a new forge that is not already part of Script Forge");
-            generateAllForgesLabel = new GUIContent("Generate All", "This will tell all forges to generate their scripts if they have changed since last time");
+            openAllWidgetsLabel = new GUIContent("Open All Widgets", "This will open all the widgets in  Script Forge");
+            closeAllWidgetsLabel = new GUIContent("Close All Widgets", "This will close all open widgets in  Script Forge");
+            addWidget = new GUIContent("Add Widget", "This will add a new widget that is not already part of Script Forge");
+            generateAllForgesLabel = new GUIContent("Generate All Forges", "This will tell all forges to generate their scripts if they have changed since last time");
             setCommonPathLabel = new GUIContent("Set Common Path", "This is the path that all forges will build their scripts to.");
             RESET_ALL_FORGES_BUTTON_LABEL = new GUIContent("Reset Forges", "This will reset all forges to their default values.");
             DESCRIPTION_LAYERS_WIDGET = new GUIContent("Layers", "This forge is used to crate a static class for all Layers in your Unity Project. It makes both Bitwise value and Intagers.");

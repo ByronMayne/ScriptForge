@@ -148,8 +148,8 @@ namespace ScriptForge
         private void DrawAddForgeButton()
         {
             Event current = Event.current;
-            Rect buttonRect = GUILayoutUtility.GetRect(ScriptForgeLabels.addForgeLabel, m_Styles.buttonLeft);
-            int controlID = GUIUtility.GetControlID(ScriptForgeLabels.addForgeLabel, FocusType.Keyboard, buttonRect);
+            Rect buttonRect = GUILayoutUtility.GetRect(ScriptForgeLabels.addWidget, m_Styles.buttonLeft);
+            int controlID = GUIUtility.GetControlID(ScriptForgeLabels.addWidget, FocusType.Keyboard, buttonRect);
 
             if (current.type == EventType.MouseDown && buttonRect.Contains(current.mousePosition))
             {
@@ -211,7 +211,7 @@ namespace ScriptForge
 
             if (current.type == EventType.Repaint)
             {
-                m_Styles.buttonLeft.Draw(buttonRect, ScriptForgeLabels.addForgeLabel, isHover: m_AddForgeButtonSelected, isActive: m_AddForgeButtonSelected, on: false, hasKeyboardFocus: false);
+                m_Styles.buttonLeft.Draw(buttonRect, ScriptForgeLabels.addWidget, isHover: m_AddForgeButtonSelected, isActive: m_AddForgeButtonSelected, on: false, hasKeyboardFocus: false);
             }
         }
 
