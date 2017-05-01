@@ -29,6 +29,8 @@ namespace ScriptForge
         public static string REFRESH      = new string('\xf021', 1);
         public static string WARNING      = new string('\xf071', 1);
         public static string INFO         = new string('\x129', 1);
+        public static string MOVIE        = new string('\xf008', 1);
+        public static string PUZZLE_PIECE = new string('\xf12e', 1);
     }
 }
 

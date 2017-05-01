@@ -11,6 +11,10 @@ namespace ScriptForge
         [SerializeField]
         private string m_GeneratorHash = string.Empty;
         [SerializeField]
+        private bool m_CreateEnum;
+        [SerializeField]
+        private bool m_EnumDefinedInClass = false;
+        [SerializeField]
         private string m_EnumName = "Types";
 
         public override GUIContent label
@@ -54,6 +58,7 @@ namespace ScriptForge
         protected override void DrawWidgetContent(ScriptForgeStyles style)
         {
             base.DrawWidgetContent(style);
+            m_CreateEnum = EditorGUILayout.Toggle("Create Enum", m_CreateEnum);
             m_EnumName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.enumNameContent, m_EnumName, "Types");
         }
 

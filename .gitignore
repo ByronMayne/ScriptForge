@@ -14,7 +14,6 @@ ExportedObj/
 *.svd
 *.userprefs
 */proj.cs/*.csproj
-/proj.cs/ScriptForge
 *.pidb
 *.suo
 *.sln
@@ -39,14 +38,10 @@ trunk/Assets/ww_Scenes.cs.meta
 trunk/Assets/Asset Store Art/
 trunk/Assets/EmptyScene.unity.meta
 .unity.meta
-trunk/Assets/Level 1.unity.meta
-trunk/Assets/Level 2.unity.meta
-trunk/Assets/Script Forge/TagManager.cs
-trunk/Assets/Script Forge/TagManager.cs.meta
-trunk/Assets/SortingLayers.cs
-trunk/Assets/SortingLayers.cs.meta
-trunk/Assets/Test.tt.meta
-trunk/Assets/feafw.unity.meta
-trunk/Assets/sf_Layers.cs
-trunk/Assets/sf_Layers.cs.meta
 
+
+proj\.unity/Assets/GeneratedClasses/
+
+proj\.unity/Assets/Script Forge\.zip\.meta
+
+proj\.cs/ScriptForge/bin/

@@ -18,6 +18,8 @@ MonoBehaviour:
   - {fileID: 5}
   - {fileID: 6}
   - {fileID: 7}
+  - {fileID: 8}
+  - {fileID: 9}
   m_AnimateWidgets: 1
 --- !u!114 &2
 MonoBehaviour:
@@ -30,13 +32,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0e7b97cedb9724692702a59a6c8b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
-  m_AutomaticallyGenerate: 1
+  m_AutomaticallyGenerate: 0
   m_ScriptLocation: Assets/GeneratedClasses/Tags.cs
-  m_Namespace: Scriptforge.Generated
+  m_Namespace: 
   m_ClassName: Tags
-  m_AssetHash: b62288ca78c2769c271afefe24922517
+  m_AssetHash: 2cf119d9c0d84d494b0630633c7fb6e2
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,9 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242725863df17cd438f6862b72dd065b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
-  m_AutomaticallyGenerate: 1
+  m_AutomaticallyGenerate: 0
   m_ScriptLocation: Assets/GeneratedClasses/Layers.cs
   m_Namespace: Scriptforge.Generated
   m_ClassName: Layers
@@ -66,13 +68,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e5821b21c6b2244bd2c9ecea96dbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: Assets/GeneratedClasses/SortingLayers.cs
+  m_ScriptLocation: 
   m_Namespace: 
   m_ClassName: SortingLayers
-  m_AssetHash: d307331b652782ef775ecb299061ba0c
+  m_AssetHash: 
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb382b6d814f40e45826e005e42fb491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
   m_ScriptLocation: Assets/GeneratedClasses/Scenes.cs
@@ -92,8 +94,46 @@ MonoBehaviour:
   m_ClassName: Scenes
   m_AssetHash: 40109b2e56501912d1fd7afa9cb77387
   m_GeneratorHash: 
-  m_EnumName: eScenes
+  m_CreateEnum: 1
+  m_EnumDefinedInClass: 0
+  m_EnumName: Types
 --- !u!114 &6
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5277bca576512704da40db36e26f11b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsOpen: 0
+  m_ScriptableForge: {fileID: 1}
+  m_AutomaticallyGenerate: 0
+  m_ScriptLocation: 
+  m_Namespace: 
+  m_ClassName: Tags
+  m_AssetHash: 
+--- !u!114 &7
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189348e37cd6880468bc494a79b391d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsOpen: 0
+  m_ScriptableForge: {fileID: 1}
+  m_AutomaticallyGenerate: 0
+  m_ScriptLocation: 
+  m_Namespace: 
+  m_ClassName: Tags
+  m_AssetHash: 
+--- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -104,9 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bc1275e3f8ff143a7173e33ba77b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
---- !u!114 &7
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -117,5 +157,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e5d60d701b7994dbfbe4a4c8a96cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 1
+  m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}

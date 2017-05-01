@@ -31,7 +31,9 @@ namespace ScriptForge
         public const int LAYERS_WIDGET_SORT_ORDER = 2;
         public const int SORTING_LAYERS_WIDGET_SORT_ORDER = 3;
         public const int SCENES_WIDGET_SORT_ORDER = 4;
-        public const int SETTINGS_WIDGET_SORT_ORDER = 5;
-        public const int ABOUT_WIDGET_SORT_ORDER = 6;
+        public static int ANIMATION_WIDGET_SORT_ORDER = 5;
+        public static int RESOURCES_WIDGET_SORT_ORDER = 6;
+        public const int SETTINGS_WIDGET_SORT_ORDER = 99;
+        public const int ABOUT_WIDGET_SORT_ORDER = 100;
     }
 }
