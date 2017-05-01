@@ -7,7 +7,7 @@ using System.IO;
 namespace ScriptForge
 {
     [System.Serializable]
-    public class ResourcesWidget : ForgeWidget
+	public class ResourcesWidget : FolderFilterWidget
     {
         public override GUIContent label
         {
