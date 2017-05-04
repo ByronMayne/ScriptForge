@@ -271,6 +271,7 @@ namespace ScriptForge
             m_Widgets.Add(newWidget);
             m_AddForgeButtonSelected = false;
             m_Widgets.Sort();
+            newWidget.OnLoaded();
         }
     }
 }

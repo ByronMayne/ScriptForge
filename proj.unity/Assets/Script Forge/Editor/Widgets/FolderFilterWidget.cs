@@ -7,7 +7,6 @@ namespace ScriptForge
 {
     public abstract class FolderFilterWidget : ForgeWidget
     {
-
         private GUIContent m_FoldersTitle = new GUIContent("Folders To Include");
 
         [SerializeField]
@@ -36,6 +35,19 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Invoked when our widget is loaded from disk or added. 
+        /// </summary>
+        public override void OnLoaded()
+        {
+            base.OnLoaded();
+            if(m_Folders == null)
+            {
+                m_Folders = new List<string>();
+            }
+            m_FoldersDrawer = new ReorderableList(m_Folders, typeof(string));
+        }
+
+        /// <summary>
         /// Invoked when our widget is created. 
         /// </summary>
         protected override void OnEnable()
@@ -43,7 +55,7 @@ namespace ScriptForge
             // Call base. 
             base.OnEnable();
             // Create our drawer
-            m_FoldersDrawer = new ReorderableList(m_Folders, typeof(string));
+
             // Subscribe our callbacks
             m_FoldersDrawer.drawHeaderCallback += OnDrawFoldersHeader;
             m_FoldersDrawer.drawElementCallback += OnDrawFolderContent;
