@@ -112,6 +112,8 @@ namespace ScriptForge
                     result.Add(assetPath);
                 }
             }
+
+            base.OnGenerate();
         }
     }
 }
