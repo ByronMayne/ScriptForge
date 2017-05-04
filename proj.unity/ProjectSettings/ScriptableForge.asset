@@ -105,7 +105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5277bca576512704da40db36e26f11b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 189348e37cd6880468bc494a79b391d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsOpen: 0
@@ -123,16 +123,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189348e37cd6880468bc494a79b391d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5277bca576512704da40db36e26f11b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 0
+  m_IsOpen: 1
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
   m_ScriptLocation: 
   m_Namespace: 
   m_ClassName: Tags
   m_AssetHash: 
+  m_Folders:
+  - Assets/Resources/Player
+  - Assets/Resources
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 0

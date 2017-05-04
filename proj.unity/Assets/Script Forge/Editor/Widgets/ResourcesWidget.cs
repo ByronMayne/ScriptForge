@@ -7,7 +7,7 @@ using System;
 namespace ScriptForge
 {
     [System.Serializable]
-    public class ResourcesWidget : ForgeWidget
+	public class ResourcesWidget : FolderFilterWidget
     {
         private const float BUTTON_WIDTH = 40;
         private GUIContent m_HeaderLabel = new GUIContent("Included Resource Folders");

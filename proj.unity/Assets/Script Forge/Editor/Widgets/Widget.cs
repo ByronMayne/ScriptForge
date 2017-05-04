@@ -83,7 +83,7 @@ namespace ScriptForge
         /// <summary>
         /// Invoked when this instance is created. 
         /// </summary>
-        protected void OnDisable()
+		protected virtual void OnDisable()
         {
             m_OpenAnimation.valueChanged.RemoveAllListeners();
         }
