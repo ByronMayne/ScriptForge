@@ -9,11 +9,7 @@ namespace ScriptForge
     [System.Serializable]
 	public class ResourcesWidget : FolderFilterWidget
     {
-        private const float BUTTON_WIDTH = 40;
         private GUIContent m_HeaderLabel = new GUIContent("Included Resource Folders");
-
-        [SerializeField]
-        protected List<string> m_FoldersToInclude;
 
         protected ReorderableList m_SerilaizedList;
 
@@ -55,17 +51,6 @@ namespace ScriptForge
             }
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            // Create our list. 
-            m_SerilaizedList = new ReorderableList(m_FoldersToInclude, typeof(string));
-            m_SerilaizedList.drawElementCallback += OnDrawElement;
-            m_SerilaizedList.drawHeaderCallback += OnDrawHeader;
-            m_SerilaizedList.onAddCallback += OnFolderAdded;
-        }
-
-
         /// <summary>
         /// Invoked when we are drawing our header.
         /// </summary>
@@ -75,40 +60,12 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked when we need to draw our element 
+        /// Returns back our complete list of assets inside our selected folders. 
         /// </summary>
-        private void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
-        {
-            Rect contentRect = rect;
-            contentRect.width -= BUTTON_WIDTH;
-            GUI.Label(contentRect, m_FoldersToInclude[index]); 
-        }
-
-        /// <summary>
-        /// Invoked to allow us to draw are GUI content for this forge.
-        /// </summary>
-        protected override void DrawWidgetContent(ScriptForgeStyles style)
-        {
-            base.DrawWidgetContent(style);
-            m_SerilaizedList.DoLayoutList();
-        }
-
-        /// <summary>
-        /// Invoked when we add a new element to our list. 
-        /// </summary>
-        private void OnFolderAdded(ReorderableList list)
-        {
-            // Get the path 
-            string path = EditorUtility.OpenFolderPanel("Folder", Application.dataPath, "Resources");
-            // Convert it to a unity path
-            path = FileUtil.GetProjectRelativePath(path);
-            // Add it
-            m_FoldersToInclude.Add(path);
-        }
-
+        /// <returns></returns>
         protected string[] GetResourceAssetGUIDs()
         {
-            return AssetDatabase.FindAssets("", m_FoldersToInclude.ToArray());
+            return AssetDatabase.FindAssets("", folders.ToArray());
         }
 
         /// <summary>
@@ -140,7 +97,6 @@ namespace ScriptForge
                 if(!result.Contains(assetPath))
                 {
                     result.Add(assetPath);
-                    Debug.Log("Adding: " + assetPath);
                 }
             }
         }

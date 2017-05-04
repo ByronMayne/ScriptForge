@@ -20,7 +20,7 @@ namespace ScriptForge
 		/// Gets the list of folders that we use for this
 		/// widget. 
 		/// </summary>
-		public IList<string> folders 
+		public List<string> folders 
 		{
 			get { return m_Folders; }
 		}
@@ -72,11 +72,11 @@ namespace ScriptForge
 		/// </summary>
 		protected virtual void OnDrawFolderContent(Rect rect, int index, bool isActive, bool isFocused)
 		{
-			GUI.Label(rect, m_Folders[index], EditorStyles.boldLabel);
+			GUI.Label(rect, m_Folders[index]);
 		}
 
 		/// <summary>
-		/// Invoked whenver the user presses the + button to add a 
+		/// Invoked when ever the user presses the + button to add a 
 		/// new folder.
 		/// </summary>
 		protected virtual void OnAddFolderRequested(ReorderableList list)
