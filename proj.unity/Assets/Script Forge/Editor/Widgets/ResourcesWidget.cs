@@ -9,6 +9,7 @@ namespace ScriptForge
     [System.Serializable]
 	public class ResourcesWidget : FolderFilterWidget
     {
+        private const string RESOURCES_FOLDER_NAME = "/Resources";
         private GUIContent m_HeaderLabel = new GUIContent("Included Resource Folders");
 
         protected ReorderableList m_SerilaizedList;
@@ -68,19 +69,31 @@ namespace ScriptForge
             return AssetDatabase.FindAssets("", folders.ToArray());
         }
 
+
         /// <summary>
-        /// Returns one string that contains all the names of all our assets to build
-        /// our hash with.
-        protected override string GetHashInputString()
+        /// When a new folder is added this will be invoked. If it returns true it will
+        /// be added and if false it will not be added.
+        /// </summary>
+        /// <param name="assetPath">The asset path to the folder being added.</param>
+        protected override bool IsValidFolder(string assetPath)
         {
-            string hashInput = string.Empty;
-            hashInput += m_Namespace;
-            hashInput += m_ClassName;
-            foreach (var assetPath in GetResourceAssetGUIDs())
+            // Make sure it's a resources path
+            int resourcesIndex = assetPath.LastIndexOf(RESOURCES_FOLDER_NAME + "/");
+            // Get our end index
+            // Check to see if the index is great then -1
+            if (resourcesIndex >= 0 || assetPath.EndsWith(RESOURCES_FOLDER_NAME))
             {
-                hashInput += assetPath;
+                if (!folders.Contains(assetPath))
+                {
+                    return true;
+                }
             }
-            return hashInput;
+            else
+            {
+                EditorUtility.DisplayDialog("Invalid Resource Path", "The path '" + assetPath + "' does not contain a resources folder. Please try again", "Okay");
+            }
+            // It's not a valid folder
+            return false;
         }
 
         /// <summary>

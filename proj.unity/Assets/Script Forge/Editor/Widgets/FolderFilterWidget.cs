@@ -7,7 +7,7 @@ namespace ScriptForge
 {
 	public abstract class FolderFilterWidget : ForgeWidget
 	{
-		private const string RESOURCES_FOLDER_NAME = "/Resources";
+
 		private GUIContent m_FoldersTitle = new GUIContent("Folders To Include");
 		
 		[SerializeField]
@@ -88,29 +88,37 @@ namespace ScriptForge
 			// Make sure it's not null
 			if(!string.IsNullOrEmpty(assetPath))
 			{
-				// Make sure it's a resources path
-				int resourcesIndex = assetPath.LastIndexOf(RESOURCES_FOLDER_NAME + "/");
-				// Get our end index
-				// Check to see if the index is great then -1
-				if(resourcesIndex >= 0 || assetPath.EndsWith(RESOURCES_FOLDER_NAME))
-				{
-					if(!folders.Contains(assetPath))
-					{
-						folders.Add(assetPath);
-					}
-				} 
-				else
-				{
-					EditorUtility.DisplayDialog("Invalid Resource Path", "The path '" + assetPath + "' does not contain a resources folder. Please try again", "Okay");
-				}
+                if(IsValidFolder(assetPath))
+                {
+                    folders.Add(assetPath);
+                }
 			} 
-			else
-			{
-				EditorUtility.DisplayDialog("Invalid Resource Path", "The path '" + systemPath + "' is not contained inside the current Unity project. The path must be.", "Okay");
-			}
+            // If it's empty they most likely hit cancel so we don't do anything
 		}
 
-		protected override void DrawWidgetContent(ScriptForgeStyles style)
+        /// <summary>
+        /// When a new folder is added this will be invoked. If it returns true it will
+        /// be added and if false it will not be added.
+        /// </summary>
+        /// <param name="assetPath">The asset path to the folder being added.</param>
+        protected abstract bool IsValidFolder(string assetPath);
+
+        /// <summary>
+        /// Returns one string that contains all the names of all our assets to build
+        /// our hash with.
+        protected override string GetHashInputString()
+        {
+            string hash = string.Empty;
+            hash += m_Namespace;
+            hash += m_ClassName;
+            for(int i = 0; i < m_Folders.Count; i++)
+            {
+                hash += m_Folders[i];
+            }
+            return hash;
+        }
+
+        protected override void DrawWidgetContent(ScriptForgeStyles style)
 		{
 			base.DrawWidgetContent(style);
 			// Draw our folders
