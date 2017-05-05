@@ -4,6 +4,22 @@ Scriptforge is a tool used to help you keep your constants up to date. Instead o
 
 Can't find a forge creating what you want? Extend the `Widget.cs` class and make your own. Everything is linked with reflection so you don't have to update any other existing code. 
 
+
+## Widgets
+Below is an example of the output of some of the widgets that are in Script Forge.
+
+#### Layers 
+![](./docs/imgs/Layers.png)
+
+#### Sorting Layers 
+![](./docs/imgs/SortingLayers.png)
+
+#### Scenes 
+![](./docs/imgs/Scenes.png)
+
+#### Tags 
+![](./docs/imgs/Tags.png)
+
 ## Adding a Widget
 
 By default there is always two widgets in view. The first one being the basic settings and the second being about. These are not much use to you. What we will need to do is add a new Widget. To do this click on the `Add Widget` button. 
