@@ -1,3 +1,7 @@
+### Quick Note
+This is quite an old project but I am still adding to it. Currently the Resources and Animation Widget are not implemented but I am working on that. 
+Have any other types of widgets you think would be helpful? Feel free to request it or make your own and I can merge it in. 
+
 # ScriptForge
 
 Scriptforge is a tool used to help you keep your constants up to date. Instead of having to keep track of them by hand they can be generated for you automatically. All you have to do is add the code to your Unity project and go to `Edit/Project Settings/Script FOrge`. These constants can be generated for a range of things. Some example are the Scenes in the build settings, the files in select resource folders, the tags/sorting layers/layers defined in the project. The choice is left to you to choose what you would like to do. 
