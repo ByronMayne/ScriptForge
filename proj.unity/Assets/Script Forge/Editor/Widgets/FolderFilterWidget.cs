@@ -44,18 +44,9 @@ namespace ScriptForge
             {
                 m_Folders = new List<string>();
             }
+
+            // Create our drawer and subscribe it's callbacks.
             m_FoldersDrawer = new ReorderableList(m_Folders, typeof(string));
-        }
-
-        /// <summary>
-        /// Invoked when our widget is created. 
-        /// </summary>
-        protected override void OnEnable()
-        {
-            // Call base. 
-            base.OnEnable();
-            // Create our drawer
-
             // Subscribe our callbacks
             m_FoldersDrawer.drawHeaderCallback += OnDrawFoldersHeader;
             m_FoldersDrawer.drawElementCallback += OnDrawFolderContent;
