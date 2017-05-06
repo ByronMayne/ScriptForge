@@ -25,16 +25,12 @@ Below is an example of the output of some of the widgets that are in Script Forg
 By default there is always two widgets in view. The first one being the basic settings and the second being about. These are not much use to you. What we will need to do is add a new Widget. To do this click on the `Add Widget` button. 
 ![](./docs/gifs/AddWidgetMenu.gif)
 
+# How It Works
 
+Script Forge uses the power of T4 [Text Transformation Template Toolkit](https://msdn.microsoft.com/en-us/library/bb126445.aspx) to generate code behind the scenes. If you are not familiar to template take a look at my [Gamasutra blog](http://www.gamasutra.com/blogs/ByronMayne/20160121/258356/Code_Generation_in_Unity.php). TLDR: They are just a string builder with some custom syntax to make it easy.
 
-
-
-
-
-## Icons
-
-I spent to much time trying to have nice icons in Script Forge. All icons are a made up of [Font Awesome](http://fontawesome.io/) and defined in the matching class `FontAwesomeIcons.cs`.
-
+## Project Layout
+In the root of the repository you will find two folders, the first one is 'proj.unity'. This is the normal Unity project folder. The other one is 'proj.cs'. This project is where our templates are stored and then automatically exported to the Unity project with [MSBuild](https://msdn.microsoft.com/en-us/library/0k6kkbsd.aspx). This might seem a little weird but do to the fact that Unity regenerates it's `.csproj` every time scripts change it breaks the links in our templates making them useless. In this folder we also have links to every script in our Unity project just to make sure everything stays in sync. All these things are hooked up with MSBuild but you don't really need to care about that (unless you want to). 
 
 ## Error Handling
 
@@ -50,3 +46,16 @@ Many of the fields you see in the inspector are used to generate code directly. 
 
 
 ![](./docs/gifs/NameCleanups.gif)
+
+
+## Want to help out?
+If you have a feature you want to add I would be more then happy to add it to the project.
+
+
+## Meta
+
+Handcrafted by Byron Mayne [[twitter](https://twitter.com/byMayne) &bull; [github](https://github.com/ByronMayne)]
+
+Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+
+If you have any feedback or suggestions for UnityIO feel free to contact me. 
