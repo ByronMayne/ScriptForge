@@ -1,4 +1,4 @@
-﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseScriptForgeTemplate"#>
+﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseTemplate"#>
 <#@ parameter type="System.String" name="m_EnumName" #>
 <#@ parameter type="System.String[]" name="m_Tags" #>
 <#@ parameter type="System.Boolean" name="m_CreateEnum" #>

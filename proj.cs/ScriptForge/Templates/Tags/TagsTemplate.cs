@@ -15,7 +15,7 @@ namespace ScriptForge
     /// Class to produce the template output
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public partial class TagsTemplate : ScriptForge.BaseScriptForgeTemplate
+    public partial class TagsTemplate : ScriptForge.BaseTemplate
     {
         /// <summary>
         /// Create the template output

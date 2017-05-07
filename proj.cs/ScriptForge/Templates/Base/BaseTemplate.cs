@@ -18,7 +18,7 @@ namespace ScriptForge
     /// Class to produce the template output
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public partial class BaseScriptForgeTemplate : BaseScriptForgeTemplateBase
+    public partial class BaseTemplate : BaseTemplateBase
     {
         /// <summary>
         /// Create the template output
@@ -366,7 +366,7 @@ if ((m_IsEnumDefinedInClassValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public class BaseScriptForgeTemplateBase
+    public class BaseTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;
