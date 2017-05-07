@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- This XML file is include in the csproj. It's the entry point to all our build extensions -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Property Groups are used to define variables in MSBuild -->
   <PropertyGroup>
+    <UnityProjectPath>../../proj.unity/Assets/</UnityProjectPath>
+    <ExportPath>Script Forge/Editor/Templates/</ExportPath>
   </PropertyGroup>
-  <!-- A list of platforms we want to compile this library too (Only works for dlls)-->
+  <!-- This item group is a list of all the Templates we want to export to Unity these paths are relative -->
   <ItemGroup>
-    <Template Include
+    <Templates Include="Templates\Base\BaseTemplate.cs"/>
+    <Templates Include="Templates\Scenes\ScenesTemplate.cs"/>
+    <Templates Include="Templates\Tags\TagsTemplate.cs"/>
   </ItemGroup>
-  <!-- This is a list of XML files that we want to also include in the build process. -->
+  <!-- Take the array of all our Template files in the Item Group above and exports them to the Unity project. -->
+  <Target Name="Export"
+        Inputs="@(Templates)"
+        Outputs="$(UnityProjectPath)$(ExportPath)%(Templates.Filename).cs"
+        AfterTargets="AfterBuild" >
+    <!-- Function called Export runs after we complete a build and exports the array of template to Unity -->
+    <Message Text=" Export: %(Templates.Filename).cs" Importance="high"/>
+    <Message Text="         src: %(Templates.Identity).cs" Importance="high"/>
+    <Message Text="         dst: $(UnityProjectPath)$(ExportPath)%(Templates.Filename).cs" Importance="high"/>
+    <Copy SourceFiles="@(Templates)" DestinationFolder="$(UnityProjectPath)$(ExportPath)"/>
+  </Target>
 </Project>
