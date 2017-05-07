@@ -40,77 +40,72 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="../../proj.unity/Assets/**/*.cs">
-      <Link>%(RecursiveDir)</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script Forge\Editor\Templates\Base\BaseScriptForgeTemplate.cs">
+    <Compile Include="Templates\Base\BaseScriptForgeTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseScriptForgeTemplate.tt</DependentUpon>
     </Compile>
-    <None Include="Script Forge\Editor\Templates\Base\BaseTemplatePreview.cs">
+    <Compile Include="Templates\Base\BaseTemplatePreview.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseTemplatePreview.tt</DependentUpon>
-    </None>
-    <Compile Include="Script Forge\Editor\Templates\Scenes\ScenesTemplate.cs">
+    </Compile>
+    <Compile Include="Templates\Scenes\ScenesTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>ScenesTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\Scenes\ScenesTemplatePreview.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Script Forge\Editor\Templates\Scenes\ScenesTemplateConstructor.cs" />
-    <Compile Include="Script Forge\Editor\Templates\Scenes\ScenesTemplatePreview.cs">
       <DependentUpon>ScenesTemplatePreview.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Script Forge\Editor\Templates\Tags\TagsTemplate.cs">
+    <Compile Include="Templates\Tags\TagsTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TagsTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Script Forge\Editor\Templates\Tags\TagsTemplatePreview.cs">
+    <Compile Include="Templates\Tags\TagsTemplatePreview.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TagsTemplatePreview.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Script Forge\Editor\Templates\Base\BaseScriptForgeTemplate.tt">
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\Base\BaseScriptForgeTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BaseScriptForgeTemplate.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
-    <Content Include="Script Forge\Editor\Templates\Base\BaseTemplatePreview.tt">
+    <Content Include="Templates\Base\BaseTemplatePreview.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BaseTemplatePreview.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
-    <Content Include="Script Forge\Editor\Templates\Scenes\ScenesTemplate.tt">
+    <Content Include="Templates\Scenes\ScenesTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ScenesTemplate.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
-    <Content Include="Script Forge\Editor\Templates\Scenes\ScenesTemplatePreview.tt">
+    <Content Include="Templates\Scenes\ScenesTemplatePreview.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ScenesTemplatePreview.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
-    <Content Include="Script Forge\Editor\Templates\Tags\TagsTemplate.tt">
+    <Content Include="Templates\Tags\TagsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TagsTemplate.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
-    <Content Include="Script Forge\Editor\Templates\Tags\TagsTemplatePreview.tt">
+    <Content Include="Templates\Tags\TagsTemplatePreview.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TagsTemplatePreview.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
-      <FormatOutput>True</FormatOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

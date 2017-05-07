@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- This XML file is include in the csproj. It's the entry point to all our build extensions -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Property Groups are used to define variables in MSBuild -->
+  <PropertyGroup>
+  </PropertyGroup>
+  <!-- A list of platforms we want to compile this library too (Only works for dlls)-->
+  <ItemGroup>
+    <Template Include
+  </ItemGroup>
+  <!-- This is a list of XML files that we want to also include in the build process. -->
+</Project>
