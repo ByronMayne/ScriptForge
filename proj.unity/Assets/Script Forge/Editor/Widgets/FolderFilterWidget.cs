@@ -57,9 +57,12 @@ namespace ScriptForge
         {
             base.OnDisable();
             // Unsubscribe our callbacks
-            m_FoldersDrawer.drawHeaderCallback -= OnDrawFoldersHeader;
-            m_FoldersDrawer.drawElementCallback -= OnDrawFolderContent;
-            m_FoldersDrawer.onAddCallback -= OnAddFolderRequested;
+            if(m_FoldersDrawer != null)
+            {
+                m_FoldersDrawer.drawHeaderCallback -= OnDrawFoldersHeader;
+                m_FoldersDrawer.drawElementCallback -= OnDrawFolderContent;
+                m_FoldersDrawer.onAddCallback -= OnAddFolderRequested;
+            }
         }
 
         /// <summary>
