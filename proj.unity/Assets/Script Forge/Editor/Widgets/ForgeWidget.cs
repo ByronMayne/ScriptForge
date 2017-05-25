@@ -254,6 +254,17 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Invoked when a user right clicks the widget title bar at the top.
+        /// </summary>
+        /// <param name="menu">The menu we want to add options too.</param>
+        protected override void OnGenerateContexMenu(GenericMenu menu)
+        {
+            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, OnGenerate);
+            menu.AddItem(ScriptForgeLabels.resetForgeButton, false, OnReset);
+            menu.AddItem(ScriptForgeLabels.removeForgeButton, false, OnRemove);
+        }
+
+        /// <summary>
         /// Given a system file path and a clss defintion this will write the contents
         /// to disk. If the folder does not exist one will be created for you.
         /// </summary>
