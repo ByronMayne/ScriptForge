@@ -221,18 +221,20 @@ namespace ScriptForge
             }
 
             // If our file does not exist we can always skip the hash and force a rebuild.
-            if (!File.Exists(systemLocation))
-            {
-                // The file is missing so we must regenerate.
-                shouldRegenerate = true;
-            }
+			if(!File.Exists(systemLocation))
+			{
+				// The file is missing so we must regenerate.
+				shouldRegenerate = true;
+			}
+			else
+			{
+				string hash = ComputeAssetHash(GetHashInputString());
 
-            string hash = ComputeAssetHash(GetHashInputString());
-
-            if (string.Compare(hash, m_AssetHash) != 0)
-            {
-                shouldRegenerate = true;
-            }
+				if (string.Compare(hash, m_AssetHash) != 0)
+				{
+					shouldRegenerate = true;
+				}
+			}
 
             return shouldRegenerate;
         }
