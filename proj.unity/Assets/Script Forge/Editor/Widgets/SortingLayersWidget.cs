@@ -49,16 +49,6 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked to allow us to draw are GUI content for this forge.
-        /// </summary>
-        protected override void DrawWidgetContent(ScriptForgeStyles style)
-        {
-            base.DrawWidgetContent(style);
-        }
-
-
-
-        /// <summary>
         /// Returns an array of all the valid layer names.
         /// </summary>
         /// <returns></returns>
