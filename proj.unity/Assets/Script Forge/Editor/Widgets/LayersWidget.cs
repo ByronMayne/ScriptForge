@@ -63,7 +63,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Returns an array of all the layer names, including unset ones. 
+        /// Returns an array of all the layer names, including unset ones.
         /// </summary>
         /// <returns></returns>
         private string[] GetLayerNames()
@@ -85,7 +85,7 @@ namespace ScriptForge
         /// our hash with.
         protected override string GetHashInputString()
         {
-            string hashInput = string.Empty; 
+            string hashInput = string.Empty;
             hashInput += m_Namespace;
             hashInput += m_ClassName;
             foreach(var layer in GetLayerNames())
@@ -96,7 +96,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked when this widget should generate it's content. 
+        /// Invoked when this widget should generate it's content.
         /// </summary>
         public override void OnGenerate()
         {
@@ -111,18 +111,8 @@ namespace ScriptForge
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
 
-                try
-                {
-                    // Save new class to assets folder.
-                    File.WriteAllText(savePath, classDefintion);
-
-                    // Refresh assets.
-                    AssetDatabase.Refresh();
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log("An error occurred while saving file: " + e);
-                }
+                // Write our class to disk.
+                WriteToDisk(savePath, classDefintion);
             }
             base.OnGenerate();
         }

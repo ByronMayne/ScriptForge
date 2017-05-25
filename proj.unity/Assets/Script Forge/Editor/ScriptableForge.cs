@@ -212,8 +212,6 @@ namespace ScriptForge
                     saveList.Add(m_Widgets[i]);
                 }
             }
-            ScriptableForge[] instances = Resources.FindObjectsOfTypeAll<ScriptableForge>();
-
             // Save them to disk. 
             InternalEditorUtility.SaveToSerializedFileAndForget(saveList.ToArray(), savePath, true);
         }
@@ -231,9 +229,6 @@ namespace ScriptForge
         {
             System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
         }
-
-        [System.NonSerialized]
-        private bool m_AddForgeButtonSelected = false;
 
         [SerializeField]
         private List<Widget> m_Widgets = new List<Widget>();
@@ -269,7 +264,6 @@ namespace ScriptForge
             Widget newWidget = (Widget)CreateInstance(type);
             newWidget.Initalize(this);
             m_Widgets.Add(newWidget);
-            m_AddForgeButtonSelected = false;
             m_Widgets.Sort();
             newWidget.OnLoaded();
         }

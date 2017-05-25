@@ -9,11 +9,7 @@ namespace ScriptForge
     public class ScenesWidget : ForgeWidget
     {
         [SerializeField]
-        private string m_GeneratorHash = string.Empty;
-        [SerializeField]
         private bool m_CreateEnum;
-        [SerializeField]
-        private bool m_EnumDefinedInClass = false;
         [SerializeField]
         private string m_EnumName = "Types";
 
@@ -105,7 +101,7 @@ namespace ScriptForge
 
 
         /// <summary>
-        /// Invoked when this widget should generate it's content. 
+        /// Invoked when this widget should generate it's content.
         /// </summary>
         public override void OnGenerate()
         {
@@ -119,24 +115,15 @@ namespace ScriptForge
 
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
-                try
-                {
-                    // Save new class to assets folder.
-                    File.WriteAllText(savePath, classDefintion);
 
-                    // Refresh assets.
-                    AssetDatabase.Refresh();
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log("An error occurred while saving file: " + e);
-                }
+                // Write our class to disk.
+                WriteToDisk(savePath, classDefintion);
             }
             base.OnGenerate();
         }
 
         /// <summary>
-        /// Invoked when this forge should be reset to the default values. 
+        /// Invoked when this forge should be reset to the default values.
         /// </summary>
         public override void OnReset()
         {

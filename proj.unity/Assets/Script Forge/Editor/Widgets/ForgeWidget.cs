@@ -171,9 +171,9 @@ namespace ScriptForge
         /// Returns one string that contains all the names of all our assets to build
         /// our hash with.
         protected abstract string GetHashInputString();
-       
+
         /// <summary>
-        /// Takes an input string an computes it's hash code. 
+        /// Takes an input string an computes it's hash code.
         /// </summary>
         protected string ComputeAssetHash(string hashInput)
         {
@@ -186,21 +186,21 @@ namespace ScriptForge
                 // and create a string.
                 StringBuilder sBuilder = new StringBuilder();
 
-                // Loop through each byte of the hashed data 
+                // Loop through each byte of the hashed data
                 // and format each one as a hexadecimal string.
                 for (int i = 0; i < data.Length; i++)
                 {
                     sBuilder.Append(data[i].ToString("x2"));
                 }
 
-                // Get our new hash. 
+                // Get our new hash.
                 return sBuilder.ToString();
             }
         }
 
         /// <summary>
         /// Checks to see if the input string matches our last asset hash. If it does returns false saying
-        /// you don't have to regenerate. If returns true the hash is stored. 
+        /// you don't have to regenerate. If returns true the hash is stored.
         /// </summary>
         protected bool ShouldRegnerate()
         {
@@ -212,18 +212,18 @@ namespace ScriptForge
             // Get our location to where we want to save this file
             string systemLocation = GetSystemSaveLocation();
 
-            // Do we have a path defined? 
+            // Do we have a path defined?
             if (string.IsNullOrEmpty(systemLocation))
             {
-                // Nope so we can't regenerate. 
+                // Nope so we can't regenerate.
                 DisplayError(ScriptForgeErrors.Codes.Script_Location_Not_Defined, "No script location has been defined for " + defaultName + " forge.");
                 return false;
             }
 
-            // If our file does not exist we can always skip the hash and force a rebuild. 
+            // If our file does not exist we can always skip the hash and force a rebuild.
             if (!File.Exists(systemLocation))
             {
-                // The file is missing so we must regenerate. 
+                // The file is missing so we must regenerate.
                 shouldRegenerate = true;
             }
 
@@ -238,7 +238,38 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Called when the settings for this forge should be reset to default. 
+        /// Given a system file path and a clss defintion this will write the contents
+        /// to disk. If the folder does not exist one will be created for you.
+        /// </summary>
+        /// <param name="savePath">The system save path for the generated class.</param>
+        /// <param name="classDefintion">The string content of the class.</param>
+        protected void WriteToDisk(string savePath, string classDefintion)
+        {
+            try
+            {
+                // Get our directory
+                string directory = Path.GetDirectoryName(savePath);
+
+                // Check if it exists
+                if(!Directory.Exists(directory))
+                {
+                    // Create one if it does not.
+                    Directory.CreateDirectory(directory);
+                }
+                // Save new class to assets folder.
+                File.WriteAllText(savePath, classDefintion);
+
+                // Refresh assets.
+                AssetDatabase.Refresh();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("An error occurred while saving file: " + e);
+            }
+        }
+
+        /// <summary>
+        /// Called when the settings for this forge should be reset to default.
         /// </summary>
         public virtual void OnReset()
         {
