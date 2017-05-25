@@ -61,6 +61,9 @@ namespace ScriptForge
             return Application.dataPath.Replace("/Assets", "/" + m_ScriptLocation);
         }
 
+        /// <summary>
+        /// Inovoked on the widget when it's first initialized.
+        /// </summary>
         protected virtual void OnEnable()
         {
             if (string.IsNullOrEmpty(m_ClassName))
@@ -69,6 +72,10 @@ namespace ScriptForge
             }
         }
 
+        /// <summary>
+        /// Draws the title of the widget and it's icons.
+        /// </summary>
+        /// <param name="style">The style we use to draw it's content.</param>
         public override void OnTitleBarGUI(ScriptForgeStyles style)
         {
             base.OnTitleBarGUI(style);
@@ -89,6 +96,9 @@ namespace ScriptForge
             }
         }
 
+        /// <summary>
+        /// Invoked when the Widget should create it's content.
+        /// </summary>
         public override void OnGenerate()
         {
             m_AssetHash = CreateAssetHash();
