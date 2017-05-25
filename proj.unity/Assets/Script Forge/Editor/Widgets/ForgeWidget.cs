@@ -103,6 +103,10 @@ namespace ScriptForge
             m_IsUpToDate = string.Compare(m_AssetHash, CreateAssetHash()) == 0;
         }
 
+        /// <summary>
+        /// Draws the buttons for th bottom of the widget. By default we have three buttons. Generate, Reset, and Remove.
+        /// </summary>
+        /// <param name="style">The style we use to draw our butons.</param>
         protected override void DrawWidgetFooter(ScriptForgeStyles style)
         {
             GUILayout.BeginHorizontal();
