@@ -97,7 +97,6 @@ namespace ScriptForge
         /// </summary>
 		protected virtual void OnDisable()
         {
-            m_OpenAnimation.valueChanged.RemoveAllListeners();
         }
 
         public void Initalize(ScriptableForge instance)
@@ -105,7 +104,6 @@ namespace ScriptForge
             m_ScriptableForge = instance;
             m_BackgroundColor = Color.white;
             m_OpenAnimation.value = m_IsOpen;
-            m_OpenAnimation.valueChanged.AddListener(m_ScriptableForge.Repaint);
             m_ScriptableForge.Repaint();
             m_InDevelopment = Attribute.GetCustomAttribute(GetType(), typeof(InDevelopmentAttribute)) != null;
         }
@@ -150,6 +148,13 @@ namespace ScriptForge
                             menu.DropDown(headerRect);
                         }
                     }
+                }
+
+                // As long as our animation is playing we
+                // want to force a repaint.
+                if(m_OpenAnimation.isAnimating)
+                {
+                    m_ScriptableForge.Repaint();
                 }
 
                 if (EditorGUILayout.BeginFadeGroup(m_OpenAnimation.faded))
