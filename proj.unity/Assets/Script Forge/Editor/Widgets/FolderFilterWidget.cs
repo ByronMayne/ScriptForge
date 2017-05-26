@@ -40,7 +40,7 @@ namespace ScriptForge
         public override void OnLoaded()
         {
             base.OnLoaded();
-            if(m_Folders == null)
+            if (m_Folders == null)
             {
                 m_Folders = new List<string>();
             }
@@ -57,7 +57,7 @@ namespace ScriptForge
         {
             base.OnDisable();
             // Unsubscribe our callbacks
-            if(m_FoldersDrawer != null)
+            if (m_FoldersDrawer != null)
             {
                 m_FoldersDrawer.drawHeaderCallback -= OnDrawFoldersHeader;
                 m_FoldersDrawer.drawElementCallback -= OnDrawFolderContent;
@@ -117,9 +117,12 @@ namespace ScriptForge
             string hash = string.Empty;
             hash += m_Namespace;
             hash += m_ClassName;
-            for (int i = 0; i < m_Folders.Count; i++)
+            if (m_Folders != null)
             {
-                hash += m_Folders[i];
+                for (int i = 0; i < m_Folders.Count; i++)
+                {
+                    hash += m_Folders[i];
+                }
             }
             return hash;
         }
