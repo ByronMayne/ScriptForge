@@ -81,7 +81,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked when this instance is created. 
+        /// Invoked when this instance is created.
         /// </summary>
 		protected virtual void OnDisable()
         {
@@ -98,7 +98,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// All drawing logic is placed inside of this method. 
+        /// All drawing logic is placed inside of this method.
         /// </summary>
         public virtual void OnWidgetGUI(ScriptForgeStyles style)
         {
@@ -115,10 +115,28 @@ namespace ScriptForge
 
                 if (Event.current.type == EventType.MouseDown && headerRect.Contains(Event.current.mousePosition))
                 {
-                    FlashColor(Color.gray, 0.25f);
-                    m_IsOpen = !m_IsOpen;
-                    GUIUtility.hotControl = -1;
-                    GUIUtility.keyboardControl = -1;
+                    // They left clicked.
+                    if(Event.current.button == 0)
+                    {
+                        FlashColor(Color.gray, 0.25f);
+                        m_IsOpen = !m_IsOpen;
+                        GUIUtility.hotControl = -1;
+                        GUIUtility.keyboardControl = -1;
+                    }
+                    // They right clicked.
+                    else if(Event.current.button == 1)
+                    {
+                        // Create our menu.
+                        GenericMenu menu = new GenericMenu();
+                        // Populate it
+                        OnGenerateContexMenu(menu);
+                        // Check if we have any elements
+                        if(menu.GetItemCount() > 0)
+                        {
+                            // Show it.
+                            menu.DropDown(headerRect);
+                        }
+                    }
                 }
 
                 if (EditorGUILayout.BeginFadeGroup(m_OpenAnimation.faded))
@@ -164,19 +182,37 @@ namespace ScriptForge
             GUILayout.Label(label, style.widgetHeaderText);
         }
 
-        protected virtual void DrawWidgetContent(ScriptForgeStyles style)
-        {
-            GUILayout.Label("The content has not been set up yet");
-        }
-
-        protected virtual void DrawWidgetFooter(ScriptForgeStyles style)
+        /// <summary>
+        /// Invoked when the user right clicks on the title of the widget. If none
+        /// elements are added no menu will be shown.
+        /// </summary>
+        /// <param name="menu">The menu that we are going to show.</param>
+        protected virtual void OnGenerateContexMenu(GenericMenu menu)
         {
 
         }
 
         /// <summary>
+        /// Invoked when this widget should draws it's content.
+        /// </summary>
+        /// <param name="style">The style we use to draw our content.</param>
+        protected virtual void DrawWidgetContent(ScriptForgeStyles style)
+        {
+            GUILayout.Label("The content has not been set up yet");
+        }
+
+        /// <summary>
+        /// Invoked when this widget should draws it's bottom content.
+        /// </summary>
+        /// <param name="style">The style we use to draw our content.</param>
+        protected virtual void DrawWidgetFooter(ScriptForgeStyles style)
+        {
+            // Nothing to do here
+        }
+
+        /// <summary>
         /// Flashes this forge, opens it up, and displays
-        /// the error message to the user. 
+        /// the error message to the user.
         /// </summary>
         protected void DisplayError(ScriptForgeErrors.Codes code, string errorMessage)
         {
@@ -250,7 +286,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Used for the Sort method on our list. 
+        /// Used for the Sort method on our list.
         /// </summary>
         public int CompareTo(Widget other)
         {

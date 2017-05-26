@@ -49,30 +49,20 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked to allow us to draw are GUI content for this forge.
-        /// </summary>
-        protected override void DrawWidgetContent(ScriptForgeStyles style)
-        {
-            base.DrawWidgetContent(style);
-        }
-
-
-
-        /// <summary>
-        /// Returns an array of all the valid layer names. 
+        /// Returns an array of all the valid layer names.
         /// </summary>
         /// <returns></returns>
         private string[] GetValidSortingLayerNames()
         {
             List<string> validSortingLayers = new List<string>();
-            // Sorting layers is hidden so we have to use reflection. 
+            // Sorting layers is hidden so we have to use reflection.
             Type internalEditorUtilityType = typeof(InternalEditorUtility);
-            // Grab our static property. 
+            // Grab our static property.
             PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
             // Get the string values.
             string[] sortingLayers = (string[])sortingLayersProperty.GetValue(null, new object[0]);
 
-            // Loop over everyone and make sure they are not null or empty. 
+            // Loop over everyone and make sure they are not null or empty.
             for (int i = 0; i < sortingLayers.Length; i++)
             {
                 string layerName = sortingLayers[i];
@@ -103,7 +93,7 @@ namespace ScriptForge
 
 
         /// <summary>
-        /// Invoked when this widget should generate it's content. 
+        /// Invoked when this widget should generate it's content.
         /// </summary>
         public override void OnGenerate()
         {
@@ -118,18 +108,8 @@ namespace ScriptForge
                 // Generate output (class definition).
                 var classDefintion = generator.TransformText();
 
-                try
-                {
-                    // Save new class to assets folder.
-                    File.WriteAllText(savePath, classDefintion);
-
-                    // Refresh assets.
-                    AssetDatabase.Refresh();
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log("An error occurred while saving file: " + e);
-                }
+                // Write our class to disk.
+                WriteToDisk(savePath, classDefintion);
             }
             base.OnGenerate();
         }

@@ -1,11 +1,11 @@
 ﻿
 namespace ScriptForge
 {
-    public class ProjectVersion
+    public static class ProjectVersion
     {
         /// <summary>
         /// Which version Script Forge currently is. 
         /// </summary>
-        public const string PROJECT_VERSION = "2.1";
+        public const string PROJECT_VERSION = "2.3";
     }
 }

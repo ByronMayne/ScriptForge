@@ -56,9 +56,16 @@ namespace ScriptForge
         }
         public override void OnInspectorGUI()
         {
+			float width = Screen.width;
+			float height = Screen.height;
+			float headerSize = 70; 
 
+#if UNITY_5_4_OR_NEWER
+			width /= EditorGUIUtility.pixelsPerPoint;
+			height /= EditorGUIUtility.pixelsPerPoint;
+#endif
 
-            GUILayout.BeginArea(new Rect(0, 70, Screen.width, Screen.height - 70));
+			GUILayout.BeginArea(new Rect(0, headerSize, width, height - headerSize));
             {
                 DrawButtons();
 

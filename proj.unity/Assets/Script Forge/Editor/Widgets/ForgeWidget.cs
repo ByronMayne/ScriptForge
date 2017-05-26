@@ -61,6 +61,9 @@ namespace ScriptForge
             return Application.dataPath.Replace("/Assets", "/" + m_ScriptLocation);
         }
 
+        /// <summary>
+        /// Inovoked on the widget when it's first initialized.
+        /// </summary>
         protected virtual void OnEnable()
         {
             if (string.IsNullOrEmpty(m_ClassName))
@@ -69,6 +72,10 @@ namespace ScriptForge
             }
         }
 
+        /// <summary>
+        /// Draws the title of the widget and it's icons.
+        /// </summary>
+        /// <param name="style">The style we use to draw it's content.</param>
         public override void OnTitleBarGUI(ScriptForgeStyles style)
         {
             base.OnTitleBarGUI(style);
@@ -89,6 +96,9 @@ namespace ScriptForge
             }
         }
 
+        /// <summary>
+        /// Invoked when the Widget should create it's content.
+        /// </summary>
         public override void OnGenerate()
         {
             m_AssetHash = CreateAssetHash();
@@ -103,6 +113,10 @@ namespace ScriptForge
             m_IsUpToDate = string.Compare(m_AssetHash, CreateAssetHash()) == 0;
         }
 
+        /// <summary>
+        /// Draws the buttons for th bottom of the widget. By default we have three buttons. Generate, Reset, and Remove.
+        /// </summary>
+        /// <param name="style">The style we use to draw our butons.</param>
         protected override void DrawWidgetFooter(ScriptForgeStyles style)
         {
             GUILayout.BeginHorizontal();
@@ -171,9 +185,9 @@ namespace ScriptForge
         /// Returns one string that contains all the names of all our assets to build
         /// our hash with.
         protected abstract string GetHashInputString();
-       
+
         /// <summary>
-        /// Takes an input string an computes it's hash code. 
+        /// Takes an input string an computes it's hash code.
         /// </summary>
         protected string ComputeAssetHash(string hashInput)
         {
@@ -186,21 +200,21 @@ namespace ScriptForge
                 // and create a string.
                 StringBuilder sBuilder = new StringBuilder();
 
-                // Loop through each byte of the hashed data 
+                // Loop through each byte of the hashed data
                 // and format each one as a hexadecimal string.
                 for (int i = 0; i < data.Length; i++)
                 {
                     sBuilder.Append(data[i].ToString("x2"));
                 }
 
-                // Get our new hash. 
+                // Get our new hash.
                 return sBuilder.ToString();
             }
         }
 
         /// <summary>
         /// Checks to see if the input string matches our last asset hash. If it does returns false saying
-        /// you don't have to regenerate. If returns true the hash is stored. 
+        /// you don't have to regenerate. If returns true the hash is stored.
         /// </summary>
         protected bool ShouldRegnerate()
         {
@@ -212,33 +226,77 @@ namespace ScriptForge
             // Get our location to where we want to save this file
             string systemLocation = GetSystemSaveLocation();
 
-            // Do we have a path defined? 
+            // Do we have a path defined?
             if (string.IsNullOrEmpty(systemLocation))
             {
-                // Nope so we can't regenerate. 
+                // Nope so we can't regenerate.
                 DisplayError(ScriptForgeErrors.Codes.Script_Location_Not_Defined, "No script location has been defined for " + defaultName + " forge.");
                 return false;
             }
 
-            // If our file does not exist we can always skip the hash and force a rebuild. 
-            if (!File.Exists(systemLocation))
-            {
-                // The file is missing so we must regenerate. 
-                shouldRegenerate = true;
-            }
+            // If our file does not exist we can always skip the hash and force a rebuild.
+			if(!File.Exists(systemLocation))
+			{
+				// The file is missing so we must regenerate.
+				shouldRegenerate = true;
+			}
+			else
+			{
+				string hash = ComputeAssetHash(GetHashInputString());
 
-            string hash = ComputeAssetHash(GetHashInputString());
-
-            if (string.Compare(hash, m_AssetHash) != 0)
-            {
-                shouldRegenerate = true;
-            }
+				if (string.Compare(hash, m_AssetHash) != 0)
+				{
+					shouldRegenerate = true;
+				}
+			}
 
             return shouldRegenerate;
         }
 
         /// <summary>
-        /// Called when the settings for this forge should be reset to default. 
+        /// Invoked when a user right clicks the widget title bar at the top.
+        /// </summary>
+        /// <param name="menu">The menu we want to add options too.</param>
+        protected override void OnGenerateContexMenu(GenericMenu menu)
+        {
+            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, OnGenerate);
+            menu.AddItem(ScriptForgeLabels.resetForgeButton, false, OnReset);
+            menu.AddItem(ScriptForgeLabels.removeForgeButton, false, OnRemove);
+        }
+
+        /// <summary>
+        /// Given a system file path and a clss defintion this will write the contents
+        /// to disk. If the folder does not exist one will be created for you.
+        /// </summary>
+        /// <param name="savePath">The system save path for the generated class.</param>
+        /// <param name="classDefintion">The string content of the class.</param>
+        protected void WriteToDisk(string savePath, string classDefintion)
+        {
+            try
+            {
+                // Get our directory
+                string directory = Path.GetDirectoryName(savePath);
+
+                // Check if it exists
+                if(!Directory.Exists(directory))
+                {
+                    // Create one if it does not.
+                    Directory.CreateDirectory(directory);
+                }
+                // Save new class to assets folder.
+                File.WriteAllText(savePath, classDefintion);
+
+                // Refresh assets.
+                AssetDatabase.Refresh();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("An error occurred while saving file: " + e);
+            }
+        }
+
+        /// <summary>
+        /// Called when the settings for this forge should be reset to default.
         /// </summary>
         public virtual void OnReset()
         {
