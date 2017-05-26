@@ -9,7 +9,7 @@ namespace ScriptForge
     /// Putting this attribute above a widget means that one instance of this must exists at all times.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class RequiredWidgetAttribute : Attribute
+    public sealed class RequiredWidgetAttribute : Attribute
     {
     }
 }

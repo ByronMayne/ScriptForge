@@ -15,6 +15,9 @@ namespace ScriptForge
         [SerializeField]
         protected ScriptableForge m_ScriptableForge;
 
+        // Icons
+        private bool m_InDevelopment = false;
+
         // Flashing
         private float m_FlashUntil = 0f;
         private float m_FlashStarted = 0f;
@@ -25,6 +28,7 @@ namespace ScriptForge
         private ScriptForgeErrors.Codes m_ErrorCode;
         private string m_ErrorMessage;
 
+
         /// <summary>
         /// Is this widget current open?
         /// </summary>
@@ -32,6 +36,14 @@ namespace ScriptForge
         {
             get { return m_IsOpen; }
             set { m_IsOpen = value; }
+        }
+
+        /// <summary>
+        /// Returns true if this widget is in development. Used to draw a unique icon.
+        /// </summary>
+        public bool inDevelopment
+        {
+            get { return m_InDevelopment; }
         }
 
         /// <summary>
@@ -95,6 +107,7 @@ namespace ScriptForge
             m_OpenAnimation.value = m_IsOpen;
             m_OpenAnimation.valueChanged.AddListener(m_ScriptableForge.Repaint);
             m_ScriptableForge.Repaint();
+            m_InDevelopment = Attribute.GetCustomAttribute(GetType(), typeof(InDevelopmentAttribute)) != null;
         }
 
         /// <summary>
@@ -180,6 +193,11 @@ namespace ScriptForge
         {
             GUILayout.Label(iconString, style.widgetHeaderIcon);
             GUILayout.Label(label, style.widgetHeaderText);
+            GUILayout.Space(10);
+            if (m_InDevelopment)
+            {
+                GUILayout.Label(ScriptForgeLabels.inDevelopmentIcon, style.widgetHeaderIcon);
+            }
         }
 
         /// <summary>

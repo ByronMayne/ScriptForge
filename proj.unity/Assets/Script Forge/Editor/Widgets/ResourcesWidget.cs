@@ -6,8 +6,8 @@ using System;
 
 namespace ScriptForge
 {
-    [System.Serializable]
-	public class ResourcesWidget : FolderFilterWidget
+    [Serializable, InDevelopment]
+    public class ResourcesWidget : FolderFilterWidget
     {
         private const string RESOURCES_FOLDER_NAME = "/Resources";
         private GUIContent m_HeaderLabel = new GUIContent("Included Resource Folders");
@@ -18,7 +18,7 @@ namespace ScriptForge
         {
             get
             {
-                return new GUIContent("Resources");
+                return ScriptForgeLabels.resourcesWidgetTitle; ;
             }
         }
 

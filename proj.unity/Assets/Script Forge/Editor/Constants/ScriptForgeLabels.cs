@@ -37,6 +37,8 @@ namespace ScriptForge
         public static readonly GUIContent sortingLayersTitle;
         public static readonly GUIContent scenesWidgetTitle;
         public static readonly GUIContent settingsWidgetTitle;
+        public static readonly GUIContent animationsWidgetTitle;
+        public static readonly GUIContent resourcesWidgetTitle;
 
         public static readonly GUIContent generateForgeButton;
         public static readonly GUIContent resetForgeButton;
@@ -54,6 +56,9 @@ namespace ScriptForge
 
         // Settings
         public static readonly GUIContent animateWidgetsContent;
+
+        // Development
+        public static readonly GUIContent inDevelopmentIcon;
 
         /// <summary>
         /// Are content is only created when it's first used.
@@ -83,6 +88,8 @@ namespace ScriptForge
             scenesWidgetTitle = new GUIContent("Scenes");
             sortingLayersTitle = new GUIContent("Sorting Layers");
             settingsWidgetTitle = new GUIContent("Settings");
+            resourcesWidgetTitle = new GUIContent("Resources");
+            animationsWidgetTitle = new GUIContent("Animations");
             generateForgeButton = new GUIContent("Generate");
             resetForgeButton = new GUIContent("Reset");
             removeForgeButton = new GUIContent("Remove");
@@ -93,6 +100,7 @@ namespace ScriptForge
             classNameContent = new GUIContent("Class Name", "What should the name of the class that is generated be called? All invalid characters will be removed");
             enumNameContent = new GUIContent("Enum Name", "The name of the enum that is generated in the class");
             animateWidgetsContent = new GUIContent("Animate Widgets", "If true the widgets open and close with nice animations otherwise it will be instant.");
+            inDevelopmentIcon = new GUIContent(FontAwesomeIcons.CODE, "This widget is currently in development and might not be fully featured.");
         }
 
     }

@@ -1,19 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEditor;
-using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using UnityEngine;
 
 namespace ScriptForge
 {
-    [System.Serializable]
+    [Serializable, InDevelopment]
     public class AnimationsWidget : ForgeWidget
     {
         public override GUIContent label
         {
             get
             {
-                return new GUIContent("Animations");
+                return ScriptForgeLabels.animationsWidgetTitle;
             }
         }
 

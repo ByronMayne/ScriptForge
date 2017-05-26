@@ -193,13 +193,22 @@ namespace ScriptForge
                                     break;
                                 }
                             }
+
+                            // Get the menu path.
+                            string path = types[i].Name;
+
+                            if(System.Attribute.GetCustomAttribute(types[i], typeof(InDevelopmentAttribute)) != null)
+                            {
+                                path = "In Development/" + path;
+                            }
+
                             if (hasInstance)
                             {
-                                menu.AddDisabledItem(new GUIContent(types[i].Name));
+                                menu.AddDisabledItem(new GUIContent(path));
                             }
                             else
                             {
-                                menu.AddItem(new GUIContent(types[i].Name), false, OnWidgetAdded, types[i]);
+                                menu.AddItem(new GUIContent(path), false, OnWidgetAdded, types[i]);
                             }
                             menu.ShowAsContext();
                         }
