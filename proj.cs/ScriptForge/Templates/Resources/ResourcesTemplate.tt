@@ -1,0 +1,29 @@
+﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseTemplate"#>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String[]" name="m_ResourcePaths" #>
+<# WriteClassOutline(); #>
+<#+
+    /// <summary>
+    /// A function used to define any content that should exist in this classes namespace.
+    /// </summary>
+    public override void WriteNamespaceContent()
+    {
+    }
+
+	/// <summary>
+    /// This class contains all our GUI Content labels that we use in Script Forge
+    /// </summary>
+    public override void WriteClassContent()
+    {
+		Dic
+
+		for(int i = 0; i < m_ResourcePaths.Length; i++)
+        {
+			Write("public const string ");
+			Write(m_ResourcePaths[i].ToUpper());
+			Write(" = \"");
+			Write(m_ResourcePaths[i]);
+			WriteLine("\";");
+        }
+    }
+#>

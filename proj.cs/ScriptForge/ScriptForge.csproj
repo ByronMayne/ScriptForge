@@ -46,11 +46,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseTemplate.tt</DependentUpon>
     </Compile>
-    <None Include="Templates\Base\BaseTemplatePreview.cs">
+    <None Include="Templates\Resources\ResourcesTemplatePreview.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BaseTemplatePreview.tt</DependentUpon>
+      <DependentUpon>ResourcesTemplatePreview.tt</DependentUpon>
     </None>
+    <Compile Include="Templates\Resources\ResourcesTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourcesTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Templates\Scenes\ScenesTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,9 +87,14 @@
       <LastGenOutput>BaseTemplate.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Base\BaseTemplatePreview.tt">
+    <Content Include="Templates\Resources\ResourcesTemplatePreview.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BaseTemplatePreview.cs</LastGenOutput>
+      <LastGenOutput>ResourcesTemplatePreview.cs</LastGenOutput>
+      <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Resources\ResourcesTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ResourcesTemplate.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
     <Content Include="Templates\Scenes\ScenesTemplate.tt">
@@ -108,7 +118,7 @@
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProjectDir)\Export Settings.xml" />
-  
 </Project>

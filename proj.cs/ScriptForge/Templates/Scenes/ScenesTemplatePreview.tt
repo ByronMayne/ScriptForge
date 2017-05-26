@@ -11,7 +11,7 @@
 	session["m_IsPartialClass"] = true;
 	session["m_IsStaticClass"] = true;
 	session["m_Indent"] = "	";
-	session["m_SaveLocation"] = @"C:\Users\byron\Desktop\" + session["m_ClassName"] + ".cs";
+	session["m_SaveLocation"] = session["m_ClassName"] + ".cs";
 	session["m_AssetHash"] = "b62288ca78c2769c271afefe24922517";
 	session["m_EnumName"] = "Types";
 	session["m_IsEnumDefinedInClass"] = true;
