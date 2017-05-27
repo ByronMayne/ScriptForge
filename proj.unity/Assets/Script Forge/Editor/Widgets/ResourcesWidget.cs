@@ -101,45 +101,39 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate()
         {
-            string savePath = GetSystemSaveLocation();
+            // Invoke the base.
+            base.OnGenerate();
+            // Build the template
+            ResourcesTemplate generator = new ResourcesTemplate();
+            // Populate it's session
+            CreateSession(generator); 
+            // Write it to disk. 
+            WriteToDisk(generator);
+        }
+
+        /// <summary>
+        /// Used to send our paths for our session.
+        /// </summary>
+        /// <param name="session"></param>
+        protected override void PopulateSession(IDictionary<string, object> session)
+        {
+            // Create our base session 
+            base.PopulateSession(session);
+
             List<string> result = new List<string>();
-            foreach(string guid in GetResourceAssetGUIDs())
+            foreach (string guid in GetResourceAssetGUIDs())
             {
                 // Convert to our asset path
                 string assetPath = AssetDatabase.GUIDToAssetPath(guid);
                 // Add it 
-                if(!result.Contains(assetPath))
+                if (!result.Contains(assetPath))
                 {
                     result.Add(assetPath);
                 }
             }
 
-            // Create our session data
-            Dictionary<string, object> session = new Dictionary<string, object>();
-            session["m_ClassName"] = m_ClassName;
-            session["m_Namespace"] = m_Namespace;
-            session["m_IsStaticClass"] = true;
-            session["m_IsPartialClass"] = false;
-            session["m_SaveLocation"] = savePath;
+            // Save our paths. 
             session["m_ResourcePaths"] = result.ToArray();
-            session["m_Indent"] = "    ";
-            session["m_AssetHash"] = m_AssetHash;
-            session["m_IsEnumDefinedInClass"] = false;
-
-            // Build the template
-            ResourcesTemplate generator = new ResourcesTemplate();
-            // set the session
-            generator.Session = session;
-
-            // Initialize our template to load the values
-            generator.Initialize();
-
-            // Generate output (class definition).
-            var classDefintion = generator.TransformText();
-
-            WriteToDisk(savePath, classDefintion);
-
-            base.OnGenerate();
         }
     }
 }

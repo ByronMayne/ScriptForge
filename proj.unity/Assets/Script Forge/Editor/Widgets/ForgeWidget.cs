@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using System.Text;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 using System.IO;
-using System;
 
 namespace ScriptForge
 {
@@ -270,10 +269,12 @@ namespace ScriptForge
         /// </summary>
         /// <param name="savePath">The system save path for the generated class.</param>
         /// <param name="classDefintion">The string content of the class.</param>
-        protected void WriteToDisk(string savePath, string classDefintion)
+        protected void WriteToDisk(BaseTemplate template)
         {
             try
             {
+                // Get our path
+                string savePath = (string)template.Session["m_SaveLocation"];
                 // Get our directory
                 string directory = Path.GetDirectoryName(savePath);
 
@@ -283,6 +284,8 @@ namespace ScriptForge
                     // Create one if it does not.
                     Directory.CreateDirectory(directory);
                 }
+                // Build our text
+                string classDefintion = template.TransformText();
                 // Save new class to assets folder.
                 File.WriteAllText(savePath, classDefintion);
 
@@ -293,6 +296,38 @@ namespace ScriptForge
             {
                 Debug.LogError("An error occurred while saving file: " + e);
             }
+        }
+
+        /// <summary>
+        /// Given a template this creates a new session and assigns it. 
+        /// </summary>
+        /// <param name="template">The template you want to load the session into.</param>
+        protected void CreateSession(BaseTemplate template)
+        {
+            // Create the new session
+            IDictionary<string, object> session = new Dictionary<string, object>();
+            // Populate it
+            PopulateSession(session);
+            // Assign it
+            template.Session = session;
+            // Initialize it
+            template.Initialize();
+        }
+
+        /// <summary>
+        /// Invoked when a new session is created and is requesting to be filled with data. 
+        /// </summary>
+        /// <param name="session">The session we want to build.</param>
+        protected virtual void PopulateSession(IDictionary<string, object> session)
+        {
+            session["m_Indent"] = "    ";
+            session["m_ClassName"] = m_ClassName;
+            session["m_Namespace"] = m_Namespace;
+            session["m_AssetHash"] = m_AssetHash;
+            session["m_SaveLocation"] = GetSystemSaveLocation();
+            session["m_IsStaticClass"] = true;
+            session["m_IsPartialClass"] = false;
+            session["m_IsEnumDefinedInClass"] = false;
         }
 
         /// <summary>
