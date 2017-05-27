@@ -96,6 +96,16 @@ namespace ScriptForge
         }
 
         /// <summary>
+        /// Invoked when the user adds this widget or resets it. 
+        /// </summary>
+        public override void OnReset()
+        {
+            base.OnReset();
+            m_EnumName = "LayerName";
+            m_CreateEnum = true;
+        }
+
+        /// <summary>
         /// Invoked when this widget should generate it's content.
         /// </summary>
         public override void OnGenerate()

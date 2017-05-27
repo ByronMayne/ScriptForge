@@ -8,11 +8,6 @@ namespace ScriptForge
     [System.Serializable]
     public class ScenesWidget : ForgeWidget
     {
-        [SerializeField]
-        private bool m_CreateEnum;
-        [SerializeField]
-        private string m_EnumName = "Types";
-
         public override GUIContent label
         {
             get
@@ -49,13 +44,6 @@ namespace ScriptForge
             {
                 return "Scenes";
             }
-        }
-
-        protected override void DrawWidgetContent(ScriptForgeStyles style)
-        {
-            base.DrawWidgetContent(style);
-            m_CreateEnum = EditorGUILayout.Toggle("Create Enum", m_CreateEnum);
-            m_EnumName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.enumNameContent, m_EnumName, "Types");
         }
 
         /// <summary>
@@ -124,7 +112,8 @@ namespace ScriptForge
         /// </summary>
         public override void OnReset()
         {
-            m_EnumName = "Types";
+            m_EnumName = "SceneTypes";
+            m_CreateEnum = true;
         }
 
         /// <summary>
@@ -136,11 +125,9 @@ namespace ScriptForge
             // Create our base session 
             base.PopulateSession(session);
             // Get our layers
-            string[] layerNames = GetValidSceneNames();
+            string[] sceneNames = GetValidSceneNames();
             // Set our session
-            session["m_Scenes"] = layerNames;
-            session["m_CreateEnum"] = true;
-            session["m_EnumName"] = "Types";
+            session["m_Scenes"] = sceneNames;
         }
     }
 }

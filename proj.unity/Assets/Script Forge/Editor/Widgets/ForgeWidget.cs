@@ -4,6 +4,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.AnimatedValues;
 
 namespace ScriptForge
 {
@@ -25,6 +26,12 @@ namespace ScriptForge
         [SerializeField]
         protected string m_AssetHash;
 
+        [SerializeField]
+        protected bool m_CreateEnum;
+
+        [SerializeField]
+        protected string m_EnumName;
+
         private bool m_IsUpToDate = false;
 
         /// <summary>
@@ -37,13 +44,12 @@ namespace ScriptForge
         /// </summary>
         public override void OnLoaded()
         {
-            if(m_AutomaticallyGenerate)
+            if (m_AutomaticallyGenerate)
             {
                 OnGenerate();
             }
             OnContentChanged();
         }
-
 
         /// <summary>
         /// Returns the path to the save location on disk for this class.
@@ -170,6 +176,12 @@ namespace ScriptForge
 
             m_Namespace = EditorGUILayoutEx.NamespaceTextField(ScriptForgeLabels.namespaceContent, m_Namespace);
             m_ClassName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.classNameContent, m_ClassName, defaultName);
+            m_CreateEnum = EditorGUILayout.Toggle("Create Enum", m_CreateEnum);
+            EditorGUI.BeginDisabledGroup(!m_CreateEnum);
+            {
+                m_EnumName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.enumNameContent, m_EnumName, "Types");
+            }
+            EditorGUI.EndDisabledGroup();
         }
 
         /// <summary>
@@ -234,20 +246,20 @@ namespace ScriptForge
             }
 
             // If our file does not exist we can always skip the hash and force a rebuild.
-			if(!File.Exists(systemLocation))
-			{
-				// The file is missing so we must regenerate.
-				shouldRegenerate = true;
-			}
-			else
-			{
-				string hash = ComputeAssetHash(GetHashInputString());
+            if (!File.Exists(systemLocation))
+            {
+                // The file is missing so we must regenerate.
+                shouldRegenerate = true;
+            }
+            else
+            {
+                string hash = ComputeAssetHash(GetHashInputString());
 
-				if (string.Compare(hash, m_AssetHash) != 0)
-				{
-					shouldRegenerate = true;
-				}
-			}
+                if (string.Compare(hash, m_AssetHash) != 0)
+                {
+                    shouldRegenerate = true;
+                }
+            }
 
             return shouldRegenerate;
         }
@@ -279,7 +291,7 @@ namespace ScriptForge
                 string directory = Path.GetDirectoryName(savePath);
 
                 // Check if it exists
-                if(!Directory.Exists(directory))
+                if (!Directory.Exists(directory))
                 {
                     // Create one if it does not.
                     Directory.CreateDirectory(directory);
@@ -325,6 +337,8 @@ namespace ScriptForge
             session["m_Namespace"] = m_Namespace;
             session["m_AssetHash"] = m_AssetHash;
             session["m_SaveLocation"] = GetSystemSaveLocation();
+            session["m_CreateEnum"] = m_CreateEnum;
+            session["m_EnumName"] = m_EnumName;
             session["m_IsStaticClass"] = true;
             session["m_IsPartialClass"] = false;
             session["m_IsEnumDefinedInClass"] = false;
