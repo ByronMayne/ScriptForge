@@ -40,6 +40,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Templates\Resources\Scripts\ResourceFolder.cs" />
+    <Compile Include="Templates\Resources\Scripts\ResourceItem.cs" />
+    <Compile Include="Templates\Resources\Scripts\ResourceNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\Base\BaseTemplate.cs">
       <AutoGen>True</AutoGen>

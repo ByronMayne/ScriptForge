@@ -4,16 +4,20 @@
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Collections.Generic" #> 
 <#@ assembly name="$(TargetPath)" #> 
+<#@ import namespace="ScriptForge.Templates"#>
 <#
 	Dictionary<string, object> session = new Dictionary<string, object>();
-	session["m_ClassName"] = "Scenes";
+	session["m_ClassName"] = "ResourcePaths";
 	session["m_Namespace"] = "ScriptforgeGenerated";
 	session["m_IsPartialClass"] = true;
 	session["m_IsStaticClass"] = true;
 	session["m_Indent"] = "	";
 	session["m_SaveLocation"] = session["m_ClassName"] + ".cs";
 	session["m_AssetHash"] = "b62288ca78c2769c271afefe24922517";
-	session["m_ResourcePaths"] = new string[] { "MainMenu/Prefabs/Button", "MainMenu/Views/LoadingScreen.mp4", "MainMenu/Views/Options Dialog.prefab"};
+	session["m_ResourcePaths"] = new string[] { "MainMenu/Prefabs/Button.prefab", 
+												"MainMenu/Views/LoadingScreen.mp4", 
+												"MainMenu/Views/Options_Dialog.prefab",
+												"Audio/Sound_Effects/Boom.mp3"};
 	this.Session = session;
 	this.Initialize();
 #>

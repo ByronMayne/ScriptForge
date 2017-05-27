@@ -11,6 +11,10 @@
     <Templates Include="Templates\Scenes\ScenesTemplate.cs"/>
     <Templates Include="Templates\Tags\TagsTemplate.cs"/>
     <Templates Include="Templates\Resources\ResourcesTemplate.cs"/>
+
+    <Templates Include="Templates\Resources\Scripts\ResourceFolder.cs"/>
+    <Templates Include="Templates\Resources\Scripts\ResourceItem.cs"/>
+    <Templates Include="Templates\Resources\Scripts\ResourceNode.cs"/>
   </ItemGroup>
   <!-- Take the array of all our Template files in the Item Group above and exports them to the Unity project. -->
   <Target Name="Export"

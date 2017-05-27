@@ -10,6 +10,7 @@
 namespace ScriptForge
 {
     using System.Collections.Generic;
+    using ScriptForge.Templates;
     using System;
     
     /// <summary>
@@ -39,14 +40,44 @@ namespace ScriptForge
     /// </summary>
     public override void WriteClassContent()
     {
-		Dic
+		ResourceFolder rootFolder = new ResourceFolder(string.Empty);
 
 		for(int i = 0; i < m_ResourcePaths.Length; i++)
         {
+			rootFolder.Add(m_ResourcePaths[i]);
+        }
+
+		// We want to skip over the root since it's empty
+		for(int i = 0; i < rootFolder.children.Count; i++)
+        {
+			WriteTree(rootFolder.children[i]);
+		}
+    }
+
+	private void WriteTree(ResourceNode node)
+    {
+		ResourceFolder asFolder = node as ResourceFolder;
+		ResourceItem asItem = node as ResourceItem; 
+		if(asFolder != null)
+        {
+			Write("public class ");
+			WriteLine(asFolder.name);
+			WriteLine("{");
+			PushIndent(indent);
+			for(int i = 0; i < asFolder.children.Count; i++)
+			{
+				WriteTree(asFolder.children[i]);
+			}
+			PopIndent();
+			WriteLine("}");
+			WriteLine(string.Empty);
+        }
+		else if (asItem != null)
+        {
 			Write("public const string ");
-			Write(m_ResourcePaths[i].ToUpper());
+			Write(asItem.safeName.ToUpper());
 			Write(" = \"");
-			Write(m_ResourcePaths[i]);
+			Write(asItem.name + asItem.extension);
 			WriteLine("\";");
         }
     }
