@@ -101,6 +101,7 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate()
         {
+            string savePath = GetSystemSaveLocation();
             List<string> result = new List<string>();
             foreach(string guid in GetResourceAssetGUIDs())
             {
@@ -112,6 +113,31 @@ namespace ScriptForge
                     result.Add(assetPath);
                 }
             }
+
+            // Create our session data
+            Dictionary<string, object> session = new Dictionary<string, object>();
+            session["m_ClassName"] = m_ClassName;
+            session["m_Namespace"] = m_Namespace;
+            session["m_IsStaticClass"] = true;
+            session["m_IsPartialClass"] = false;
+            session["m_SaveLocation"] = savePath;
+            session["m_ResourcePaths"] = result.ToArray();
+            session["m_Indent"] = "    ";
+            session["m_AssetHash"] = m_AssetHash;
+            session["m_IsEnumDefinedInClass"] = false;
+
+            // Build the template
+            ResourcesTemplate generator = new ResourcesTemplate();
+            // set the session
+            generator.Session = session;
+
+            // Initialize our template to load the values
+            generator.Initialize();
+
+            // Generate output (class definition).
+            var classDefintion = generator.TransformText();
+
+            WriteToDisk(savePath, classDefintion);
 
             base.OnGenerate();
         }
