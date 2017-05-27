@@ -109,12 +109,12 @@ namespace ScriptForge
                 // Invoke the base.
                 base.OnGenerate();
                 // Build the template
-                //ScenesGenerator generator = new ScenesGenerator();
+                ScenesTemplate generator = new ScenesTemplate();
                 // TODO: Fix this. 
                 // Populate it's session
-                //CreateSession(generator);
+                CreateSession(generator);
                 // Write it to disk. 
-                //WriteToDisk(generator);
+                WriteToDisk(generator);
             }
             base.OnGenerate();
         }
@@ -139,6 +139,8 @@ namespace ScriptForge
             string[] layerNames = GetValidSceneNames();
             // Set our session
             session["m_Scenes"] = layerNames;
+            session["m_CreateEnum"] = true;
+            session["m_EnumName"] = "Types";
         }
     }
 }

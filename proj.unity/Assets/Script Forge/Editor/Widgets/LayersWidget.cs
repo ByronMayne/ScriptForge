@@ -105,12 +105,11 @@ namespace ScriptForge
                 // Invoke the base.
                 base.OnGenerate();
                 // Build the template
-                //LayersGenerator generator = new LayersGenerator();
-                // TODO: Fix this. 
+                LayersTemplate generator = new LayersTemplate();
                 // Populate it's session
-                //CreateSession(generator);
+                CreateSession(generator);
                 // Write it to disk. 
-                //WriteToDisk(generator);
+                WriteToDisk(generator);
             }
             base.OnGenerate();
         }
@@ -126,7 +125,9 @@ namespace ScriptForge
             // Get our layers
             string[] layerNames = GetLayerNames();
             // Set our session
-            session["m_LayerNames"] = layerNames;
+            session["m_Layers"] = layerNames;
+            session["m_CreateEnum"] = true;
+            session["m_EnumName"] = "Types";
         }
     }
 }

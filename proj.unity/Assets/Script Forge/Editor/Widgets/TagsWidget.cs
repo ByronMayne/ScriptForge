@@ -105,12 +105,11 @@ namespace ScriptForge
                 // Invoke the base.
                 base.OnGenerate();
                 // Build the template
-                //TagsGenerator generator = new TagsGenerator();
-                // TODO: Fix this. 
+                TagsTemplate generator = new TagsTemplate();
                 // Populate it's session
-                //CreateSession(generator);
+                CreateSession(generator);
                 // Write it to disk. 
-                //WriteToDisk(generator);
+                WriteToDisk(generator);
             }
             base.OnGenerate();
         }
@@ -127,6 +126,8 @@ namespace ScriptForge
             string[] tags = GetValidTagNames();
             // Set our session
             session["m_Tags"] = tags;
+            session["m_EnumName"] = "Types";
+            session["m_CreateEnum"] = true;
         }
     }
 }
