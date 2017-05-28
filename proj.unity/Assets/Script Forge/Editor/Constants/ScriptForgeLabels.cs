@@ -60,6 +60,12 @@ namespace ScriptForge
         // Development
         public static readonly GUIContent inDevelopmentIcon;
 
+        // About
+        public static readonly GUIContent documentationButtonLabel;
+        public static readonly GUIContent issuesButtonLabel;
+        public static readonly GUIContent repoButtonLabel;
+        public static readonly GUIContent twitterButtonLabel;
+
         /// <summary>
         /// Are content is only created when it's first used.
         /// </summary>
@@ -81,7 +87,10 @@ namespace ScriptForge
             HEADER_TITLE = new GUIContent("cript Forge", "Making jobs simpler since 2014.");
             HEADER_SUB_TITLE = new GUIContent("v" + ProjectVersion.PROJECT_VERSION, "Last update July 2016/10/01.");
             defaultWidgetTitle = new GUIContent("Default", "This is a debugging default widget");
-            aboutWidgetContent = new GUIContent("ScriptForge is a tool used to auto generate classes the are frequently used by developers who use Unity. If you have any questions, suggestions or issues please feel free to reach out to me at Byronmayne@gmail.com.");
+            aboutWidgetContent = new GUIContent("Script Forge was originally developed as a learning tool for myself to learn how to make more complex " +
+                                                "editors and use T4 templates. I recently open sourced the full version to help others learn how to make " + 
+                                                "awesome tools. Want to add some new features? Feel free to fork the repository and make a pull request. " + 
+                                                "Keep in mind that every button and setting has a tooltip so if you are lost just hover over it.");
             aboutWidgetTitle = new GUIContent("About");
             tagsWidgetTitle = new GUIContent("Tags");
             layersWidgetTitle = new GUIContent("Layers");
@@ -101,6 +110,10 @@ namespace ScriptForge
             enumNameContent = new GUIContent("Enum Name", "The name of the enum that is generated in the class");
             animateWidgetsContent = new GUIContent("Animate Widgets", "If true the widgets open and close with nice animations otherwise it will be instant.");
             inDevelopmentIcon = new GUIContent(FontAwesomeIcons.CODE, "This widget is currently in development and might not be fully featured.");
+            documentationButtonLabel = new GUIContent(FontAwesomeIcons.BOOK, "Opens the documentation written on Google Docs");
+            issuesButtonLabel = new GUIContent(FontAwesomeIcons.BUG, "Opens the issues page on GitHub where you can submit any bugs you might find. You can also log any feature requests here.");
+            repoButtonLabel = new GUIContent(FontAwesomeIcons.GITHUB, "Opens the repository on GitHub.");
+            twitterButtonLabel = new GUIContent(FontAwesomeIcons.TWITTER, "Opens up twitter to my page where you can follow me.");
         }
 
     }

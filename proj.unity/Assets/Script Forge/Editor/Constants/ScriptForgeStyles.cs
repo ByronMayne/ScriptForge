@@ -40,7 +40,7 @@ namespace ScriptForge
         public GUIStyle buttonMiddle { get; protected set; }
         public GUIStyle widgetHeaderText { get; protected set; }
         public GUIStyle widgetHeaderIcon { get; protected set; }
-
+        public GUIStyle fontAwesomeButton { get; protected set; }
         public GUIStyle scriptForgeIconSmall { get; protected set; }
 
         public ScriptForgeStyles()
@@ -161,9 +161,21 @@ namespace ScriptForge
             scriptForgeIconSmall.fixedHeight = 50;
             scriptForgeIconSmall.fixedWidth = 50;
             scriptForgeIconSmall.margin = new RectOffset(0, 0, 5, 5);
+
+            // Icon Button
+            fontAwesomeButton = new GUIStyle(GUI.skin.button);
+            fontAwesomeButton.fontSize = 30;
+            fontAwesomeButton.fontStyle = FontStyle.Normal;
+            fontAwesomeButton.alignment = TextAnchor.MiddleCenter;
+            fontAwesomeButton.wordWrap = false;
+            fontAwesomeButton.clipping = TextClipping.Overflow;
+            fontAwesomeButton.font = fontAwesomeFont;
+            fontAwesomeButton.normal.textColor = Color.black;
+
             HierarchyProperty serach = new HierarchyProperty(HierarchyType.Assets);
             serach.SetSearchFilter("t:Texture ScriptForgeIcon", 0);
             serach.Next(null);
+
             if(serach.pptrValue != null)
             {
                 scriptForgeIconSmall.normal.background = (Texture2D)serach.pptrValue;

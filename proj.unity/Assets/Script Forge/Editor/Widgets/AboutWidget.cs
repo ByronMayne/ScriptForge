@@ -34,12 +34,32 @@ namespace ScriptForge
 
         protected override void DrawWidgetFooter(ScriptForgeStyles style)
         {
-            if (GUILayout.Button("Documentation", style.button))
+            GUILayout.BeginHorizontal();
             {
-                ScriptableForge.OpenDocumentation();
+
+                if (GUILayout.Button(ScriptForgeLabels.documentationButtonLabel, style.fontAwesomeButton))
+                {
+                    ExtenalLinks.OpenDocumentationPage();
+                }
+
+                if(GUILayout.Button(ScriptForgeLabels.issuesButtonLabel, style.fontAwesomeButton))
+                {
+                    ExtenalLinks.OpenIssuesPage();
+                }
+
+                if (GUILayout.Button(ScriptForgeLabels.repoButtonLabel, style.fontAwesomeButton))
+                {
+                    ExtenalLinks.OpenRepoPage();
+                }
+
+                if (GUILayout.Button(ScriptForgeLabels.twitterButtonLabel, style.fontAwesomeButton))
+                {
+                    ExtenalLinks.OpenTwitter();
+                }
             }
+            GUILayout.EndHorizontal();
         }
 
 
-	}
+    }
 }

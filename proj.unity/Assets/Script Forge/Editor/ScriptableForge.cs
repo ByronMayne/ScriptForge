@@ -54,7 +54,7 @@ namespace ScriptForge
             if(!EditorPrefs.HasKey(FIRST_LAUNCH_KEY))
             {
                 EditorPrefs.SetBool(FIRST_LAUNCH_KEY, true);
-                ScriptableForge.OpenDocumentation();
+                ExtenalLinks.OpenDocumentationPage();
             }
         }
 
@@ -220,14 +220,6 @@ namespace ScriptForge
         private static void OpenSettings()
         {
             Selection.activeObject = GetInstance();
-        }
-
-        /// <summary>
-        /// Opens the google doc that has the documentation for Script Forge. 
-        /// </summary>
-        public static void OpenDocumentation()
-        {
-            System.Diagnostics.Process.Start(ExtenalLinks.SCRIPT_FORGE_GOOLGE_DOC_URL);
         }
 
         [SerializeField]

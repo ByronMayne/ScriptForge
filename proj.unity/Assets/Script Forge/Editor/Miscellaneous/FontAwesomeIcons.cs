@@ -32,6 +32,9 @@ namespace ScriptForge
         public static readonly string MOVIE        = new string('\xf008', 1);
         public static readonly string PUZZLE_PIECE = new string('\xf12e', 1);
         public static readonly string CODE         = new string('\xf121', 1);
+        public static readonly string GITHUB       = new string('\xf09b', 1);
+        public static readonly string BOOK         = new string('\xf02d', 1);
+        public static readonly string TWITTER      = new string('\xf099', 1);
     }
 }
 
