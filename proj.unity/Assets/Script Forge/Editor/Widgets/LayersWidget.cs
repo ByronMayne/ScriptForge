@@ -9,6 +9,9 @@ namespace ScriptForge
     [System.Serializable]
     public class LayersWidget : ForgeWidget
     {
+        [SerializeField]
+        private bool m_CreateBitwise;
+
         /// <summary>
         /// The label that will be shown on the title of the widget.
         /// </summary>
@@ -59,8 +62,9 @@ namespace ScriptForge
         protected override void DrawWidgetContent(ScriptForgeStyles style)
         {
             base.DrawWidgetContent(style);
-
+            m_CreateBitwise = EditorGUILayout.Toggle(ScriptForgeLabels.createBitwiseLabel, m_CreateBitwise);
         }
+
 
         /// <summary>
         /// Returns an array of all the layer names, including unset ones.
@@ -138,6 +142,7 @@ namespace ScriptForge
             session["m_Layers"] = layerNames;
             session["m_CreateEnum"] = true;
             session["m_EnumName"] = "Types";
+            session["m_CreateBitwise"] = m_CreateBitwise;
         }
     }
 }

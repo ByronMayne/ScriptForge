@@ -58,6 +58,9 @@ namespace ScriptForge
         public static readonly GUIContent animateWidgetsContent;
         public static readonly GUIContent indentCountLabel;
 
+        // Layers Widget
+        public static readonly GUIContent createBitwiseLabel; 
+
         // Development
         public static readonly GUIContent inDevelopmentIcon;
 
@@ -116,6 +119,7 @@ namespace ScriptForge
             issuesButtonLabel = new GUIContent(FontAwesomeIcons.BUG, "Opens the issues page on GitHub where you can submit any bugs you might find. You can also log any feature requests here.");
             repoButtonLabel = new GUIContent(FontAwesomeIcons.GITHUB, "Opens the repository on GitHub.");
             twitterButtonLabel = new GUIContent(FontAwesomeIcons.TWITTER, "Opens up twitter to my page where you can follow me.");
+            createBitwiseLabel = new GUIContent("Create Bitwise", "By default the layers will create int constants to use in code. If this is set to true it would also create bitwise version.");
         }
 
     }

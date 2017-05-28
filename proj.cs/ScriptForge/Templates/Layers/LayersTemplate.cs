@@ -38,16 +38,45 @@ namespace ScriptForge
     /// </summary>
     public override void WriteClassContent()
     {
-		for(int i = 0; i < m_Layers.Length; i++)
+		WriteLine("public static class Integer");
+		WriteLine("{");
+		PushIndent(indent);
         {
-			if(!string.IsNullOrEmpty(m_Layers[i]))
+			for(int i = 0; i < m_Layers.Length; i++)
+			{
+				if(!string.IsNullOrEmpty(m_Layers[i]))
+				{
+					Write("public const int ");
+					Write(m_Layers[i].ToUpper());
+					Write(" = ");
+					Write(i.ToString());
+					WriteLine(";");
+				}
+			}
+		}
+		PopIndent();
+		WriteLine("}");
+
+		if(m_CreateBitwise)
+        {
+			WriteLine("public static class Bitwise");
+			WriteLine("{");
+			PushIndent(indent);
             {
-				Write("public const string ");
-				Write(m_Layers[i].ToUpper());
-				Write(" = \"");
-				Write(m_Layers[i]);
-				WriteLine("\";");
+				for(int i = 0; i < m_Layers.Length; i++)
+				{
+					if(!string.IsNullOrEmpty(m_Layers[i]))
+					{
+						Write("public static readonly int ");
+						Write(m_Layers[i]);
+						Write(" = 1 << ");
+						Write(i.ToString());
+						WriteLine(";");
+					}
+                }
             }
+			PopIndent();
+			WriteLine("}");
         }
     }
 
@@ -131,6 +160,19 @@ private bool m_CreateEnum
     }
 }
 
+private bool _m_CreateBitwiseField;
+
+/// <summary>
+/// Access the m_CreateBitwise parameter of the template.
+/// </summary>
+private bool m_CreateBitwise
+{
+    get
+    {
+        return this._m_CreateBitwiseField;
+    }
+}
+
 
 /// <summary>
 /// Initialize the template
@@ -180,6 +222,20 @@ if ((m_CreateEnumValueAcquired == false))
     if ((data != null))
     {
         this._m_CreateEnumField = ((bool)(data));
+    }
+}
+bool m_CreateBitwiseValueAcquired = false;
+if (this.Session.ContainsKey("m_CreateBitwise"))
+{
+    this._m_CreateBitwiseField = ((bool)(this.Session["m_CreateBitwise"]));
+    m_CreateBitwiseValueAcquired = true;
+}
+if ((m_CreateBitwiseValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_CreateBitwise");
+    if ((data != null))
+    {
+        this._m_CreateBitwiseField = ((bool)(data));
     }
 }
 

@@ -2,6 +2,7 @@
 <#@ parameter type="System.String" name="m_EnumName" #>
 <#@ parameter type="System.String[]" name="m_Layers" #>
 <#@ parameter type="System.Boolean" name="m_CreateEnum" #>
+<#@ parameter type="System.Boolean" name="m_CreateBitwise" #>
 <# WriteClassOutline(); #>
 <#+
     /// <summary>
@@ -16,16 +17,45 @@
     /// </summary>
     public override void WriteClassContent()
     {
-		for(int i = 0; i < m_Layers.Length; i++)
+		WriteLine("public static class Integer");
+		WriteLine("{");
+		PushIndent(indent);
         {
-			if(!string.IsNullOrEmpty(m_Layers[i]))
+			for(int i = 0; i < m_Layers.Length; i++)
+			{
+				if(!string.IsNullOrEmpty(m_Layers[i]))
+				{
+					Write("public const int ");
+					Write(m_Layers[i].ToUpper());
+					Write(" = ");
+					Write(i.ToString());
+					WriteLine(";");
+				}
+			}
+		}
+		PopIndent();
+		WriteLine("}");
+
+		if(m_CreateBitwise)
+        {
+			WriteLine("public static class Bitwise");
+			WriteLine("{");
+			PushIndent(indent);
             {
-				Write("public const string ");
-				Write(m_Layers[i].ToUpper());
-				Write(" = \"");
-				Write(m_Layers[i]);
-				WriteLine("\";");
+				for(int i = 0; i < m_Layers.Length; i++)
+				{
+					if(!string.IsNullOrEmpty(m_Layers[i]))
+					{
+						Write("public static readonly int ");
+						Write(m_Layers[i]);
+						Write(" = 1 << ");
+						Write(i.ToString());
+						WriteLine(";");
+					}
+                }
             }
+			PopIndent();
+			WriteLine("}");
         }
     }
 
@@ -54,7 +84,7 @@
             {
 				Write(m_Layers[i]);
 				Write(" = ");
-				Write(i);
+				Write(i.ToString());
 				if( i < m_Layers.Length - 1)
 				{
 					WriteLine(",");
