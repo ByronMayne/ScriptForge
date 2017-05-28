@@ -29,6 +29,26 @@ namespace ScriptforgeGenerated
 		public const string LOADINGSCREEN = "LoadingScreen";
 		public const string BOSSBATTLE = "BossBattle";
 		public const string ENDING = "Ending";
+
+		/// <summary>
+		/// Returns back an new array containing all the
+		/// scenes that are in the build settings. You
+		/// should cache this value as it creates a new
+		/// array each time.
+		/// </summary>
+		public static string[] Names
+		{
+			get
+			{
+				return new string[]
+				{
+					"MainMenu",
+					"LoadingScreen",
+					"BossBattle",
+					"Ending",
+				};
+			}
+		}
 	}
 }
 

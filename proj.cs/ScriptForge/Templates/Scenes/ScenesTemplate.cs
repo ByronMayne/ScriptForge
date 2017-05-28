@@ -38,6 +38,7 @@ namespace ScriptForge
     /// </summary>
     public override void WriteClassContent()
     {
+		// Const elements
 		for(int i = 0; i < m_Scenes.Length; i++)
         {
 			Write("public const string ");
@@ -46,6 +47,46 @@ namespace ScriptForge
 			Write(m_Scenes[i]);
 			WriteLine("\";");
         }
+
+		// Space
+		WriteLine("");
+
+		// Array
+
+		WriteLine("/// <summary>");
+        WriteLine("/// Returns back an new array containing all the");
+        WriteLine("/// scenes that are in the build settings. You");
+        WriteLine("/// should cache this value as it creates a new");
+        WriteLine("/// array each time.");
+        WriteLine("/// </summary>");
+		WriteLine("public static string[] Names");
+		WriteLine("{");
+		PushIndent(indent);
+        {
+			WriteLine("get");
+		
+			WriteLine("{");
+			PushIndent(indent);
+            {
+				WriteLine("return new string[]");
+				WriteLine("{");
+				PushIndent(indent);
+                {
+					for(int i = 0; i < m_Scenes.Length; i++)
+					{
+						Write("\"");
+						Write(m_Scenes[i]);
+						WriteLine("\",");
+					}
+                }
+				PopIndent();
+				WriteLine("};");
+            }
+			PopIndent();
+			WriteLine("}");
+        }
+		PopIndent();
+		WriteLine("}");
     }
 
 	/// <summary>
