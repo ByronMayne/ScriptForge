@@ -1,10 +1,12 @@
 fileFormatVersion: 2
-guid: accee48fcb1085f41b4ed21b915d94b8
-labels:
-- ScriptForge
+guid: f2a6046cf8c914f49ac73c0ab04d1391
+timeCreated: 1495914842
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

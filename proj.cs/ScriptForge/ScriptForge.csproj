@@ -40,6 +40,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templates\Layers\LayersTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayersTemplate.tt</DependentUpon>
+    </None>
+    <None Include="Templates\Layers\LayersTemplatePreview.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayersTemplatePreview.tt</DependentUpon>
+    </None>
     <Compile Include="Templates\Resources\Scripts\ResourceFolder.cs" />
     <Compile Include="Templates\Resources\Scripts\ResourceItem.cs" />
     <Compile Include="Templates\Resources\Scripts\ResourceNode.cs" />
@@ -88,6 +98,16 @@
     <Content Include="Templates\Base\BaseTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BaseTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Layers\LayersTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>LayersTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Layers\LayersTemplatePreview.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LayersTemplatePreview.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
     </Content>
     <Content Include="Templates\Resources\ResourcesTemplatePreview.tt">

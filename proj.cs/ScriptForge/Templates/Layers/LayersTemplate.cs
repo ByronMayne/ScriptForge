@@ -15,7 +15,7 @@ namespace ScriptForge
     /// Class to produce the template output
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public partial class ScenesTemplate : ScriptForge.BaseTemplate
+    public partial class LayersTemplate : ScriptForge.BaseTemplate
     {
         /// <summary>
         /// Create the template output
@@ -38,55 +38,17 @@ namespace ScriptForge
     /// </summary>
     public override void WriteClassContent()
     {
-		// Const elements
-		for(int i = 0; i < m_Scenes.Length; i++)
+		for(int i = 0; i < m_Layers.Length; i++)
         {
-			Write("public const string ");
-			Write(m_Scenes[i].ToUpper());
-			Write(" = \"");
-			Write(m_Scenes[i]);
-			WriteLine("\";");
-        }
-
-		// Space
-		WriteLine("");
-
-		// Array
-
-		WriteLine("/// <summary>");
-        WriteLine("/// Returns back an new array containing all the");
-        WriteLine("/// scenes that are in the build settings. You");
-        WriteLine("/// should cache this value as it creates a new");
-        WriteLine("/// array each time.");
-        WriteLine("/// </summary>");
-		WriteLine("public static string[] Names");
-		WriteLine("{");
-		PushIndent(indent);
-        {
-			WriteLine("get");
-		
-			WriteLine("{");
-			PushIndent(indent);
+			if(!string.IsNullOrEmpty(m_Layers[i]))
             {
-				WriteLine("return new string[]");
-				WriteLine("{");
-				PushIndent(indent);
-                {
-					for(int i = 0; i < m_Scenes.Length; i++)
-					{
-						Write("\"");
-						Write(m_Scenes[i]);
-						WriteLine("\",");
-					}
-                }
-				PopIndent();
-				WriteLine("};");
+				Write("public const string ");
+				Write(m_Layers[i].ToUpper());
+				Write(" = \"");
+				Write(m_Layers[i]);
+				WriteLine("\";");
             }
-			PopIndent();
-			WriteLine("}");
         }
-		PopIndent();
-		WriteLine("}");
     }
 
 	/// <summary>
@@ -107,16 +69,21 @@ this.Write("/// <summary>\r\n/// An enum that contains the names of every scene 
 		WriteLine(m_EnumName);
 		WriteLine("{");
 		PushIndent(indent);
-		for(int i = 0; i < m_Scenes.Length; i++)
+		for(int i = 0; i < m_Layers.Length; i++)
         {
-			Write(m_Scenes[i]);
-			if( i < m_Scenes.Length - 1)
+			if(!string.IsNullOrEmpty(m_Layers[i]))
             {
-				WriteLine(",");
-            }
-			else
-            {
-				WriteLine(string.Empty);
+				Write(m_Layers[i]);
+				Write(" = ");
+				Write(i.ToString());
+				if( i < m_Layers.Length - 1)
+				{
+					WriteLine(",");
+				}
+				else
+				{
+					WriteLine(string.Empty);
+				}
             }
         }
 		PopIndent();
@@ -138,16 +105,16 @@ private string m_EnumName
     }
 }
 
-private string[] _m_ScenesField;
+private string[] _m_LayersField;
 
 /// <summary>
-/// Access the m_Scenes parameter of the template.
+/// Access the m_Layers parameter of the template.
 /// </summary>
-private string[] m_Scenes
+private string[] m_Layers
 {
     get
     {
-        return this._m_ScenesField;
+        return this._m_LayersField;
     }
 }
 
@@ -187,18 +154,18 @@ if ((m_EnumNameValueAcquired == false))
         this._m_EnumNameField = ((string)(data));
     }
 }
-bool m_ScenesValueAcquired = false;
-if (this.Session.ContainsKey("m_Scenes"))
+bool m_LayersValueAcquired = false;
+if (this.Session.ContainsKey("m_Layers"))
 {
-    this._m_ScenesField = ((string[])(this.Session["m_Scenes"]));
-    m_ScenesValueAcquired = true;
+    this._m_LayersField = ((string[])(this.Session["m_Layers"]));
+    m_LayersValueAcquired = true;
 }
-if ((m_ScenesValueAcquired == false))
+if ((m_LayersValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_Scenes");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_Layers");
     if ((data != null))
     {
-        this._m_ScenesField = ((string[])(data));
+        this._m_LayersField = ((string[])(data));
     }
 }
 bool m_CreateEnumValueAcquired = false;

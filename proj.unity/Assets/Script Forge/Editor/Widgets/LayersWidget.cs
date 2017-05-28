@@ -88,11 +88,21 @@ namespace ScriptForge
             string hashInput = string.Empty;
             hashInput += m_Namespace;
             hashInput += m_ClassName;
-            foreach(var layer in GetLayerNames())
+            foreach (var layer in GetLayerNames())
             {
                 hashInput += layer;
             }
             return hashInput;
+        }
+
+        /// <summary>
+        /// Invoked when the user adds this widget or resets it. 
+        /// </summary>
+        public override void OnReset()
+        {
+            base.OnReset();
+            m_EnumName = "LayerName";
+            m_CreateEnum = true;
         }
 
         /// <summary>
@@ -102,19 +112,32 @@ namespace ScriptForge
         {
             if (ShouldRegnerate())
             {
-                string[] validLayerNames = GetLayerNames();
-                string savePath = GetSystemSaveLocation();
-
-                // Build the generator with the class name and data source.
-                LayersGenerator generator = new LayersGenerator(m_ClassName, savePath, validLayerNames, m_Namespace);
-
-                // Generate output (class definition).
-                var classDefintion = generator.TransformText();
-
-                // Write our class to disk.
-                WriteToDisk(savePath, classDefintion);
+                // Invoke the base.
+                base.OnGenerate();
+                // Build the template
+                LayersTemplate generator = new LayersTemplate();
+                // Populate it's session
+                CreateSession(generator);
+                // Write it to disk. 
+                WriteToDisk(generator);
             }
             base.OnGenerate();
+        }
+
+        /// <summary>
+        /// Used to send our paths for our session.
+        /// </summary>
+        /// <param name="session"></param>
+        protected override void PopulateSession(IDictionary<string, object> session)
+        {
+            // Create our base session 
+            base.PopulateSession(session);
+            // Get our layers
+            string[] layerNames = GetLayerNames();
+            // Set our session
+            session["m_Layers"] = layerNames;
+            session["m_CreateEnum"] = true;
+            session["m_EnumName"] = "Types";
         }
     }
 }

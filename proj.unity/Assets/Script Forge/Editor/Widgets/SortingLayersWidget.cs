@@ -91,6 +91,15 @@ namespace ScriptForge
             return hashInput;
         }
 
+        /// <summary>
+        /// Invoked when the user adds this widget or resets it. 
+        /// </summary>
+        public override void OnReset()
+        {
+            base.OnReset();
+            m_EnumName = "SortingLayerName";
+            m_CreateEnum = true;
+        }
 
         /// <summary>
         /// Invoked when this widget should generate it's content.
@@ -99,19 +108,30 @@ namespace ScriptForge
         {
             if (ShouldRegnerate())
             {
-                string[] sortingLayerNames = GetValidSortingLayerNames();
-                string savePath = GetSystemSaveLocation();
-
-                // Build the generator with the class name and data source.
-                TagsGenerator generator = new TagsGenerator(m_ClassName, sortingLayerNames, m_Namespace);
-
-                // Generate output (class definition).
-                var classDefintion = generator.TransformText();
-
-                // Write our class to disk.
-                WriteToDisk(savePath, classDefintion);
+                // Invoke the base.
+                base.OnGenerate();
+                // Build the template
+                LayersTemplate generator = new LayersTemplate();
+                // Populate it's session
+                CreateSession(generator);
+                // Write it to disk. 
+                WriteToDisk(generator);
             }
             base.OnGenerate();
+        }
+
+        /// <summary>
+        /// Used to send our paths for our session.
+        /// </summary>
+        /// <param name="session"></param>
+        protected override void PopulateSession(IDictionary<string, object> session)
+        {
+            // Create our base session 
+            base.PopulateSession(session);
+            // Get our layers
+            string[] sortingLayers = GetValidSortingLayerNames();
+            // Set our session
+            session["m_Layers"] = sortingLayers;
         }
     }
 }
