@@ -47,7 +47,7 @@ namespace ScriptForge
                 GUILayout.Label(ScriptForgeLabels.HEADER_TITLE, m_Styles.title);
                 GUILayout.Label(ScriptForgeLabels.HEADER_SUB_TITLE, m_Styles.subTitle);
                 GUILayout.FlexibleSpace();
-            
+
             }
             GUILayout.EndHorizontal();
 
@@ -56,16 +56,16 @@ namespace ScriptForge
         }
         public override void OnInspectorGUI()
         {
-			float width = Screen.width;
-			float height = Screen.height;
-			float headerSize = 70; 
+            float width = Screen.width;
+            float height = Screen.height;
+            float headerSize = 70;
 
 #if UNITY_5_4_OR_NEWER
-			width /= EditorGUIUtility.pixelsPerPoint;
-			height /= EditorGUIUtility.pixelsPerPoint;
+            width /= EditorGUIUtility.pixelsPerPoint;
+            height /= EditorGUIUtility.pixelsPerPoint;
 #endif
 
-			GUILayout.BeginArea(new Rect(0, headerSize, width, height - headerSize));
+            GUILayout.BeginArea(new Rect(0, headerSize, width, height - headerSize));
             {
                 DrawButtons();
 
@@ -197,21 +197,25 @@ namespace ScriptForge
                             // Get the menu path.
                             string path = types[i].Name;
 
-                            if(System.Attribute.GetCustomAttribute(types[i], typeof(InDevelopmentAttribute)) != null)
+                            // We don't want to show widgets that are required because they can never be removed.
+                            if (System.Attribute.GetCustomAttribute(types[i], typeof(RequiredWidgetAttribute)) == null)
                             {
-                                path = "In Development/" + path;
-                            }
+                                if (System.Attribute.GetCustomAttribute(types[i], typeof(InDevelopmentAttribute)) != null)
+                                {
+                                    path = "In Development/" + path;
+                                }
 
-                            if (hasInstance)
-                            {
-                                menu.AddDisabledItem(new GUIContent(path));
+                                if (hasInstance)
+                                {
+                                    menu.AddDisabledItem(new GUIContent(path));
+                                }
+                                else
+                                {
+                                    menu.AddItem(new GUIContent(path), false, OnWidgetAdded, types[i]);
+                                }
                             }
-                            else
-                            {
-                                menu.AddItem(new GUIContent(path), false, OnWidgetAdded, types[i]);
-                            }
-                            menu.ShowAsContext();
                         }
+                        menu.ShowAsContext();
                     }
                 }
             }
