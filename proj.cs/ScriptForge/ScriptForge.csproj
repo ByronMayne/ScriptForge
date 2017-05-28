@@ -79,6 +79,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ScenesTemplatePreview.tt</DependentUpon>
     </None>
+    <Compile Include="Templates\Sorting Layers\SortingLayersTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SortingLayersTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\Sorting Layers\SortingLayersTemplatePreview.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SortingLayersTemplatePreview.tt</DependentUpon>
+    </Compile>
     <Compile Include="Templates\Tags\TagsTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,6 +139,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ScenesTemplatePreview.cs</LastGenOutput>
       <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Sorting Layers\SortingLayersTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SortingLayersTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Sorting Layers\SortingLayersTemplatePreview.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+      <LastGenOutput>SortingLayersTemplatePreview.cs</LastGenOutput>
     </Content>
     <Content Include="Templates\Tags\TagsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

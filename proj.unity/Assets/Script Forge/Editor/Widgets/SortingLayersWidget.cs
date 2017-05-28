@@ -3,8 +3,6 @@ using UnityEditorInternal;
 using System.Collections.Generic;
 using System.Reflection;
 using Type = System.Type;
-using UnityEditor;
-using System.IO;
 
 namespace ScriptForge
 {
@@ -111,7 +109,7 @@ namespace ScriptForge
                 // Invoke the base.
                 base.OnGenerate();
                 // Build the template
-                LayersTemplate generator = new LayersTemplate();
+                SortingLayersTemplate generator = new SortingLayersTemplate();
                 // Populate it's session
                 CreateSession(generator);
                 // Write it to disk. 
@@ -131,7 +129,7 @@ namespace ScriptForge
             // Get our layers
             string[] sortingLayers = GetValidSortingLayerNames();
             // Set our session
-            session["m_Layers"] = sortingLayers;
+            session["m_SortingLayers"] = sortingLayers;
         }
     }
 }
