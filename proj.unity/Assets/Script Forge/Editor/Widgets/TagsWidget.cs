@@ -105,12 +105,12 @@ namespace ScriptForge
         /// <summary>
         /// Invoked when this widget should generate it's content.
         /// </summary>
-        public override void OnGenerate()
+        public override void OnGenerate(bool forced)
         {
-            if (ShouldRegnerate())
+            if (ShouldRegnerate() || forced)
             {
                 // Invoke the base.
-                base.OnGenerate();
+                base.OnGenerate(forced);
                 // Build the template
                 TagsTemplate generator = new TagsTemplate();
                 // Populate it's session
@@ -118,7 +118,6 @@ namespace ScriptForge
                 // Write it to disk. 
                 WriteToDisk(generator);
             }
-            base.OnGenerate();
         }
 
         /// <summary>

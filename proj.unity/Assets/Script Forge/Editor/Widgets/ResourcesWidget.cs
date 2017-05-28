@@ -99,16 +99,19 @@ namespace ScriptForge
         /// <summary>
         /// Invoked when this widget should generate it's content. 
         /// </summary>
-        public override void OnGenerate()
+        public override void OnGenerate(bool forced)
         {
-            // Invoke the base.
-            base.OnGenerate();
-            // Build the template
-            ResourcesTemplate generator = new ResourcesTemplate();
-            // Populate it's session
-            CreateSession(generator); 
-            // Write it to disk. 
-            WriteToDisk(generator);
+            if (ShouldRegnerate() || forced)
+            {
+                // Invoke the base.
+                base.OnGenerate(forced);
+                // Build the template
+                ResourcesTemplate generator = new ResourcesTemplate();
+                // Populate it's session
+                CreateSession(generator);
+                // Write it to disk. 
+                WriteToDisk(generator);
+            }
         }
 
         /// <summary>

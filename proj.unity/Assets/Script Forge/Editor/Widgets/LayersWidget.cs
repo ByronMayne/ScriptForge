@@ -112,20 +112,19 @@ namespace ScriptForge
         /// <summary>
         /// Invoked when this widget should generate it's content.
         /// </summary>
-        public override void OnGenerate()
+        public override void OnGenerate(bool forced)
         {
-            if (ShouldRegnerate())
+            if (ShouldRegnerate() || forced)
             {
-                // Invoke the base.
-                base.OnGenerate();
                 // Build the template
                 LayersTemplate generator = new LayersTemplate();
                 // Populate it's session
                 CreateSession(generator);
                 // Write it to disk. 
                 WriteToDisk(generator);
+                // Invoke the base.
+                base.OnGenerate(forced);
             }
-            base.OnGenerate();
         }
 
         /// <summary>

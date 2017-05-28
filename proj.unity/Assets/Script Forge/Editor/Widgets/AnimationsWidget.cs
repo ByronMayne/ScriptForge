@@ -64,9 +64,9 @@ namespace ScriptForge
         /// <summary>
         /// Invoked when this widget should generate it's content. 
         /// </summary>
-        public override void OnGenerate()
+        public override void OnGenerate(bool forced)
         {
-          
+            base.OnGenerate(forced);
         }
     }
 }

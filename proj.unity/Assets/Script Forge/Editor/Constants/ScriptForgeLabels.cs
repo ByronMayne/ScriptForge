@@ -41,6 +41,7 @@ namespace ScriptForge
         public static readonly GUIContent resourcesWidgetTitle;
 
         public static readonly GUIContent generateForgeButton;
+        public static readonly GUIContent forceGenerateForgeButton;
         public static readonly GUIContent resetForgeButton;
         public static readonly GUIContent removeForgeButton;
 
@@ -103,7 +104,8 @@ namespace ScriptForge
             settingsWidgetTitle = new GUIContent("Settings");
             resourcesWidgetTitle = new GUIContent("Resources");
             animationsWidgetTitle = new GUIContent("Animations");
-            generateForgeButton = new GUIContent("Generate");
+            generateForgeButton = new GUIContent("Generate", "This is regenerate the class only if it's not up to date");
+            forceGenerateForgeButton = new GUIContent(FontAwesomeIcons.REPEAT, "This will force regenerate the template even if it's up to date"); 
             resetForgeButton = new GUIContent("Reset");
             removeForgeButton = new GUIContent("Remove");
             autoBuildContent = new GUIContent("Auto Build", "Should this forge run automatically in the background when it detects a change?");

@@ -295,7 +295,7 @@ namespace ScriptForge
         /// <summary>
         /// Called when this forge should generate it's content.
         /// </summary>
-        public virtual void OnGenerate()
+        public virtual void OnGenerate(bool forced)
         {
             // By default does nothing.
         }

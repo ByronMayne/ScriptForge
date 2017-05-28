@@ -35,6 +35,8 @@ namespace ScriptForge
         public static readonly string GITHUB       = new string('\xf09b', 1);
         public static readonly string BOOK         = new string('\xf02d', 1);
         public static readonly string TWITTER      = new string('\xf099', 1);
+        public static readonly string BOLT         = new string('\xf0e7', 1);
+        public static readonly string REPEAT       = new string('\xf01e', 1);
     }
 }
 

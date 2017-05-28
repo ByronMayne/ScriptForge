@@ -46,7 +46,7 @@ namespace ScriptForge
         {
             if (m_AutomaticallyGenerate)
             {
-                OnGenerate();
+                OnGenerate(false);
             }
             OnContentChanged();
         }
@@ -104,7 +104,7 @@ namespace ScriptForge
         /// <summary>
         /// Invoked when the Widget should create it's content.
         /// </summary>
-        public override void OnGenerate()
+        public override void OnGenerate(bool forced)
         {
             m_AssetHash = CreateAssetHash();
             m_IsUpToDate = true;
@@ -126,9 +126,14 @@ namespace ScriptForge
         {
             GUILayout.BeginHorizontal();
             {
-                if (GUILayout.Button(ScriptForgeLabels.generateForgeButton, style.miniButtonLeft))
+                if (GUILayout.Button(ScriptForgeLabels.forceGenerateForgeButton, style.miniButtonLeftIcon))
                 {
-                    OnGenerate();
+                    OnGenerate(true);
+                }
+
+                if (GUILayout.Button(ScriptForgeLabels.generateForgeButton, style.miniButtonMiddle))
+                {
+                    OnGenerate(false);
                 }
 
                 if (GUILayout.Button(ScriptForgeLabels.resetForgeButton, style.miniButtonMiddle))
@@ -270,7 +275,8 @@ namespace ScriptForge
         /// <param name="menu">The menu we want to add options too.</param>
         protected override void OnGenerateContexMenu(GenericMenu menu)
         {
-            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, OnGenerate);
+            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, ()=> OnGenerate(false));
+            menu.AddItem(ScriptForgeLabels.forceGenerateForgeButton, false, () => OnGenerate(true));
             menu.AddItem(ScriptForgeLabels.resetForgeButton, false, OnReset);
             menu.AddItem(ScriptForgeLabels.removeForgeButton, false, OnRemove);
         }

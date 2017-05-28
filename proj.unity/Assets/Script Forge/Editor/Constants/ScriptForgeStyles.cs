@@ -35,6 +35,7 @@ namespace ScriptForge
         public GUIStyle miniButtonLeft { get; protected set; }
         public GUIStyle miniButtonRight { get; protected set; }
         public GUIStyle miniButtonMiddle { get; protected set; }
+        public GUIStyle miniButtonLeftIcon { get; protected set; }
         public GUIStyle buttonLeft { get; protected set; }
         public GUIStyle buttonRight { get; protected set; }
         public GUIStyle buttonMiddle { get; protected set; }
@@ -130,6 +131,14 @@ namespace ScriptForge
             buttonMiddle = new GUIStyle(miniButtonMiddle);
             buttonMiddle.fontSize = 15;
             buttonMiddle.fixedHeight = EditorGUIUtility.singleLineHeight * 2f;
+
+            // Mini Button Middle icon
+            miniButtonLeftIcon = new GUIStyle(miniButtonLeft);
+            miniButtonLeftIcon.fontSize = 13;
+            miniButtonLeftIcon.stretchWidth = false;
+            miniButtonLeftIcon.stretchHeight = true;
+            miniButtonLeftIcon.normal.textColor = Color.black;
+            miniButtonLeftIcon.font = m_FontAwesomeFont;
 
             // Mini Button Right
             miniButtonRight = new GUIStyle(EditorStyles.miniButtonRight);

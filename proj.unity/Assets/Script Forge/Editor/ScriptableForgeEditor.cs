@@ -119,7 +119,7 @@ namespace ScriptForge
                 {
                     for (int i = 0; i < m_Target.Widgets.Count; i++)
                     {
-                        m_Target.Widgets[i].OnGenerate();
+                        m_Target.Widgets[i].OnGenerate(false);
                     }
                 }
                 EditorGUILayout.BeginHorizontal();
