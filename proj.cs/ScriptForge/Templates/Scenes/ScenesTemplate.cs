@@ -22,6 +22,7 @@ namespace ScriptForge
         /// </summary>
         public override string TransformText()
         {
+            this.Write("using System.Collections.ObjectModel;\r\n");
  WriteClassOutline(); 
             return this.GenerationEnvironment.ToString();
         }
@@ -52,41 +53,20 @@ namespace ScriptForge
 		WriteLine("");
 
 		// Array
-
-		WriteLine("/// <summary>");
-        WriteLine("/// Returns back an new array containing all the");
-        WriteLine("/// scenes that are in the build settings. You");
-        WriteLine("/// should cache this value as it creates a new");
-        WriteLine("/// array each time.");
-        WriteLine("/// </summary>");
-		WriteLine("public static string[] Names");
+		WriteLine("// An array containing all the names of our scenes.");
+		WriteLine("private static string[] m_Names = new string[]");
 		WriteLine("{");
 		PushIndent(indent);
-        {
-			WriteLine("get");
-		
-			WriteLine("{");
-			PushIndent(indent);
-            {
-				WriteLine("return new string[]");
-				WriteLine("{");
-				PushIndent(indent);
-                {
-					for(int i = 0; i < m_Scenes.Length; i++)
-					{
-						Write("\"");
-						Write(m_Scenes[i]);
-						WriteLine("\",");
-					}
-                }
-				PopIndent();
-				WriteLine("};");
-            }
-			PopIndent();
-			WriteLine("}");
+		{
+			for(int i = 0; i < m_Scenes.Length; i++)
+			{
+				Write("\"");
+				Write(m_Scenes[i]);
+				WriteLine("\",");
+			}
         }
 		PopIndent();
-		WriteLine("}");
+		WriteLine("};");
     }
 
 	/// <summary>
@@ -123,6 +103,47 @@ this.Write("/// <summary>\r\n/// An enum that contains the names of every scene 
 		WriteLine("}");
 		WriteLine(string.Empty);
     }
+	
+
+ 
+    /// <summary>
+    /// Invoked when the helper functions should be defined by this widget.
+    /// </summary>
+	public override void WriteHelperFunctions()
+    {
+
+this.Write("\r\n/// <summary>\t\t\r\n/// Gets a read only version of the array of scene names in th" +
+        "e build settings. \r\n/// </summary>\t\t\r\npublic static ReadOnlyCollection<string> N" +
+        "ames(string sceneName)\r\n{\t\t\r\n    return new ReadOnlyCollection<string>(m_Names);" +
+        "\r\n}\r\n\r\n/// <summary>\t\t\r\n/// This function takes in a string name and returns \t\t\r" +
+        "\n/// the scene ID with that name. If the name is invalid\t\t\r\n/// it return -1.\t\t\r" +
+        "\n/// </summary>\t\t\r\n/// <returns>The ID of the requested scene name.</returns>\t\t\r" +
+        "\n/// <param name=\"sceneName\">A name of the scene you want the ID for.</param>\t\t\r" +
+        "\npublic static int SceneNameToID(string sceneName)\r\n{\r\n    for (int i = 0; i < m" +
+        "_Names.Length; i++)\r\n    {\r\n\t\tif(m_Names[i].Equals(sceneName, System.StringCompa" +
+        "rison.OrdinalIgnoreCase))\r\n        {\r\n\t\t\treturn i;\r\n        }\r\n    }\r\n    //No s" +
+        "cene found with that ID.\t\t\r\n    return -1;\r\n}\r\n\r\n/// <summary>\t\t\r\n/// This takes" +
+        " a scene ID and returns the name. If\t\t\r\n/// the ID is invalid it returns \'None\'." +
+        "\t\t\r\n/// </summary>\t\t\r\n/// <returns>The identifier of the scene.</returns>\t\t\r\n///" +
+        " <param name=\"sceneIndex\">An name of the scene with the requested ID</param>\t\t\r\n" +
+        "public static string SceneIndexToName(int sceneIndex)\r\n{\r\n    if (sceneIndex >= " +
+        "0 && sceneIndex < m_Names.Length)\r\n    {\r\n        return m_Names[sceneIndex];\r\n " +
+        "   }\r\n\r\n    return string.Empty;\r\n}\r\n\r\n/// <summary>\t\t\r\n/// Determines if it is " +
+        "valid scene name.\t\t\r\n/// </summary>\t\t\r\n/// <returns><c>true</c> if is valid scen" +
+        "e name the specified sceneName; otherwise, <c>false</c>.</returns>\t\t\r\n/// <param" +
+        " name=\"sceneName\">The name of the scene in build settings.</param>\t\t\r\npublic sta" +
+        "tic bool IsValidSceneName(string sceneName)\t\t\r\n{\t\t\r\n\tfor( int i = 0; i < m_Names" +
+        ".Length; i++)\t\t\r\n\t{\t\t\r\n\t\tif(m_Names[i].Equals(sceneName, System.StringComparison" +
+        ".OrdinalIgnoreCase))\r\n\t\t{\r\n\t\t\treturn true;\t\r\n\t\t}\t\r\n\t}\t\t\r\n\t\t\t\r\n\treturn false;\t\t\r\n" +
+        "}\r\n\r\n/// <summary>\t\t\r\n/// Determines if is valid scene ID.\t\t\r\n/// </summary>\t\t\r\n" +
+        "/// <returns><c>true</c> if is valid scene I the specified anID; otherwise, <c>f" +
+        "alse</c>.</returns>\t\t\r\n/// <param name=\"anID\">An I.</param>\t\t\r\npublic static boo" +
+        "l IsValidSceneID(int sceneID)\t\t\r\n{\t\t\r\n\treturn sceneID >= 0 && sceneID < m_Names." +
+        "Length;\r\n}\r\n");
+
+
+    }
+
 
 
 private string _m_EnumNameField;

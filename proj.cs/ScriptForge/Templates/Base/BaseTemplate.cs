@@ -59,6 +59,14 @@ namespace ScriptForge
     }
 
     /// <summary>
+    /// Invoked when the helper functions should be defined by this widget.
+    /// </summary>
+	public virtual void WriteHelperFunctions()
+    {
+
+    }
+
+    /// <summary>
     /// Writes the namespace (if it has one) and the class and all braces. This function
     /// will then call WriteNamespaceContent for stuff in that scope and WriteClassContent()
     /// for everything contained in that scope.
@@ -118,6 +126,7 @@ this.Write("\r\n// </auto-generated>\r\n//--------------------------------------
                 WriteEnumContent();
             }
             WriteClassContent();
+			WriteHelperFunctions();
             PopIndent();
             Write("}");
         } // End Class
