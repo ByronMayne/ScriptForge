@@ -228,6 +228,9 @@ namespace ScriptForge
         [SerializeField]
         private bool m_AnimateWidgets = true;
 
+        [SerializeField]
+        private int m_IndentCount = 4;
+
         /// <summary>
         /// Get or set our list of widgets.
         /// </summary>
@@ -246,6 +249,15 @@ namespace ScriptForge
             set { m_AnimateWidgets = value; }
         }
 
+        /// <summary>
+        /// Gets the number of spaces that we use for indents. If you
+        /// use tabs you are out of luck. 
+        /// </summary>
+        public int indentCount
+        {
+            get { return m_IndentCount; }
+            set { m_IndentCount = value; }
+        }
 
         /// <summary>
         /// Invoked when a new widget is added.

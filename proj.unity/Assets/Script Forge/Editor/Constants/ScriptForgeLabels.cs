@@ -56,6 +56,7 @@ namespace ScriptForge
 
         // Settings
         public static readonly GUIContent animateWidgetsContent;
+        public static readonly GUIContent indentCountLabel;
 
         // Development
         public static readonly GUIContent inDevelopmentIcon;
@@ -109,6 +110,7 @@ namespace ScriptForge
             classNameContent = new GUIContent("Class Name", "What should the name of the class that is generated be called? All invalid characters will be removed");
             enumNameContent = new GUIContent("Enum Name", "The name of the enum that is generated in the class");
             animateWidgetsContent = new GUIContent("Animate Widgets", "If true the widgets open and close with nice animations otherwise it will be instant.");
+            indentCountLabel = new GUIContent("Indent Space Count", "This is used to tell use how many spaces we want to use for indenting when we generate our scripts. We don't use tabs because I am not adding that feature, you can if you want");
             inDevelopmentIcon = new GUIContent(FontAwesomeIcons.CODE, "This widget is currently in development and might not be fully featured.");
             documentationButtonLabel = new GUIContent(FontAwesomeIcons.BOOK, "Opens the documentation written on Google Docs");
             issuesButtonLabel = new GUIContent(FontAwesomeIcons.BUG, "Opens the issues page on GitHub where you can submit any bugs you might find. You can also log any feature requests here.");

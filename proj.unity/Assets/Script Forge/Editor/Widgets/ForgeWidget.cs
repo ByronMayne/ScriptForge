@@ -332,7 +332,15 @@ namespace ScriptForge
         /// <param name="session">The session we want to build.</param>
         protected virtual void PopulateSession(IDictionary<string, object> session)
         {
-            session["m_Indent"] = "    ";
+            // Create our char array for our indent.
+            char[] indent = new char[m_ScriptableForge.indentCount];
+            // Loop over every one and make it a space.
+            for(int i = 0; i < indent.Length; i++)
+            {
+                indent[i] = ' ';
+            }
+            // Set our sessions.
+            session["m_Indent"] = new string(indent);
             session["m_ClassName"] = m_ClassName;
             session["m_Namespace"] = m_Namespace;
             session["m_AssetHash"] = m_AssetHash;
