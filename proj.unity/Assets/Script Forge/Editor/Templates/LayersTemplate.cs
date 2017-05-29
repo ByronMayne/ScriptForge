@@ -59,8 +59,6 @@ namespace ScriptForge
 
 		if(m_CreateBitwise)
         {
-            // Force a space
-            WriteLine("");
 			WriteLine("public static class Bitwise");
 			WriteLine("{");
 			PushIndent(indent);
@@ -69,7 +67,7 @@ namespace ScriptForge
 				{
 					if(!string.IsNullOrEmpty(m_Layers[i]))
 					{
-						Write("public const int ");
+						Write("public static readonly int ");
 						Write(m_Layers[i]);
 						Write(" = 1 << ");
 						Write(i.ToString());

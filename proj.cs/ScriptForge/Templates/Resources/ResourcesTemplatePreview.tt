@@ -16,7 +16,7 @@
 	session["m_AssetHash"] = "b62288ca78c2769c271afefe24922517";
 	session["m_ResourcePaths"] = new string[] { "MainMenu/Prefabs/Button.prefab", 
 												"MainMenu/Views/LoadingScreen.mp4", 
-												"MainMenu/Views/Options_Dialog.prefab",
+												"MainMenu/Views/Options %@#$@#%Dialog.prefab",
 												"Audio/Sound_Effects/Boom.mp3"};
 	this.Session = session;
 	this.Initialize();

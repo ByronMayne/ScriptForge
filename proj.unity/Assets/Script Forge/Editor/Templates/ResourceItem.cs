@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Collections.Generic;
+using ScriptForge.Utility;
 
 namespace ScriptForge.Templates
 {
@@ -20,8 +21,8 @@ namespace ScriptForge.Templates
         public ResourceItem(string fileName)
         {
             extension = Path.GetExtension(fileName);
-            name = Path.GetFileNameWithoutExtension(fileName); 
-            safeName = name.Replace(" ", "_");
+            name = Path.GetFileNameWithoutExtension(fileName);
+            safeName = NamingUtility.ToVariableName(name);
         }
 
         public override IEnumerator<ResourceNode> GetEnumerator()

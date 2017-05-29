@@ -1,6 +1,7 @@
 ﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseTemplate"#>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="ScriptForge.Templates"#>
+<#@ import namespace="ScriptForge.Utility"#>
 <#@ parameter type="System.String[]" name="m_ResourcePaths" #>
 <# WriteClassOutline(); #>
 <#+

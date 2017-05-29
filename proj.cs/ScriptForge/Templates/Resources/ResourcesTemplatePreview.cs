@@ -23,7 +23,7 @@ namespace ScriptforgeGenerated
 			public class Views
 			{
 				public const string LOADINGSCREEN = "LoadingScreen.mp4";
-				public const string OPTIONS_DIALOG = "Options_Dialog.prefab";
+				public const string OPTIONS_DIALOG = "Options %@#$@#%Dialog.prefab";
 			}
 
 		}

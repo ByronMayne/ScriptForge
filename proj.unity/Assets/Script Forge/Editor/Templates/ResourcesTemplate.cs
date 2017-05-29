@@ -11,6 +11,7 @@ namespace ScriptForge
 {
     using System.Collections.Generic;
     using ScriptForge.Templates;
+    using ScriptForge.Utility;
     using System;
     
     /// <summary>
