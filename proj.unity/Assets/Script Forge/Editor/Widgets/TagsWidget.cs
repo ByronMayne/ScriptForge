@@ -95,13 +95,6 @@ namespace ScriptForge
             return hashInput;
         }
 
-        public override void OnReset()
-        {
-            base.OnReset();
-            m_EnumName = "TagName";
-            m_CreateEnum = true;
-        }
-
         /// <summary>
         /// Invoked when this widget should generate it's content.
         /// </summary>

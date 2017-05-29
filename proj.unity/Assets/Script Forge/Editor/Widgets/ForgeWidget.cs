@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor.AnimatedValues;
+using ScriptForge.Widgets.Components;
 
 namespace ScriptForge
 {
@@ -26,11 +27,8 @@ namespace ScriptForge
         [SerializeField]
         protected string m_AssetHash;
 
-        [SerializeField]
-        protected bool m_CreateEnum;
-
-        [SerializeField]
-        protected string m_EnumName;
+		[SerializeField]
+		protected List<WidgetComponent> m_Components = new List<WidgetComponent>();
 
         private bool m_IsUpToDate = false;
 
@@ -181,12 +179,11 @@ namespace ScriptForge
 
             m_Namespace = EditorGUILayoutEx.NamespaceTextField(ScriptForgeLabels.namespaceContent, m_Namespace);
             m_ClassName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.classNameContent, m_ClassName, defaultName);
-            m_CreateEnum = EditorGUILayout.Toggle("Create Enum", m_CreateEnum);
-            EditorGUI.BeginDisabledGroup(!m_CreateEnum);
-            {
-                m_EnumName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.enumNameContent, m_EnumName, "Types");
-            }
-            EditorGUI.EndDisabledGroup();
+
+			for(int i = 0; i < m_Components.Count; i++)
+			{
+				m_Components[i].DrawContent(style);
+			}
         }
 
         /// <summary>
@@ -200,7 +197,15 @@ namespace ScriptForge
         /// <summary>
         /// Returns one string that contains all the names of all our assets to build
         /// our hash with.
-        protected abstract string GetHashInputString();
+		protected virtual string GetHashInputString()
+		{
+			string hash = string.Empty;
+			for(int i = 0; i < m_Components.Count; i++)
+			{
+				hash = m_Components[i].AppendHashInput(hash);
+			}
+			return hash; 
+		}
 
         /// <summary>
         /// Takes an input string an computes it's hash code.
@@ -345,17 +350,20 @@ namespace ScriptForge
             {
                 indent[i] = ' ';
             }
+
+			for(int i = 0; i < m_Components.Count; i++)
+			{
+				m_Components[i].PopulateSession(session); 
+			}
+
             // Set our sessions.
             session["m_Indent"] = new string(indent);
             session["m_ClassName"] = m_ClassName;
             session["m_Namespace"] = m_Namespace;
             session["m_AssetHash"] = m_AssetHash;
             session["m_SaveLocation"] = GetSystemSaveLocation();
-            session["m_CreateEnum"] = m_CreateEnum;
-            session["m_EnumName"] = m_EnumName;
             session["m_IsStaticClass"] = true;
             session["m_IsPartialClass"] = false;
-            session["m_IsEnumDefinedInClass"] = false;
         }
 
         /// <summary>

@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
 
-
 namespace ScriptForge
 {
     [System.Serializable]
