@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ScriptForge.Widgets.Components
 {
 	[Serializable]
-	public abstract class WidgetComponent : ScriptableObject 
+	public abstract class ForgeComponent : ScriptableObject 
 	{
 		/// <summary>
 		/// Allows this component to add data to the session. 
@@ -29,7 +29,7 @@ namespace ScriptForge.Widgets.Components
 		/// </summary>
 		public virtual void OnReset()
 		{
-
+            // Nothing to do here.
 		}
 	}
 }

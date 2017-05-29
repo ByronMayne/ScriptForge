@@ -3,9 +3,11 @@ using UnityEditor;
 using System.Text;
 using System.Security.Cryptography;
 using System.Collections.Generic;
-using System.IO;
-using UnityEditor.AnimatedValues;
 using ScriptForge.Widgets.Components;
+using System.IO;
+using Type = System.Type;
+using Attribute = System.Attribute;
+using System.Reflection;
 
 namespace ScriptForge
 {
@@ -28,7 +30,7 @@ namespace ScriptForge
         protected string m_AssetHash;
 
 		[SerializeField]
-		protected List<WidgetComponent> m_Components = new List<WidgetComponent>();
+		protected List<ForgeComponent> m_Components = new List<ForgeComponent>();
 
         private bool m_IsUpToDate = false;
 
@@ -65,7 +67,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Inovoked on the widget when it's first initialized.
+        /// Invoked on the widget when it's first initialized.
         /// </summary>
         protected virtual void OnEnable()
         {
@@ -73,7 +75,74 @@ namespace ScriptForge
             {
                 m_ClassName = defaultName;
             }
+            SetupComponents();
         }
+
+        /// <summary>
+        /// When we 
+        /// </summary>
+        /// <param name="saveList"></param>
+        public override void PopulateSaveFile(List<ScriptableObject> saveList)
+        {
+            // Add ourself
+            base.PopulateSaveFile(saveList);
+            // And all our components
+            for(int i = 0; i < m_Components.Count; i++)
+            {
+                saveList.Add(m_Components[i]);
+            }
+        }
+
+        /// <summary>
+        /// Invoked when the forge is enabled. We us this to set all the components
+        /// we require for our forge.
+        /// </summary>
+        protected void SetupComponents()
+        {
+            // Removed null entries (script changes can make this happen)
+            for (int i = m_Components.Count - 1; i >= 0; i--)
+            {
+                if (m_Components[i] == null)
+                {
+                    m_Components.RemoveAt(i);
+                }
+            }
+            // Get our current type
+            Type forgeType = GetType();
+            // Get the attribute
+            RequiredWidgetComponetsAttribute requiredWidgets = Attribute.GetCustomAttribute(forgeType, typeof(RequiredWidgetComponetsAttribute)) as RequiredWidgetComponetsAttribute;
+            // If it's not null
+            if(requiredWidgets != null)
+            {
+                // Loop over all required types
+                foreach (Type requiredType in requiredWidgets.requiredTypes)
+                {
+                    // Set a flag to see if we have a match.
+                    bool foundType = false;
+
+                    // loop over all our components
+                    foreach (ForgeComponent component in m_Components)
+                    {
+                        // Check if the type matches
+                        if(component.GetType() == requiredType)
+                        {
+                            // We have a match. 
+                            foundType = true;
+                            break;
+                        }
+                    }
+                    // If we did not find a match we have to create one
+                    if(!foundType)
+                    {
+                        // Create the instance.
+                        ForgeComponent component = CreateInstance(requiredType) as ForgeComponent;
+                        // Add it to our list
+                        m_Components.Add(component);
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Draws the title of the widget and it's icons.
@@ -180,10 +249,19 @@ namespace ScriptForge
             m_Namespace = EditorGUILayoutEx.NamespaceTextField(ScriptForgeLabels.namespaceContent, m_Namespace);
             m_ClassName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.classNameContent, m_ClassName, defaultName);
 
-			for(int i = 0; i < m_Components.Count; i++)
-			{
-				m_Components[i].DrawContent(style);
-			}
+            for (int i = 0; i < m_Components.Count; i++)
+            {
+                EditorGUI.BeginChangeCheck();
+                {
+                    m_Components[i].DrawContent(style);
+                }
+                if (EditorGUI.EndChangeCheck())
+                {
+                    // Since components are sub objects we need to force tell them they are dirty
+                    // or we will not save.
+                    EditorUtility.SetDirty(m_Components[i]);
+                }
+            }
         }
 
         /// <summary>

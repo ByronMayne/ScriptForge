@@ -3,10 +3,12 @@ using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
+using ScriptForge.Widgets.Components;
 
 namespace ScriptForge
 {
     [System.Serializable]
+    [RequiredWidgetComponets(typeof(EnumComponent))]
     public class TagsWidget : ForgeWidget
     {
         public override GUIContent label
