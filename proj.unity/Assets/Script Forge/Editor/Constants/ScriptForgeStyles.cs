@@ -137,7 +137,6 @@ namespace ScriptForge
             miniButtonLeftIcon.fontSize = 13;
             miniButtonLeftIcon.stretchWidth = false;
             miniButtonLeftIcon.stretchHeight = true;
-            miniButtonLeftIcon.normal.textColor = Color.black;
             miniButtonLeftIcon.font = m_FontAwesomeFont;
 
             // Mini Button Right
@@ -179,7 +178,6 @@ namespace ScriptForge
             fontAwesomeButton.wordWrap = false;
             fontAwesomeButton.clipping = TextClipping.Overflow;
             fontAwesomeButton.font = fontAwesomeFont;
-            fontAwesomeButton.normal.textColor = Color.black;
 
             HierarchyProperty serach = new HierarchyProperty(HierarchyType.Assets);
             serach.SetSearchFilter("t:Texture ScriptForgeIcon", 0);
