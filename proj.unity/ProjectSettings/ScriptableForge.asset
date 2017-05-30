@@ -13,13 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Widgets:
   - {fileID: 2}
-  - {fileID: 3}
-  - {fileID: 5}
+  - {fileID: 4}
   - {fileID: 6}
   - {fileID: 7}
-  - {fileID: 8}
   - {fileID: 9}
   - {fileID: 10}
+  - {fileID: 11}
+  - {fileID: 12}
   m_AnimateWidgets: 1
   m_IndentCount: 4
 --- !u!114 &2
@@ -40,8 +40,22 @@ MonoBehaviour:
   m_Namespace: 
   m_ClassName: Tags
   m_AssetHash: 2cf119d9c0d84d494b0630633c7fb6e2
-  m_Components: []
+  m_Components:
+  - {fileID: 3}
 --- !u!114 &3
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a827972e4f34f3eab138fd99a74329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CreateEnum: 0
+  m_EnumName: 
+--- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -60,9 +74,9 @@ MonoBehaviour:
   m_ClassName: Layers
   m_AssetHash: eba5dcd9cd79b0544d43b2e84951895c
   m_Components:
-  - {fileID: 4}
+  - {fileID: 5}
   m_CreateBitwise: 1
---- !u!114 &4
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -75,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CreateEnum: 1
   m_EnumName: Boobies
---- !u!114 &5
+--- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -94,7 +108,7 @@ MonoBehaviour:
   m_ClassName: SortingLayers
   m_AssetHash: 
   m_Components: []
---- !u!114 &6
+--- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -111,9 +125,23 @@ MonoBehaviour:
   m_ScriptLocation: Assets/GeneratedClasses/Scenes.cs
   m_Namespace: Scriptforge.Generated
   m_ClassName: Scenes
-  m_AssetHash: 40109b2e56501912d1fd7afa9cb77387
-  m_Components: []
---- !u!114 &7
+  m_AssetHash: 1f5389087007d8bb338017b601225805
+  m_Components:
+  - {fileID: 8}
+--- !u!114 &8
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a827972e4f34f3eab138fd99a74329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CreateEnum: 1
+  m_EnumName: 
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -132,7 +160,7 @@ MonoBehaviour:
   m_ClassName: Tags
   m_AssetHash: 
   m_Components: []
---- !u!114 &8
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -154,7 +182,7 @@ MonoBehaviour:
   m_Folders:
   - Assets/Resources/Player
   - Assets/Resources
---- !u!114 &9
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -167,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsOpen: 0
   m_ScriptableForge: {fileID: 1}
---- !u!114 &10
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}

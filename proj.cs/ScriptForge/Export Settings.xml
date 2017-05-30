@@ -7,6 +7,7 @@
   </PropertyGroup>
   <!-- This item group is a list of all the Templates we want to export to Unity these paths are relative -->
   <ItemGroup>
+    <Templates Include="Templates\Utility\TemplateSession.cs"/>
     <Templates Include="Templates\Utility\NamingUtility.cs"/>
     <Templates Include="Templates\Base\BaseTemplate.cs"/>
     <Templates Include="Templates\Scenes\ScenesTemplate.cs"/>

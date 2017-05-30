@@ -8,6 +8,7 @@ using System.IO;
 using Type = System.Type;
 using Attribute = System.Attribute;
 using System.Reflection;
+using ScriptForge.Templates;
 
 namespace ScriptForge
 {
@@ -44,6 +45,8 @@ namespace ScriptForge
         /// </summary>
         public override void OnLoaded()
         {
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
+
             if (m_AutomaticallyGenerate)
             {
                 OnGenerate(false);
@@ -184,6 +187,7 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate(bool forced)
         {
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
             m_AssetHash = CreateAssetHash();
             m_IsUpToDate = true;
         }
@@ -416,14 +420,28 @@ namespace ScriptForge
         /// <param name="template">The template you want to load the session into.</param>
         protected void CreateSession(BaseTemplate template)
         {
+            // Clear any old errors
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
             // Create the new session
-            IDictionary<string, object> session = new Dictionary<string, object>();
+            IDictionary<string, object> session = new TemplateSession();
             // Populate it
             PopulateSession(session);
             // Assign it
             template.Session = session;
-            // Initialize it
-            template.Initialize();
+            // Try to run it.
+            try
+            {
+                // Initialize it
+                template.Initialize();
+            }
+            catch (MissingSessionKeyException missingSessionKey)
+            {
+                DisplayError(ScriptForgeErrors.Codes.Missing_Session_Key, "The template is missing the session key '" + missingSessionKey.key + "' and can't be compiled.");
+            }
+            catch(System.Exception e)
+            {
+                DisplayError(ScriptForgeErrors.Codes.Other, "An exception was thrown when generating the code " + e.ToString());
+            }
         }
 
         /// <summary>
