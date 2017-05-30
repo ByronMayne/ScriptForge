@@ -29,8 +29,8 @@ namespace ScriptForge
         [SerializeField]
         protected string m_AssetHash;
 
-		[SerializeField]
-		protected List<ForgeComponent> m_Components = new List<ForgeComponent>();
+        [SerializeField]
+        protected List<ForgeComponent> m_Components = new List<ForgeComponent>();
 
         private bool m_IsUpToDate = false;
 
@@ -87,7 +87,7 @@ namespace ScriptForge
             // Add ourself
             base.PopulateSaveFile(saveList);
             // And all our components
-            for(int i = 0; i < m_Components.Count; i++)
+            for (int i = 0; i < m_Components.Count; i++)
             {
                 saveList.Add(m_Components[i]);
             }
@@ -111,28 +111,30 @@ namespace ScriptForge
             Type forgeType = GetType();
             // Get the attribute
             RequiredWidgetComponetsAttribute requiredWidgets = Attribute.GetCustomAttribute(forgeType, typeof(RequiredWidgetComponetsAttribute)) as RequiredWidgetComponetsAttribute;
+            // Keep a reference to our list of components so we can remove them at the end if their are extra
+            List<ForgeComponent> componentList = new List<ForgeComponent>(m_Components);
             // If it's not null
-            if(requiredWidgets != null)
+            if (requiredWidgets != null)
             {
                 // Loop over all required types
                 foreach (Type requiredType in requiredWidgets.requiredTypes)
                 {
                     // Set a flag to see if we have a match.
                     bool foundType = false;
-
-                    // loop over all our components
-                    foreach (ForgeComponent component in m_Components)
+                    // Loop over all components
+                    for (int i = componentList.Count - 1; i >= 0; i--)
                     {
                         // Check if the type matches
-                        if(component.GetType() == requiredType)
+                        if (componentList[i].GetType() == requiredType)
                         {
                             // We have a match. 
                             foundType = true;
+                            componentList.RemoveAt(i);
                             break;
                         }
                     }
                     // If we did not find a match we have to create one
-                    if(!foundType)
+                    if (!foundType)
                     {
                         // Create the instance.
                         ForgeComponent component = CreateInstance(requiredType) as ForgeComponent;
@@ -141,6 +143,15 @@ namespace ScriptForge
                     }
                 }
             }
+            // Any components still left in the list are extra and should be removed
+            for (int i = 0; i < componentList.Count; i++)
+            {
+                // Remove it.
+                m_Components.Remove(componentList[i]);
+                // Destroy the scriptable object.
+                DestroyImmediate(componentList[i], true);
+            }
+            componentList = null;
         }
 
 
@@ -276,14 +287,14 @@ namespace ScriptForge
         /// Returns one string that contains all the names of all our assets to build
         /// our hash with.
 		protected virtual string GetHashInputString()
-		{
-			string hash = string.Empty;
-			for(int i = 0; i < m_Components.Count; i++)
-			{
-				hash = m_Components[i].AppendHashInput(hash);
-			}
-			return hash; 
-		}
+        {
+            string hash = string.Empty;
+            for (int i = 0; i < m_Components.Count; i++)
+            {
+                hash = m_Components[i].AppendHashInput(hash);
+            }
+            return hash;
+        }
 
         /// <summary>
         /// Takes an input string an computes it's hash code.
@@ -358,7 +369,7 @@ namespace ScriptForge
         /// <param name="menu">The menu we want to add options too.</param>
         protected override void OnGenerateContexMenu(GenericMenu menu)
         {
-            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, ()=> OnGenerate(false));
+            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, () => OnGenerate(false));
             menu.AddItem(ScriptForgeLabels.forceGenerateForgeButton, false, () => OnGenerate(true));
             menu.AddItem(ScriptForgeLabels.resetForgeButton, false, OnReset);
             menu.AddItem(ScriptForgeLabels.removeForgeButton, false, OnRemove);
@@ -424,15 +435,15 @@ namespace ScriptForge
             // Create our char array for our indent.
             char[] indent = new char[m_ScriptableForge.indentCount];
             // Loop over every one and make it a space.
-            for(int i = 0; i < indent.Length; i++)
+            for (int i = 0; i < indent.Length; i++)
             {
                 indent[i] = ' ';
             }
 
-			for(int i = 0; i < m_Components.Count; i++)
-			{
-				m_Components[i].PopulateSession(session); 
-			}
+            for (int i = 0; i < m_Components.Count; i++)
+            {
+                m_Components[i].PopulateSession(session);
+            }
 
             // Set our sessions.
             session["m_Indent"] = new string(indent);
