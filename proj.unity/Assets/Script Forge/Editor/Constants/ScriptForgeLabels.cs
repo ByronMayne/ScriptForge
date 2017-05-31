@@ -71,6 +71,21 @@ namespace ScriptForge
         public static readonly GUIContent repoButtonLabel;
         public static readonly GUIContent twitterButtonLabel;
 
+		// Script Save Location
+		public static class ScriptSaveLocation
+		{
+			public static readonly string title;
+			public static readonly string extension;
+			public static readonly string message; 
+
+			static ScriptSaveLocation()
+			{
+				title = "Script Save Location";
+				extension = "cs";
+				message = "Please choose a save location for your script.";
+			}
+		}
+
         /// <summary>
         /// Are content is only created when it's first used.
         /// </summary>
@@ -111,7 +126,7 @@ namespace ScriptForge
             autoBuildContent = new GUIContent("Auto Build", "Should this forge run automatically in the background when it detects a change?");
             scriptLocation = new GUIContent("Script Location", "Where should the class this forge generates be exported to?");
             namespaceContent = new GUIContent("Namespace", "Which namespace (if any) should the generated class have?");
-            changePathContent = new GUIContent("Change Path", "Click this button to allow you to pick a new path in the project to save the output too");
+			changePathContent = new GUIContent(FontAwesomeIcons.PENCIL_SQUARE, "Click this button to allow you to pick a new path in the project to save the output too");
             classNameContent = new GUIContent("Class Name", "What should the name of the class that is generated be called? All invalid characters will be removed");
             enumNameContent = new GUIContent("Enum Name", "The name of the enum that is generated in the class");
             animateWidgetsContent = new GUIContent("Animate Widgets", "If true the widgets open and close with nice animations otherwise it will be instant.");
