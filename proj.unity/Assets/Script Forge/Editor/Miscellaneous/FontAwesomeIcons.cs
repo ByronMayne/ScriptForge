@@ -14,29 +14,31 @@ namespace ScriptForge
 {
 	public static class FontAwesomeIcons
 	{
-		public static readonly string LIFE_RING    = new string('\xf1cd', 1); 	
-		public static readonly string MAGIC        = new string('\xf0d0', 1); 
-		public static readonly string BUG          = new string('\xf188', 1); 
-		public static readonly string CUBES        = new string('\xf085', 1); 
-		public static readonly string BOOKMARK     = new string('\xf02e', 1); 
-		public static readonly string BARS         = new string('\xf0c9', 1); 
-		public static readonly string SORT_AMOUNT  = new string('\xf161', 1); 
-		public static readonly string PICTURE      = new string('\xf03e', 1); 
-		public static readonly string GAMEPAD      = new string('\xf11b', 1); 
-		public static readonly string COG          = new string('\xf013', 1); 
-		public static readonly string INFO_CIRCLE  = new string('\xf05a', 1); 
-        public static readonly string CHECKBOX     = new string('\xf058', 1);
-        public static readonly string REFRESH      = new string('\xf021', 1);
-        public static readonly string WARNING      = new string('\xf071', 1);
-        public static readonly string INFO         = new string('\x129',  1);
-        public static readonly string MOVIE        = new string('\xf008', 1);
-        public static readonly string PUZZLE_PIECE = new string('\xf12e', 1);
-        public static readonly string CODE         = new string('\xf121', 1);
-        public static readonly string GITHUB       = new string('\xf09b', 1);
-        public static readonly string BOOK         = new string('\xf02d', 1);
-        public static readonly string TWITTER      = new string('\xf099', 1);
-        public static readonly string BOLT         = new string('\xf0e7', 1);
-        public static readonly string REPEAT       = new string('\xf01e', 1);
+		public static readonly string LIFE_RING     = new string('\xf1cd', 1); 	
+		public static readonly string MAGIC         = new string('\xf0d0', 1); 
+		public static readonly string BUG           = new string('\xf188', 1); 
+		public static readonly string CUBES         = new string('\xf085', 1); 
+		public static readonly string BOOKMARK      = new string('\xf02e', 1); 
+		public static readonly string BARS          = new string('\xf0c9', 1); 
+		public static readonly string SORT_AMOUNT   = new string('\xf161', 1); 
+		public static readonly string PICTURE       = new string('\xf03e', 1); 
+		public static readonly string GAMEPAD       = new string('\xf11b', 1); 
+		public static readonly string COG           = new string('\xf013', 1); 
+		public static readonly string INFO_CIRCLE   = new string('\xf05a', 1); 
+        public static readonly string CHECKBOX      = new string('\xf058', 1);
+        public static readonly string REFRESH       = new string('\xf021', 1);
+        public static readonly string WARNING       = new string('\xf071', 1);
+        public static readonly string INFO          = new string('\x129',  1);
+        public static readonly string MOVIE         = new string('\xf008', 1);
+        public static readonly string PUZZLE_PIECE  = new string('\xf12e', 1);
+        public static readonly string CODE          = new string('\xf121', 1);
+        public static readonly string GITHUB        = new string('\xf09b', 1);
+        public static readonly string BOOK          = new string('\xf02d', 1);
+        public static readonly string TWITTER       = new string('\xf099', 1);
+        public static readonly string BOLT          = new string('\xf0e7', 1);
+        public static readonly string REPEAT        = new string('\xf01e', 1);
+		public static readonly string PENCIL_SQUARE = new string('\xf044', 1);
+		public static readonly string ID_CARD       = new string('\xf0e3', 1);
     }
 }
 

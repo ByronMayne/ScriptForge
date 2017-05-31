@@ -47,6 +47,11 @@ namespace ScriptForge
                     ExtenalLinks.OpenIssuesPage();
                 }
 
+				if(GUILayout.Button(ScriptForgeLabels.licenseButtonLabel, style.fontAwesomeButton))
+				{
+					ExtenalLinks.OpenLicense();
+				}
+
                 if (GUILayout.Button(ScriptForgeLabels.repoButtonLabel, style.fontAwesomeButton))
                 {
                     ExtenalLinks.OpenRepoPage();
@@ -56,6 +61,7 @@ namespace ScriptForge
                 {
                     ExtenalLinks.OpenTwitter();
                 }
+
             }
             GUILayout.EndHorizontal();
         }

@@ -70,6 +70,7 @@ namespace ScriptForge
         public static readonly GUIContent issuesButtonLabel;
         public static readonly GUIContent repoButtonLabel;
         public static readonly GUIContent twitterButtonLabel;
+		public static readonly GUIContent licenseButtonLabel;
 
 		// Forge Labels
 		public static readonly GUIContent forgeErrorIcon;
@@ -142,7 +143,7 @@ namespace ScriptForge
             repoButtonLabel = new GUIContent(FontAwesomeIcons.GITHUB, "Opens the repository on GitHub.");
             twitterButtonLabel = new GUIContent(FontAwesomeIcons.TWITTER, "Opens up twitter to my page where you can follow me.");
             createBitwiseLabel = new GUIContent("Create Bitwise", "By default the layers will create int constants to use in code. If this is set to true it would also create bitwise version.");
-
+			licenseButtonLabel = new GUIContent(FontAwesomeIcons.ID_CARD, "Opens up the link to the license that covers Script Forge.");
 			// Forge icons
 			forgeErrorIcon = new GUIContent(FontAwesomeIcons.WARNING, "This forge was encountered an error while trying to run the template. Fix the error by reading the error message below (open the widget) and hit generate to rebuild");  
 			forgeUpToDateIcon = new GUIContent(FontAwesomeIcons.CHECKBOX, "This forge has already been run and is up to date with the current state of the project. There is no point to run this again");
