@@ -15,6 +15,8 @@ namespace ScriptForge
     [System.Serializable]
     public abstract class ForgeWidget : Widget
     {
+		private const float SCRIPT_LOCATION_BUTTON_WIDTH = 20;
+		
         [SerializeField]
         protected bool m_AutomaticallyGenerate = false;
 
@@ -241,23 +243,30 @@ namespace ScriptForge
 
             GUILayout.BeginHorizontal();
             {
-                EditorGUI.BeginDisabledGroup(true);
-                {
-                    EditorGUILayout.LabelField(ScriptForgeLabels.scriptLocation, new GUIContent(m_ScriptLocation), EditorStyles.textField);
-                }
-                EditorGUI.EndDisabledGroup();
+				EditorGUILayout.LabelField(ScriptForgeLabels.scriptLocation.text, m_ScriptLocation, EditorStyles.objectField);
 
-                if (GUILayout.Button(ScriptForgeLabels.changePathContent, style.changePathButton))
-                {
-                    string buildPath = EditorUtility.SaveFilePanelInProject("Save Location", defaultName, "cs", "Where would you like to save this class?");
-
-                    if (!string.IsNullOrEmpty(buildPath))
-                    {
-                        m_ScriptLocation = buildPath;
-                        ClearError(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
-                    }
-                }
-
+				// Get the rect for our field so we can make our button
+				Rect fieldRect = GUILayoutUtility.GetLastRect();
+				// Resize it so we can have the click event only happen on the right. 
+				fieldRect.x += fieldRect.width - SCRIPT_LOCATION_BUTTON_WIDTH;
+				fieldRect.width = SCRIPT_LOCATION_BUTTON_WIDTH;
+				// Cache our current event
+				Event @event = Event.current;
+				// Check for a click event
+				if(@event.button == 0 && // Left mouse button
+				   @event.type == EventType.MouseDown && // We are a press events (instead of a move event)
+				   fieldRect.Contains(@event.mousePosition)) // We clicked our our button area. 
+				{
+					string buildPath = EditorUtility.SaveFilePanelInProject(ScriptForgeLabels.ScriptSaveLocation.title,
+																		    defaultName, 
+																			ScriptForgeLabels.ScriptSaveLocation.extension, 
+																			ScriptForgeLabels.ScriptSaveLocation.message);
+					if(!string.IsNullOrEmpty(buildPath))
+					{
+						m_ScriptLocation = buildPath;
+						ClearError(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
+					}
+				}
             }
             GUILayout.EndHorizontal();
 
