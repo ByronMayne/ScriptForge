@@ -172,15 +172,15 @@ namespace ScriptForge
 
             if (errorCode != ScriptForgeErrors.Codes.None)
             {
-                GUILayout.Label(FontAwesomeIcons.WARNING, style.widgetHeaderIcon);
+				GUILayout.Label(ScriptForgeLabels.forgeErrorIcon, style.widgetHeaderIcon);
             }
             else if (m_IsUpToDate)
             {
-                GUILayout.Label(FontAwesomeIcons.CHECKBOX, style.widgetHeaderIcon);
+				GUILayout.Label(ScriptForgeLabels.forgeUpToDateIcon, style.widgetHeaderIcon);
             }
             else
             {
-                GUILayout.Label(FontAwesomeIcons.REFRESH, style.widgetHeaderIcon);
+				GUILayout.Label(ScriptForgeLabels.forgeOutOfDateIcon, style.widgetHeaderIcon);
             }
         }
 

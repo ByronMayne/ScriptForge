@@ -71,6 +71,11 @@ namespace ScriptForge
         public static readonly GUIContent repoButtonLabel;
         public static readonly GUIContent twitterButtonLabel;
 
+		// Forge Labels
+		public static readonly GUIContent forgeErrorIcon;
+		public static readonly GUIContent forgeUpToDateIcon;
+		public static readonly GUIContent forgeOutOfDateIcon;
+
 		// Script Save Location
 		public static class ScriptSaveLocation
 		{
@@ -137,6 +142,12 @@ namespace ScriptForge
             repoButtonLabel = new GUIContent(FontAwesomeIcons.GITHUB, "Opens the repository on GitHub.");
             twitterButtonLabel = new GUIContent(FontAwesomeIcons.TWITTER, "Opens up twitter to my page where you can follow me.");
             createBitwiseLabel = new GUIContent("Create Bitwise", "By default the layers will create int constants to use in code. If this is set to true it would also create bitwise version.");
+
+			// Forge icons
+			forgeErrorIcon = new GUIContent(FontAwesomeIcons.WARNING, "This forge was encountered an error while trying to run the template. Fix the error by reading the error message below (open the widget) and hit generate to rebuild");  
+			forgeUpToDateIcon = new GUIContent(FontAwesomeIcons.CHECKBOX, "This forge has already been run and is up to date with the current state of the project. There is no point to run this again");
+			forgeOutOfDateIcon = new GUIContent(FontAwesomeIcons.REFRESH, "This forge is out of date with the current state of the project. You should hit Generate to get the updated output");
+
         }
 
     }
