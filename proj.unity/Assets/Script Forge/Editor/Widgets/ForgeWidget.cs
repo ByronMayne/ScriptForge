@@ -51,7 +51,7 @@ namespace ScriptForge
 
             if (m_AutomaticallyGenerate)
             {
-                OnGenerate(false);
+                GenerateForge(false);
             }
             OnContentChanged();
         }
@@ -184,6 +184,12 @@ namespace ScriptForge
             }
         }
 
+        private void GenerateForge(bool forced)
+        {
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
+            OnGenerate(forced);
+        }
+
         /// <summary>
         /// Invoked when the Widget should create it's content.
         /// </summary>
@@ -212,12 +218,12 @@ namespace ScriptForge
             {
                 if (GUILayout.Button(ScriptForgeLabels.forceGenerateForgeButton, style.miniButtonLeftIcon))
                 {
-                    OnGenerate(true);
+                    GenerateForge(true);
                 }
 
                 if (GUILayout.Button(ScriptForgeLabels.generateForgeButton, style.miniButtonMiddle))
                 {
-                    OnGenerate(false);
+                    GenerateForge(false);
                 }
 
                 if (GUILayout.Button(ScriptForgeLabels.resetForgeButton, style.miniButtonMiddle))
@@ -382,8 +388,8 @@ namespace ScriptForge
         /// <param name="menu">The menu we want to add options too.</param>
         protected override void OnGenerateContexMenu(GenericMenu menu)
         {
-            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, () => OnGenerate(false));
-            menu.AddItem(ScriptForgeLabels.forceGenerateForgeButton, false, () => OnGenerate(true));
+            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, () => GenerateForge(false));
+            menu.AddItem(ScriptForgeLabels.forceGenerateForgeButton, false, () => GenerateForge(true));
             menu.AddItem(ScriptForgeLabels.resetForgeButton, false, OnReset);
             menu.AddItem(ScriptForgeLabels.removeForgeButton, false, OnRemove);
         }
