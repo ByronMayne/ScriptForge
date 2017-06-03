@@ -161,11 +161,11 @@ namespace ScriptForge
                 // Invoke the base.
                 base.OnGenerate(forced);
                 // Build the template
-                //ResourcesTemplate generator = new ResourcesTemplate();
+                AnimationsTemplate generator = new AnimationsTemplate();
                 // Populate it's session
-                //CreateSession(generator);
+                CreateSession(generator);
                 // Write it to disk. 
-                //WriteToDisk(generator);
+                WriteToDisk(generator);
             }
         }
 
@@ -175,6 +175,7 @@ namespace ScriptForge
             session["m_GenerateClipNames"] = m_GenerateClipNames;
             session["m_GenerateLayerNames"] = m_GenerateLayerNames;
             session["m_GenerateParamaters"] = m_GenerateParamaters;
+            session["m_EnumName"] = string.Empty;
 
             Dictionary<string, List<AnimatorController>> animatorControllerMap = new Dictionary<string, List<AnimatorController>>();
 

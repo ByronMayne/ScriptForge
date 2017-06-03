@@ -52,6 +52,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LayersTemplatePreview.tt</DependentUpon>
     </None>
+    <Compile Include="Templates\Animations\AnimationsTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AnimationsTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Templates\Resources\Scripts\ResourceFolder.cs" />
     <Compile Include="Templates\Resources\Scripts\ResourceItem.cs" />
     <Compile Include="Templates\Resources\Scripts\ResourceNode.cs" />
@@ -107,6 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Export Settings.xml" />
+    <Content Include="Templates\Animations\AnimationsTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>AnimationsTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>ScriptForge</CustomToolNamespace>
+    </Content>
     <Content Include="Templates\Base\BaseTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BaseTemplate.cs</LastGenOutput>

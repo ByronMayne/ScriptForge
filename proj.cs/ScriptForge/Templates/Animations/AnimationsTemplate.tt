@@ -1,0 +1,35 @@
+﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseTemplate"#>
+<#@ parameter type="System.String" name="m_EnumName" #>
+<#@ parameter type="System.String[]" name="m_Layers" #>
+<#@ parameter type="System.Boolean" name="m_GenerateClipNames" #>
+<#@ parameter type="System.Boolean" name="m_GenerateLayerNames" #>
+<#@ parameter type="System.Boolean" name="m_GenerateParamaters" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="UnityEditor.Animations" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, List<AnimatorController>>" name="m_AnimatorControllerMap" #>
+using System.Collections.Generic;
+<# WriteClassOutline(); #>
+<#+
+    /// <summary>
+    /// A function used to define any content that should exist in this classes namespace.
+    /// </summary>
+    public override void WriteNamespaceContent()
+    {
+    }
+
+	/// <summary>
+    /// This class contains all our GUI Content labels that we use in Script Forge
+    /// </summary>
+    public override void WriteClassContent()
+    {
+	
+    }
+
+	/// <summary>
+    /// Invoked when the enum should be defined by this widget.
+    /// </summary>
+    public override void WriteEnumContent()
+    {
+    }
+#>
