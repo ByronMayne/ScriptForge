@@ -9,6 +9,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="ScriptForge.Utility"#>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, List<AnimatorController>>" name="m_AnimatorControllerMap" #>
+using UnityEngine;
 <# WriteClassOutline(); #>
 <#+
     /// <summary>
@@ -44,11 +45,9 @@
 								Write(animationClip.length.ToString("0.00"));
 								WriteLine(" Seconds");
 								WriteLine("/// </summary>");
-								Write("public const string ");
+								Write("public static readonly int ");
 								Write(NamingUtility.ToVariableName(animationClip.name));
-								Write(" = \"");
-								Write(animationClip.name);
-								WriteLine("\";");
+								WriteLine(";");
                             }
                         }
 						WriteLine("");
@@ -72,6 +71,39 @@
 
 					// Parameters
 
+
+					// Initializer
+#>
+
+/// <summary>
+/// Initializes all our Animations Clips with their hash the
+/// first time this class is referenced.
+/// </summary>
+<#+
+					Write("static ");
+                    Write(controllerClass.Key);
+					WriteLine("()");
+                    WriteLine("{");
+					PushIndent(indent);
+                    {
+						// Initialize Animation Hashes.
+						if(m_GenerateClipNames)
+						{
+							foreach(AnimatorController controller in controllerClass.Value)
+							{
+								foreach(AnimationClip animationClip in controller.animationClips)
+								{
+									Write(NamingUtility.ToVariableName(animationClip.name));
+									Write(" = ");
+									Write("Animator.StringToHash(\"");
+									Write(animationClip.name);
+									WriteLine("\");");
+                                }
+							}
+                        }
+                    }
+					PopIndent();
+					WriteLine("}");
                 }
 				PopIndent();
 				WriteLine("}");

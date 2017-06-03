@@ -26,6 +26,7 @@ namespace ScriptForge
         /// </summary>
         public override string TransformText()
         {
+            this.Write("using UnityEngine;\r\n");
  WriteClassOutline(); 
             return this.GenerationEnvironment.ToString();
         }
@@ -63,11 +64,9 @@ namespace ScriptForge
 								Write(animationClip.length.ToString("0.00"));
 								WriteLine(" Seconds");
 								WriteLine("/// </summary>");
-								Write("public const string ");
+								Write("public static readonly int ");
 								Write(NamingUtility.ToVariableName(animationClip.name));
-								Write(" = \"");
-								Write(animationClip.name);
-								WriteLine("\";");
+								WriteLine(";");
                             }
                         }
 						WriteLine("");
@@ -91,6 +90,37 @@ namespace ScriptForge
 
 					// Parameters
 
+
+					// Initializer
+
+this.Write("\r\n/// <summary>\r\n/// Initializes all our Animations Clips with their hash the\r\n//" +
+        "/ first time this class is referenced.\r\n/// </summary>\r\n");
+
+
+					Write("static ");
+                    Write(controllerClass.Key);
+					WriteLine("()");
+                    WriteLine("{");
+					PushIndent(indent);
+                    {
+						// Initialize Animation Hashes.
+						if(m_GenerateClipNames)
+						{
+							foreach(AnimatorController controller in controllerClass.Value)
+							{
+								foreach(AnimationClip animationClip in controller.animationClips)
+								{
+									Write(NamingUtility.ToVariableName(animationClip.name));
+									Write(" = ");
+									Write("Animator.StringToHash(\"");
+									Write(animationClip.name);
+									WriteLine("\");");
+                                }
+							}
+                        }
+                    }
+					PopIndent();
+					WriteLine("}");
                 }
 				PopIndent();
 				WriteLine("}");
