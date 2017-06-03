@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
-
 
 namespace ScriptForge
 {
@@ -90,6 +90,15 @@ namespace ScriptForge
         public virtual void OnLoaded()
         {
 
+        }
+
+        /// <summary>
+        /// Invoked when we are going to save our objects. Add every scriptable
+        /// object to the list that you want to save. 
+        /// </summary>
+        public virtual void PopulateSaveFile(List<ScriptableObject> saveList)
+        {
+            saveList.Add(this);
         }
 
         /// <summary>

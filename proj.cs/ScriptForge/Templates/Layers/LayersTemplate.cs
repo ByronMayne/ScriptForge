@@ -10,7 +10,7 @@
 namespace ScriptForge
 {
     using System;
-    
+
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -22,226 +22,226 @@ namespace ScriptForge
         /// </summary>
         public override string TransformText()
         {
- WriteClassOutline(); 
+            WriteClassOutline();
             return this.GenerationEnvironment.ToString();
         }
 
-    /// <summary>
-    /// A function used to define any content that should exist in this classes namespace.
-    /// </summary>
-    public override void WriteNamespaceContent()
-    {
-    }
-
-	/// <summary>
-    /// This class contains all our GUI Content labels that we use in Script Forge
-    /// </summary>
-    public override void WriteClassContent()
-    {
-		WriteLine("public static class Integer");
-		WriteLine("{");
-		PushIndent(indent);
+        /// <summary>
+        /// A function used to define any content that should exist in this classes namespace.
+        /// </summary>
+        public override void WriteNamespaceContent()
         {
-			for(int i = 0; i < m_Layers.Length; i++)
-			{
-				if(!string.IsNullOrEmpty(m_Layers[i]))
-				{
-					Write("public const int ");
-					Write(m_Layers[i].ToUpper());
-					Write(" = ");
-					Write(i.ToString());
-					WriteLine(";");
-				}
-			}
-		}
-		PopIndent();
-		WriteLine("}");
+        }
 
-		if(m_CreateBitwise)
+        /// <summary>
+        /// This class contains all our GUI Content labels that we use in Script Forge
+        /// </summary>
+        public override void WriteClassContent()
         {
-			WriteLine("public static class Bitwise");
-			WriteLine("{");
-			PushIndent(indent);
+            WriteLine("public static class Integer");
+            WriteLine("{");
+            PushIndent(indent);
             {
-				for(int i = 0; i < m_Layers.Length; i++)
-				{
-					if(!string.IsNullOrEmpty(m_Layers[i]))
-					{
-						Write("public static readonly int ");
-						Write(m_Layers[i]);
-						Write(" = 1 << ");
-						Write(i.ToString());
-						WriteLine(";");
-					}
+                for (int i = 0; i < m_Layers.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(m_Layers[i]))
+                    {
+                        Write("public const int ");
+                        Write(m_Layers[i].ToUpper());
+                        Write(" = ");
+                        Write(i.ToString());
+                        WriteLine(";");
+                    }
                 }
             }
-			PopIndent();
-			WriteLine("}");
-        }
-    }
+            PopIndent();
+            WriteLine("}");
 
-	/// <summary>
-    /// Invoked when the enum should be defined by this widget.
-    /// </summary>
-    public override void WriteEnumContent()
-    {
-		if(!m_CreateEnum)
-        {
-			return;
-        }
-
-this.Write("/// <summary>\r\n/// An enum that contains the names of every scene that\r\n/// is in" +
-        " your project.\r\n/// </summary>\r\n");
-
-
-		Write("public enum ");
-		WriteLine(m_EnumName);
-		WriteLine("{");
-		PushIndent(indent);
-		for(int i = 0; i < m_Layers.Length; i++)
-        {
-			if(!string.IsNullOrEmpty(m_Layers[i]))
+            if (m_CreateBitwise)
             {
-				Write(m_Layers[i]);
-				Write(" = ");
-				Write(i.ToString());
-				if( i < m_Layers.Length - 1)
-				{
-					WriteLine(",");
-				}
-				else
-				{
-					WriteLine(string.Empty);
-				}
+                WriteLine("public static class Bitwise");
+                WriteLine("{");
+                PushIndent(indent);
+                {
+                    for (int i = 0; i < m_Layers.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(m_Layers[i]))
+                        {
+                            Write("public static readonly int ");
+                            Write(m_Layers[i]);
+                            Write(" = 1 << ");
+                            Write(i.ToString());
+                            WriteLine(";");
+                        }
+                    }
+                }
+                PopIndent();
+                WriteLine("}");
             }
         }
-		PopIndent();
-		WriteLine("}");
-		WriteLine(string.Empty);
-    }
+
+        /// <summary>
+        /// Invoked when the enum should be defined by this widget.
+        /// </summary>
+        public override void WriteEnumContent()
+        {
+            if (!m_CreateEnum)
+            {
+                return;
+            }
+
+            this.Write("/// <summary>\r\n/// An enum that contains the names of every scene that\r\n/// is in" +
+                    " your project.\r\n/// </summary>\r\n");
 
 
-private string _m_EnumNameField;
-
-/// <summary>
-/// Access the m_EnumName parameter of the template.
-/// </summary>
-private string m_EnumName
-{
-    get
-    {
-        return this._m_EnumNameField;
-    }
-}
-
-private string[] _m_LayersField;
-
-/// <summary>
-/// Access the m_Layers parameter of the template.
-/// </summary>
-private string[] m_Layers
-{
-    get
-    {
-        return this._m_LayersField;
-    }
-}
-
-private bool _m_CreateEnumField;
-
-/// <summary>
-/// Access the m_CreateEnum parameter of the template.
-/// </summary>
-private bool m_CreateEnum
-{
-    get
-    {
-        return this._m_CreateEnumField;
-    }
-}
-
-private bool _m_CreateBitwiseField;
-
-/// <summary>
-/// Access the m_CreateBitwise parameter of the template.
-/// </summary>
-private bool m_CreateBitwise
-{
-    get
-    {
-        return this._m_CreateBitwiseField;
-    }
-}
+            Write("public enum ");
+            WriteLine(m_EnumName);
+            WriteLine("{");
+            PushIndent(indent);
+            for (int i = 0; i < m_Layers.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(m_Layers[i]))
+                {
+                    Write(m_Layers[i]);
+                    Write(" = ");
+                    Write(i.ToString());
+                    if (i < m_Layers.Length - 1)
+                    {
+                        WriteLine(",");
+                    }
+                    else
+                    {
+                        WriteLine(string.Empty);
+                    }
+                }
+            }
+            PopIndent();
+            WriteLine("}");
+            WriteLine(string.Empty);
+        }
 
 
-/// <summary>
-/// Initialize the template
-/// </summary>
-public override void Initialize()
-{
-    base.Initialize();
-    if ((this.Errors.HasErrors == false))
-    {
-bool m_EnumNameValueAcquired = false;
-if (this.Session.ContainsKey("m_EnumName"))
-{
-    this._m_EnumNameField = ((string)(this.Session["m_EnumName"]));
-    m_EnumNameValueAcquired = true;
-}
-if ((m_EnumNameValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_EnumName");
-    if ((data != null))
-    {
-        this._m_EnumNameField = ((string)(data));
-    }
-}
-bool m_LayersValueAcquired = false;
-if (this.Session.ContainsKey("m_Layers"))
-{
-    this._m_LayersField = ((string[])(this.Session["m_Layers"]));
-    m_LayersValueAcquired = true;
-}
-if ((m_LayersValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_Layers");
-    if ((data != null))
-    {
-        this._m_LayersField = ((string[])(data));
-    }
-}
-bool m_CreateEnumValueAcquired = false;
-if (this.Session.ContainsKey("m_CreateEnum"))
-{
-    this._m_CreateEnumField = ((bool)(this.Session["m_CreateEnum"]));
-    m_CreateEnumValueAcquired = true;
-}
-if ((m_CreateEnumValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_CreateEnum");
-    if ((data != null))
-    {
-        this._m_CreateEnumField = ((bool)(data));
-    }
-}
-bool m_CreateBitwiseValueAcquired = false;
-if (this.Session.ContainsKey("m_CreateBitwise"))
-{
-    this._m_CreateBitwiseField = ((bool)(this.Session["m_CreateBitwise"]));
-    m_CreateBitwiseValueAcquired = true;
-}
-if ((m_CreateBitwiseValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_CreateBitwise");
-    if ((data != null))
-    {
-        this._m_CreateBitwiseField = ((bool)(data));
-    }
-}
+        private string _m_EnumNameField;
+
+        /// <summary>
+        /// Access the m_EnumName parameter of the template.
+        /// </summary>
+        private string m_EnumName
+        {
+            get
+            {
+                return this._m_EnumNameField;
+            }
+        }
+
+        private string[] _m_LayersField;
+
+        /// <summary>
+        /// Access the m_Layers parameter of the template.
+        /// </summary>
+        private string[] m_Layers
+        {
+            get
+            {
+                return this._m_LayersField;
+            }
+        }
+
+        private bool _m_CreateEnumField;
+
+        /// <summary>
+        /// Access the m_CreateEnum parameter of the template.
+        /// </summary>
+        private bool m_CreateEnum
+        {
+            get
+            {
+                return this._m_CreateEnumField;
+            }
+        }
+
+        private bool _m_CreateBitwiseField;
+
+        /// <summary>
+        /// Access the m_CreateBitwise parameter of the template.
+        /// </summary>
+        private bool m_CreateBitwise
+        {
+            get
+            {
+                return this._m_CreateBitwiseField;
+            }
+        }
 
 
-    }
-}
+        /// <summary>
+        /// Initialize the template
+        /// </summary>
+        public override void Initialize()
+        {
+            base.Initialize();
+            if ((this.Errors.HasErrors == false))
+            {
+                bool m_EnumNameValueAcquired = false;
+                if (this.Session.ContainsKey("m_EnumName"))
+                {
+                    this._m_EnumNameField = ((string)(this.Session["m_EnumName"]));
+                    m_EnumNameValueAcquired = true;
+                }
+                if ((m_EnumNameValueAcquired == false))
+                {
+                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_EnumName");
+                    if ((data != null))
+                    {
+                        this._m_EnumNameField = ((string)(data));
+                    }
+                }
+                bool m_LayersValueAcquired = false;
+                if (this.Session.ContainsKey("m_Layers"))
+                {
+                    this._m_LayersField = ((string[])(this.Session["m_Layers"]));
+                    m_LayersValueAcquired = true;
+                }
+                if ((m_LayersValueAcquired == false))
+                {
+                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_Layers");
+                    if ((data != null))
+                    {
+                        this._m_LayersField = ((string[])(data));
+                    }
+                }
+                bool m_CreateEnumValueAcquired = false;
+                if (this.Session.ContainsKey("m_CreateEnum"))
+                {
+                    this._m_CreateEnumField = ((bool)(this.Session["m_CreateEnum"]));
+                    m_CreateEnumValueAcquired = true;
+                }
+                if ((m_CreateEnumValueAcquired == false))
+                {
+                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_CreateEnum");
+                    if ((data != null))
+                    {
+                        this._m_CreateEnumField = ((bool)(data));
+                    }
+                }
+                bool m_CreateBitwiseValueAcquired = false;
+                if (this.Session.ContainsKey("m_CreateBitwise"))
+                {
+                    this._m_CreateBitwiseField = ((bool)(this.Session["m_CreateBitwise"]));
+                    m_CreateBitwiseValueAcquired = true;
+                }
+                if ((m_CreateBitwiseValueAcquired == false))
+                {
+                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_CreateBitwise");
+                    if ((data != null))
+                    {
+                        this._m_CreateBitwiseField = ((bool)(data));
+                    }
+                }
+
+
+            }
+        }
 
 
     }

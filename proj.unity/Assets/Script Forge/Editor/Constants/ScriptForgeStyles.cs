@@ -31,7 +31,6 @@ namespace ScriptForge
         public GUIStyle title { get; protected set; }
         public GUIStyle subTitle { get; protected set; }
         public GUIStyle button { get; protected set; }
-        public GUIStyle changePathButton { get; protected set; }
         public GUIStyle miniButtonLeft { get; protected set; }
         public GUIStyle miniButtonRight { get; protected set; }
         public GUIStyle miniButtonMiddle { get; protected set; }
@@ -102,15 +101,6 @@ namespace ScriptForge
             button.alignment = TextAnchor.MiddleCenter;
             button.font = thapkieMGFont;
             button.fixedHeight = EditorGUIUtility.singleLineHeight * 2f;
-
-            // Change Button Path
-            changePathButton = new GUIStyle(button);
-            changePathButton.fixedHeight = EditorGUIUtility.singleLineHeight;
-            changePathButton.stretchWidth = false;
-            changePathButton.fixedWidth = 100f;
-            changePathButton.fontSize = 12;
-            changePathButton.contentOffset = new Vector2(0, 1f);
-            changePathButton.margin = new RectOffset(0, 0, 1, 1);
 
             // Mini Button Left
             miniButtonLeft = new GUIStyle(EditorStyles.miniButtonLeft);

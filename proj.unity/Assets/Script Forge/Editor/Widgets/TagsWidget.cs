@@ -3,10 +3,12 @@ using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
+using ScriptForge.Widgets.Components;
 
 namespace ScriptForge
 {
     [System.Serializable]
+    [RequiredWidgetComponets(typeof(EnumComponent))]
     public class TagsWidget : ForgeWidget
     {
         public override GUIContent label
@@ -93,13 +95,6 @@ namespace ScriptForge
             }
 
             return hashInput;
-        }
-
-        public override void OnReset()
-        {
-            base.OnReset();
-            m_EnumName = "TagName";
-            m_CreateEnum = true;
         }
 
         /// <summary>

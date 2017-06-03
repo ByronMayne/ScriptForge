@@ -2,10 +2,12 @@
 using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
+using ScriptForge.Widgets.Components;
 
 namespace ScriptForge
 {
     [System.Serializable]
+    [RequiredWidgetComponets(typeof(EnumComponent))]
     public class ScenesWidget : ForgeWidget
     {
         public override GUIContent label
@@ -77,7 +79,6 @@ namespace ScriptForge
 
             hashInput += m_Namespace;
             hashInput += m_ClassName;
-            hashInput += m_EnumName;
 
             foreach(var scene in GetValidSceneNames())
             {
@@ -104,15 +105,6 @@ namespace ScriptForge
                 // Write it to disk. 
                 WriteToDisk(generator);
             }
-        }
-
-        /// <summary>
-        /// Invoked when this forge should be reset to the default values.
-        /// </summary>
-        public override void OnReset()
-        {
-            m_EnumName = "SceneTypes";
-            m_CreateEnum = true;
         }
 
         /// <summary>

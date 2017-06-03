@@ -1,4 +1,6 @@
-﻿namespace ScriptForge
+﻿using System;
+
+namespace ScriptForge
 {
     public class ScriptForgeErrors
     {
@@ -6,6 +8,8 @@
         {
             None,
             Script_Location_Not_Defined,
+            Missing_Session_Key,
+            Other,
         }
     }
 }

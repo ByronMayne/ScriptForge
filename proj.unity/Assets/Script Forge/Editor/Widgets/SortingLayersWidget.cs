@@ -90,16 +90,6 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Invoked when the user adds this widget or resets it. 
-        /// </summary>
-        public override void OnReset()
-        {
-            base.OnReset();
-            m_EnumName = "SortingLayerName";
-            m_CreateEnum = true;
-        }
-
-        /// <summary>
         /// Invoked when this widget should generate it's content.
         /// </summary>
         public override void OnGenerate(bool forced)

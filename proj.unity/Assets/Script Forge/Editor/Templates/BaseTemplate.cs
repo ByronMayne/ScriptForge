@@ -101,11 +101,8 @@ this.Write("\r\n// </auto-generated>\r\n//--------------------------------------
 
         WriteNamespaceContent();
 
-        if(!m_IsEnumDefinedInClass)
-        {
-            WriteEnumContent();
-        }
-            
+        WriteEnumContent();
+
         {	// Start class
             Write("public ");
             if(m_IsStaticClass)
@@ -121,10 +118,7 @@ this.Write("\r\n// </auto-generated>\r\n//--------------------------------------
             WriteLine(m_ClassName);
             WriteLine("{");
             PushIndent(m_Indent);
-            if(m_IsEnumDefinedInClass)
-            {
-                WriteEnumContent();
-            }
+            WriteEnumContent();
             WriteClassContent();
 			WriteHelperFunctions();
             PopIndent();
@@ -227,19 +221,6 @@ private string m_AssetHash
     get
     {
         return this._m_AssetHashField;
-    }
-}
-
-private bool _m_IsEnumDefinedInClassField;
-
-/// <summary>
-/// Access the m_IsEnumDefinedInClass parameter of the template.
-/// </summary>
-private bool m_IsEnumDefinedInClass
-{
-    get
-    {
-        return this._m_IsEnumDefinedInClassField;
     }
 }
 
@@ -347,20 +328,6 @@ if ((m_AssetHashValueAcquired == false))
     if ((data != null))
     {
         this._m_AssetHashField = ((string)(data));
-    }
-}
-bool m_IsEnumDefinedInClassValueAcquired = false;
-if (this.Session.ContainsKey("m_IsEnumDefinedInClass"))
-{
-    this._m_IsEnumDefinedInClassField = ((bool)(this.Session["m_IsEnumDefinedInClass"]));
-    m_IsEnumDefinedInClassValueAcquired = true;
-}
-if ((m_IsEnumDefinedInClassValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_IsEnumDefinedInClass");
-    if ((data != null))
-    {
-        this._m_IsEnumDefinedInClassField = ((bool)(data));
     }
 }
 

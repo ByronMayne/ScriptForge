@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: a65c843353b970e479f2152470e449b4
-timeCreated: 1496058320
-licenseType: Free
-=======
-guid: 5df3ba737e9f04a8189a3bc74134015f
-timeCreated: 1496075295
+guid: d86e42d7d5a0e40c89cdb7d368d8ceb1
+timeCreated: 1496076342
 licenseType: Pro
->>>>>>> Widget_Components
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []

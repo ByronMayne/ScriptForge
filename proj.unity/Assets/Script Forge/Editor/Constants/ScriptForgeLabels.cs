@@ -70,6 +70,27 @@ namespace ScriptForge
         public static readonly GUIContent issuesButtonLabel;
         public static readonly GUIContent repoButtonLabel;
         public static readonly GUIContent twitterButtonLabel;
+		public static readonly GUIContent licenseButtonLabel;
+
+		// Forge Labels
+		public static readonly GUIContent forgeErrorIcon;
+		public static readonly GUIContent forgeUpToDateIcon;
+		public static readonly GUIContent forgeOutOfDateIcon;
+
+		// Script Save Location
+		public static class ScriptSaveLocation
+		{
+			public static readonly string title;
+			public static readonly string extension;
+			public static readonly string message; 
+
+			static ScriptSaveLocation()
+			{
+				title = "Script Save Location";
+				extension = "cs";
+				message = "Please choose a save location for your script.";
+			}
+		}
 
         /// <summary>
         /// Are content is only created when it's first used.
@@ -111,7 +132,7 @@ namespace ScriptForge
             autoBuildContent = new GUIContent("Auto Build", "Should this forge run automatically in the background when it detects a change?");
             scriptLocation = new GUIContent("Script Location", "Where should the class this forge generates be exported to?");
             namespaceContent = new GUIContent("Namespace", "Which namespace (if any) should the generated class have?");
-            changePathContent = new GUIContent("Change Path", "Click this button to allow you to pick a new path in the project to save the output too");
+			changePathContent = new GUIContent(FontAwesomeIcons.PENCIL_SQUARE, "Click this button to allow you to pick a new path in the project to save the output too");
             classNameContent = new GUIContent("Class Name", "What should the name of the class that is generated be called? All invalid characters will be removed");
             enumNameContent = new GUIContent("Enum Name", "The name of the enum that is generated in the class");
             animateWidgetsContent = new GUIContent("Animate Widgets", "If true the widgets open and close with nice animations otherwise it will be instant.");
@@ -122,6 +143,12 @@ namespace ScriptForge
             repoButtonLabel = new GUIContent(FontAwesomeIcons.GITHUB, "Opens the repository on GitHub.");
             twitterButtonLabel = new GUIContent(FontAwesomeIcons.TWITTER, "Opens up twitter to my page where you can follow me.");
             createBitwiseLabel = new GUIContent("Create Bitwise", "By default the layers will create int constants to use in code. If this is set to true it would also create bitwise version.");
+			licenseButtonLabel = new GUIContent(FontAwesomeIcons.ID_CARD, "Opens up the link to the license that covers Script Forge.");
+			// Forge icons
+			forgeErrorIcon = new GUIContent(FontAwesomeIcons.WARNING, "This forge was encountered an error while trying to run the template. Fix the error by reading the error message below (open the widget) and hit generate to rebuild");  
+			forgeUpToDateIcon = new GUIContent(FontAwesomeIcons.CHECKBOX, "This forge has already been run and is up to date with the current state of the project. There is no point to run this again");
+			forgeOutOfDateIcon = new GUIContent(FontAwesomeIcons.REFRESH, "This forge is out of date with the current state of the project. You should hit Generate to get the updated output");
+
         }
 
     }

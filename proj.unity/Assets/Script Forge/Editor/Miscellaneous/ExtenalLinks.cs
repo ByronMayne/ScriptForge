@@ -18,6 +18,7 @@ namespace ScriptForge
         public static string GITHUB_REPO_URL = "https://github.com/ByronMayne/ScriptForge/";
         public static string GITHUB_ISSUES_URL = "https://github.com/ByronMayne/ScriptForge/issues";
         public static string TWITTER_URL = "https://twitter.com/byMayne";
+		public static string LICENSE_URL = "https://github.com/ByronMayne/ScriptForge/blob/master/LICENSE";
 
         public static void OpenDocumentationPage()
         {
@@ -38,6 +39,11 @@ namespace ScriptForge
         {
             Process.Start(TWITTER_URL);
         }
+
+		public static void OpenLicense()
+		{
+			Process.Start(LICENSE_URL);
+		}
     }
 }
 

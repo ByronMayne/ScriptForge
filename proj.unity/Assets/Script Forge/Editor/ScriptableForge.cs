@@ -201,7 +201,7 @@ namespace ScriptForge
             // Get our path
             string savePath = GetSavePath();
             // Get a handle to our widgets
-            List<Object> saveList = new List<Object>();
+            List<ScriptableObject> saveList = new List<ScriptableObject>();
             // Set this first instance to our data.  
             saveList.Add(this);
             // Copy our widgets into our array.
@@ -209,7 +209,7 @@ namespace ScriptForge
             {
                 if(m_Widgets[i] != null)
                 {
-                    saveList.Add(m_Widgets[i]);
+                    m_Widgets[i].PopulateSaveFile(saveList);
                 }
             }
             // Save them to disk. 

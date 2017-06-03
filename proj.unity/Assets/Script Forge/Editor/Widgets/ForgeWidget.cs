@@ -3,14 +3,20 @@ using UnityEditor;
 using System.Text;
 using System.Security.Cryptography;
 using System.Collections.Generic;
+using ScriptForge.Widgets.Components;
 using System.IO;
-using UnityEditor.AnimatedValues;
+using Type = System.Type;
+using Attribute = System.Attribute;
+using System.Reflection;
+using ScriptForge.Templates;
 
 namespace ScriptForge
 {
     [System.Serializable]
     public abstract class ForgeWidget : Widget
     {
+		private const float SCRIPT_LOCATION_BUTTON_WIDTH = 20;
+		
         [SerializeField]
         protected bool m_AutomaticallyGenerate = false;
 
@@ -27,10 +33,7 @@ namespace ScriptForge
         protected string m_AssetHash;
 
         [SerializeField]
-        protected bool m_CreateEnum;
-
-        [SerializeField]
-        protected string m_EnumName;
+        protected List<ForgeComponent> m_Components = new List<ForgeComponent>();
 
         private bool m_IsUpToDate = false;
 
@@ -44,6 +47,8 @@ namespace ScriptForge
         /// </summary>
         public override void OnLoaded()
         {
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
+
             if (m_AutomaticallyGenerate)
             {
                 OnGenerate(false);
@@ -67,7 +72,7 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Inovoked on the widget when it's first initialized.
+        /// Invoked on the widget when it's first initialized.
         /// </summary>
         protected virtual void OnEnable()
         {
@@ -75,7 +80,85 @@ namespace ScriptForge
             {
                 m_ClassName = defaultName;
             }
+            SetupComponents();
         }
+
+        /// <summary>
+        /// When we 
+        /// </summary>
+        /// <param name="saveList"></param>
+        public override void PopulateSaveFile(List<ScriptableObject> saveList)
+        {
+            // Add ourself
+            base.PopulateSaveFile(saveList);
+            // And all our components
+            for (int i = 0; i < m_Components.Count; i++)
+            {
+                saveList.Add(m_Components[i]);
+            }
+        }
+
+        /// <summary>
+        /// Invoked when the forge is enabled. We us this to set all the components
+        /// we require for our forge.
+        /// </summary>
+        protected void SetupComponents()
+        {
+            // Removed null entries (script changes can make this happen)
+            for (int i = m_Components.Count - 1; i >= 0; i--)
+            {
+                if (m_Components[i] == null)
+                {
+                    m_Components.RemoveAt(i);
+                }
+            }
+            // Get our current type
+            Type forgeType = GetType();
+            // Get the attribute
+            RequiredWidgetComponetsAttribute requiredWidgets = Attribute.GetCustomAttribute(forgeType, typeof(RequiredWidgetComponetsAttribute)) as RequiredWidgetComponetsAttribute;
+            // Keep a reference to our list of components so we can remove them at the end if their are extra
+            List<ForgeComponent> componentList = new List<ForgeComponent>(m_Components);
+            // If it's not null
+            if (requiredWidgets != null)
+            {
+                // Loop over all required types
+                foreach (Type requiredType in requiredWidgets.requiredTypes)
+                {
+                    // Set a flag to see if we have a match.
+                    bool foundType = false;
+                    // Loop over all components
+                    for (int i = componentList.Count - 1; i >= 0; i--)
+                    {
+                        // Check if the type matches
+                        if (componentList[i].GetType() == requiredType)
+                        {
+                            // We have a match. 
+                            foundType = true;
+                            componentList.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    // If we did not find a match we have to create one
+                    if (!foundType)
+                    {
+                        // Create the instance.
+                        ForgeComponent component = CreateInstance(requiredType) as ForgeComponent;
+                        // Add it to our list
+                        m_Components.Add(component);
+                    }
+                }
+            }
+            // Any components still left in the list are extra and should be removed
+            for (int i = 0; i < componentList.Count; i++)
+            {
+                // Remove it.
+                m_Components.Remove(componentList[i]);
+                // Destroy the scriptable object.
+                DestroyImmediate(componentList[i], true);
+            }
+            componentList = null;
+        }
+
 
         /// <summary>
         /// Draws the title of the widget and it's icons.
@@ -89,15 +172,15 @@ namespace ScriptForge
 
             if (errorCode != ScriptForgeErrors.Codes.None)
             {
-                GUILayout.Label(FontAwesomeIcons.WARNING, style.widgetHeaderIcon);
+				GUILayout.Label(ScriptForgeLabels.forgeErrorIcon, style.widgetHeaderIcon);
             }
             else if (m_IsUpToDate)
             {
-                GUILayout.Label(FontAwesomeIcons.CHECKBOX, style.widgetHeaderIcon);
+				GUILayout.Label(ScriptForgeLabels.forgeUpToDateIcon, style.widgetHeaderIcon);
             }
             else
             {
-                GUILayout.Label(FontAwesomeIcons.REFRESH, style.widgetHeaderIcon);
+				GUILayout.Label(ScriptForgeLabels.forgeOutOfDateIcon, style.widgetHeaderIcon);
             }
         }
 
@@ -106,6 +189,7 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate(bool forced)
         {
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
             m_AssetHash = CreateAssetHash();
             m_IsUpToDate = true;
         }
@@ -159,34 +243,49 @@ namespace ScriptForge
 
             GUILayout.BeginHorizontal();
             {
-                EditorGUI.BeginDisabledGroup(true);
-                {
-                    EditorGUILayout.LabelField(ScriptForgeLabels.scriptLocation, new GUIContent(m_ScriptLocation), EditorStyles.textField);
-                }
-                EditorGUI.EndDisabledGroup();
+				EditorGUILayout.LabelField(ScriptForgeLabels.scriptLocation.text, m_ScriptLocation, EditorStyles.objectField);
 
-                if (GUILayout.Button(ScriptForgeLabels.changePathContent, style.changePathButton))
-                {
-                    string buildPath = EditorUtility.SaveFilePanelInProject("Save Location", defaultName, "cs", "Where would you like to save this class?");
-
-                    if (!string.IsNullOrEmpty(buildPath))
-                    {
-                        m_ScriptLocation = buildPath;
-                        ClearError(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
-                    }
-                }
-
+				// Get the rect for our field so we can make our button
+				Rect fieldRect = GUILayoutUtility.GetLastRect();
+				// Resize it so we can have the click event only happen on the right. 
+				fieldRect.x += fieldRect.width - SCRIPT_LOCATION_BUTTON_WIDTH;
+				fieldRect.width = SCRIPT_LOCATION_BUTTON_WIDTH;
+				// Cache our current event
+				Event @event = Event.current;
+				// Check for a click event
+				if(@event.button == 0 && // Left mouse button
+				   @event.type == EventType.MouseDown && // We are a press events (instead of a move event)
+				   fieldRect.Contains(@event.mousePosition)) // We clicked our our button area. 
+				{
+					string buildPath = EditorUtility.SaveFilePanelInProject(ScriptForgeLabels.ScriptSaveLocation.title,
+																		    defaultName, 
+																			ScriptForgeLabels.ScriptSaveLocation.extension, 
+																			ScriptForgeLabels.ScriptSaveLocation.message);
+					if(!string.IsNullOrEmpty(buildPath))
+					{
+						m_ScriptLocation = buildPath;
+						ClearError(ScriptForgeErrors.Codes.Script_Location_Not_Defined);
+					}
+				}
             }
             GUILayout.EndHorizontal();
 
             m_Namespace = EditorGUILayoutEx.NamespaceTextField(ScriptForgeLabels.namespaceContent, m_Namespace);
             m_ClassName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.classNameContent, m_ClassName, defaultName);
-            m_CreateEnum = EditorGUILayout.Toggle("Create Enum", m_CreateEnum);
-            EditorGUI.BeginDisabledGroup(!m_CreateEnum);
+
+            for (int i = 0; i < m_Components.Count; i++)
             {
-                m_EnumName = EditorGUILayoutEx.ClassNameTextField(ScriptForgeLabels.enumNameContent, m_EnumName, "Types");
+                EditorGUI.BeginChangeCheck();
+                {
+                    m_Components[i].DrawContent(style);
+                }
+                if (EditorGUI.EndChangeCheck())
+                {
+                    // Since components are sub objects we need to force tell them they are dirty
+                    // or we will not save.
+                    EditorUtility.SetDirty(m_Components[i]);
+                }
             }
-            EditorGUI.EndDisabledGroup();
         }
 
         /// <summary>
@@ -200,7 +299,15 @@ namespace ScriptForge
         /// <summary>
         /// Returns one string that contains all the names of all our assets to build
         /// our hash with.
-        protected abstract string GetHashInputString();
+		protected virtual string GetHashInputString()
+        {
+            string hash = string.Empty;
+            for (int i = 0; i < m_Components.Count; i++)
+            {
+                hash = m_Components[i].AppendHashInput(hash);
+            }
+            return hash;
+        }
 
         /// <summary>
         /// Takes an input string an computes it's hash code.
@@ -275,7 +382,7 @@ namespace ScriptForge
         /// <param name="menu">The menu we want to add options too.</param>
         protected override void OnGenerateContexMenu(GenericMenu menu)
         {
-            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, ()=> OnGenerate(false));
+            menu.AddItem(ScriptForgeLabels.generateForgeButton, false, () => OnGenerate(false));
             menu.AddItem(ScriptForgeLabels.forceGenerateForgeButton, false, () => OnGenerate(true));
             menu.AddItem(ScriptForgeLabels.resetForgeButton, false, OnReset);
             menu.AddItem(ScriptForgeLabels.removeForgeButton, false, OnRemove);
@@ -322,14 +429,28 @@ namespace ScriptForge
         /// <param name="template">The template you want to load the session into.</param>
         protected void CreateSession(BaseTemplate template)
         {
+            // Clear any old errors
+            ClearError(ScriptForgeErrors.Codes.Missing_Session_Key);
             // Create the new session
-            IDictionary<string, object> session = new Dictionary<string, object>();
+            IDictionary<string, object> session = new TemplateSession();
             // Populate it
             PopulateSession(session);
             // Assign it
             template.Session = session;
-            // Initialize it
-            template.Initialize();
+            // Try to run it.
+            try
+            {
+                // Initialize it
+                template.Initialize();
+            }
+            catch (MissingSessionKeyException missingSessionKey)
+            {
+                DisplayError(ScriptForgeErrors.Codes.Missing_Session_Key, "The template is missing the session key '" + missingSessionKey.key + "' and can't be compiled.");
+            }
+            catch(System.Exception e)
+            {
+                DisplayError(ScriptForgeErrors.Codes.Other, "An exception was thrown when generating the code " + e.ToString());
+            }
         }
 
         /// <summary>
@@ -341,21 +462,24 @@ namespace ScriptForge
             // Create our char array for our indent.
             char[] indent = new char[m_ScriptableForge.indentCount];
             // Loop over every one and make it a space.
-            for(int i = 0; i < indent.Length; i++)
+            for (int i = 0; i < indent.Length; i++)
             {
                 indent[i] = ' ';
             }
+
+            for (int i = 0; i < m_Components.Count; i++)
+            {
+                m_Components[i].PopulateSession(session);
+            }
+
             // Set our sessions.
             session["m_Indent"] = new string(indent);
             session["m_ClassName"] = m_ClassName;
             session["m_Namespace"] = m_Namespace;
             session["m_AssetHash"] = m_AssetHash;
             session["m_SaveLocation"] = GetSystemSaveLocation();
-            session["m_CreateEnum"] = m_CreateEnum;
-            session["m_EnumName"] = m_EnumName;
             session["m_IsStaticClass"] = true;
             session["m_IsPartialClass"] = false;
-            session["m_IsEnumDefinedInClass"] = false;
         }
 
         /// <summary>

@@ -3,10 +3,12 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using System.IO;
+using ScriptForge.Widgets.Components;
 
 namespace ScriptForge
 {
     [System.Serializable]
+    [RequiredWidgetComponets(typeof(EnumComponent))]
     public class LayersWidget : ForgeWidget
     {
         [SerializeField]
@@ -105,8 +107,10 @@ namespace ScriptForge
         public override void OnReset()
         {
             base.OnReset();
-            m_EnumName = "LayerName";
-            m_CreateEnum = true;
+			for(int i = 0; i < m_Components.Count; i++)
+			{
+				m_Components[i].OnReset();
+			}
         }
 
         /// <summary>
