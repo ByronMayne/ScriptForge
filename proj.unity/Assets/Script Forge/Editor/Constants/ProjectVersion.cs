@@ -6,6 +6,6 @@ namespace ScriptForge
         /// <summary>
         /// Which version Script Forge currently is. 
         /// </summary>
-        public const string PROJECT_VERSION = "2.4.1";
+        public const string PROJECT_VERSION = "2.5.2";
     }
 }
