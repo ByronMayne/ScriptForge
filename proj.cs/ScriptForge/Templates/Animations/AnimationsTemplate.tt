@@ -1,14 +1,14 @@
 ﻿<#@ template  debug="true" hostSpecific="false" language="C#" linePragmas="false" inherits="ScriptForge.BaseTemplate"#>
 <#@ parameter type="System.String" name="m_EnumName" #>
-<#@ parameter type="System.String[]" name="m_Layers" #>
 <#@ parameter type="System.Boolean" name="m_GenerateClipNames" #>
 <#@ parameter type="System.Boolean" name="m_GenerateLayerNames" #>
 <#@ parameter type="System.Boolean" name="m_GenerateParamaters" #>
 <#@ import namespace="System" #>
-<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="UnityEngine" #>
 <#@ import namespace="UnityEditor.Animations" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="ScriptForge.Utility"#>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, List<AnimatorController>>" name="m_AnimatorControllerMap" #>
-using System.Collections.Generic;
 <# WriteClassOutline(); #>
 <#+
     /// <summary>
@@ -23,7 +23,62 @@ using System.Collections.Generic;
     /// </summary>
     public override void WriteClassContent()
     {
-	
+		foreach(var controllerClass in m_AnimatorControllerMap)
+        {
+			PushIndent(indent);
+            {
+				Write("public static class ");
+				WriteLine(controllerClass.Key);
+				WriteLine("{");
+				PushIndent(indent);
+                {
+					// Clip Names
+					if(m_GenerateClipNames)
+                    {
+						foreach(AnimatorController controller in controllerClass.Value)
+                        {
+							foreach(AnimationClip animationClip in controller.animationClips)
+                            {
+								WriteLine("/// <summary>");
+								Write("/// Length: ");
+								Write(animationClip.length.ToString("0.00"));
+								WriteLine(" Seconds");
+								WriteLine("/// </summary>");
+								Write("public const string ");
+								Write(NamingUtility.ToVariableName(animationClip.name));
+								Write(" = \"");
+								Write(animationClip.name);
+								WriteLine("\";");
+                            }
+                        }
+						WriteLine("");
+                    }
+
+					// Layer Names
+                    if (m_GenerateLayerNames)
+                    {
+                        foreach (AnimatorController controller in controllerClass.Value)
+                        {
+                            foreach(var layer in controller.layers)
+                            {
+                                Write("public const string ");
+                                Write(NamingUtility.ToVariableName(layer.name));
+                                Write(" = \"");
+                                Write(layer.name);
+                                WriteLine("\";");
+                            }
+                        }
+                    }
+
+					// Parameters
+
+                }
+				PopIndent();
+				WriteLine("}");
+				WriteLine("");
+            }
+			PopIndent();
+        }
     }
 
 	/// <summary>

@@ -152,14 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189348e37cd6880468bc494a79b391d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsOpen: 0
+  m_IsOpen: 1
   m_ScriptableForge: {fileID: 1}
   m_AutomaticallyGenerate: 0
-  m_ScriptLocation: 
-  m_Namespace: 
-  m_ClassName: Tags
+  m_ScriptLocation: Assets/GeneratedClasses/Animations.cs
+  m_Namespace: GeneratedClasses
+  m_ClassName: Animations
   m_AssetHash: d41d8cd98f00b204e9800998ecf8427e
   m_Components: []
+  m_GenerateClipNames: 1
+  m_GenerateLayerNames: 1
+  m_GenerateParamaters: 1
+  m_AnimatorsData:
+  - className: PlayerAnimations
+    controller: {fileID: 9100000, guid: b2e9a21794bb3d341887ea7f54cb994b, type: 2}
+  - className: EnemyController
+    controller: {fileID: 9100000, guid: 49404f107fa27954b8e0202f2ec4b241, type: 2}
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 0

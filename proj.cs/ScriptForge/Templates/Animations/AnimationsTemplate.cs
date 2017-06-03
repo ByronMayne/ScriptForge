@@ -10,9 +10,11 @@
 namespace ScriptForge
 {
     using System;
-    using System.Collections.Generic;
+    using UnityEngine;
     using UnityEditor.Animations;
-
+    using System.Collections.Generic;
+    using ScriptForge.Utility;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -24,209 +26,236 @@ namespace ScriptForge
         /// </summary>
         public override string TransformText()
         {
-            this.Write("using System.Collections.Generic;\r\n");
-            WriteClassOutline();
+ WriteClassOutline(); 
             return this.GenerationEnvironment.ToString();
         }
 
-        /// <summary>
-        /// A function used to define any content that should exist in this classes namespace.
-        /// </summary>
-        public override void WriteNamespaceContent()
+    /// <summary>
+    /// A function used to define any content that should exist in this classes namespace.
+    /// </summary>
+    public override void WriteNamespaceContent()
+    {
+    }
+
+	/// <summary>
+    /// This class contains all our GUI Content labels that we use in Script Forge
+    /// </summary>
+    public override void WriteClassContent()
+    {
+		foreach(var controllerClass in m_AnimatorControllerMap)
         {
-        }
-
-        /// <summary>
-        /// This class contains all our GUI Content labels that we use in Script Forge
-        /// </summary>
-        public override void WriteClassContent()
-        {
-
-        }
-
-        /// <summary>
-        /// Invoked when the enum should be defined by this widget.
-        /// </summary>
-        public override void WriteEnumContent()
-        {
-        }
-
-
-        private string _m_EnumNameField;
-
-        /// <summary>
-        /// Access the m_EnumName parameter of the template.
-        /// </summary>
-        private string m_EnumName
-        {
-            get
+			PushIndent(indent);
             {
-                return this._m_EnumNameField;
-            }
-        }
-
-        private string[] _m_LayersField;
-
-        /// <summary>
-        /// Access the m_Layers parameter of the template.
-        /// </summary>
-        private string[] m_Layers
-        {
-            get
-            {
-                return this._m_LayersField;
-            }
-        }
-
-        private bool _m_GenerateClipNamesField;
-
-        /// <summary>
-        /// Access the m_GenerateClipNames parameter of the template.
-        /// </summary>
-        private bool m_GenerateClipNames
-        {
-            get
-            {
-                return this._m_GenerateClipNamesField;
-            }
-        }
-
-        private bool _m_GenerateLayerNamesField;
-
-        /// <summary>
-        /// Access the m_GenerateLayerNames parameter of the template.
-        /// </summary>
-        private bool m_GenerateLayerNames
-        {
-            get
-            {
-                return this._m_GenerateLayerNamesField;
-            }
-        }
-
-        private bool _m_GenerateParamatersField;
-
-        /// <summary>
-        /// Access the m_GenerateParamaters parameter of the template.
-        /// </summary>
-        private bool m_GenerateParamaters
-        {
-            get
-            {
-                return this._m_GenerateParamatersField;
-            }
-        }
-
-        private global::System.Collections.Generic.Dictionary<string, List<AnimatorController>> _m_AnimatorControllerMapField;
-
-        /// <summary>
-        /// Access the m_AnimatorControllerMap parameter of the template.
-        /// </summary>
-        private global::System.Collections.Generic.Dictionary<string, List<AnimatorController>> m_AnimatorControllerMap
-        {
-            get
-            {
-                return this._m_AnimatorControllerMapField;
-            }
-        }
-
-
-        /// <summary>
-        /// Initialize the template
-        /// </summary>
-        public override void Initialize()
-        {
-            base.Initialize();
-            if ((this.Errors.HasErrors == false))
-            {
-                bool m_EnumNameValueAcquired = false;
-                if (this.Session.ContainsKey("m_EnumName"))
+				Write("public static class ");
+				WriteLine(controllerClass.Key);
+				WriteLine("{");
+				PushIndent(indent);
                 {
-                    this._m_EnumNameField = ((string)(this.Session["m_EnumName"]));
-                    m_EnumNameValueAcquired = true;
-                }
-                if ((m_EnumNameValueAcquired == false))
-                {
-                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_EnumName");
-                    if ((data != null))
+					// Clip Names
+					if(m_GenerateClipNames)
                     {
-                        this._m_EnumNameField = ((string)(data));
+						foreach(AnimatorController controller in controllerClass.Value)
+                        {
+							foreach(AnimationClip animationClip in controller.animationClips)
+                            {
+								WriteLine("/// <summary>");
+								Write("/// Length: ");
+								Write(animationClip.length.ToString("0.00"));
+								WriteLine(" Seconds");
+								WriteLine("/// </summary>");
+								Write("public const string ");
+								Write(NamingUtility.ToVariableName(animationClip.name));
+								Write(" = \"");
+								Write(animationClip.name);
+								WriteLine("\";");
+                            }
+                        }
+						WriteLine("");
                     }
-                }
-                bool m_LayersValueAcquired = false;
-                if (this.Session.ContainsKey("m_Layers"))
-                {
-                    this._m_LayersField = ((string[])(this.Session["m_Layers"]));
-                    m_LayersValueAcquired = true;
-                }
-                if ((m_LayersValueAcquired == false))
-                {
-                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_Layers");
-                    if ((data != null))
-                    {
-                        this._m_LayersField = ((string[])(data));
-                    }
-                }
-                bool m_GenerateClipNamesValueAcquired = false;
-                if (this.Session.ContainsKey("m_GenerateClipNames"))
-                {
-                    this._m_GenerateClipNamesField = ((bool)(this.Session["m_GenerateClipNames"]));
-                    m_GenerateClipNamesValueAcquired = true;
-                }
-                if ((m_GenerateClipNamesValueAcquired == false))
-                {
-                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_GenerateClipNames");
-                    if ((data != null))
-                    {
-                        this._m_GenerateClipNamesField = ((bool)(data));
-                    }
-                }
-                bool m_GenerateLayerNamesValueAcquired = false;
-                if (this.Session.ContainsKey("m_GenerateLayerNames"))
-                {
-                    this._m_GenerateLayerNamesField = ((bool)(this.Session["m_GenerateLayerNames"]));
-                    m_GenerateLayerNamesValueAcquired = true;
-                }
-                if ((m_GenerateLayerNamesValueAcquired == false))
-                {
-                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_GenerateLayerNames");
-                    if ((data != null))
-                    {
-                        this._m_GenerateLayerNamesField = ((bool)(data));
-                    }
-                }
-                bool m_GenerateParamatersValueAcquired = false;
-                if (this.Session.ContainsKey("m_GenerateParamaters"))
-                {
-                    this._m_GenerateParamatersField = ((bool)(this.Session["m_GenerateParamaters"]));
-                    m_GenerateParamatersValueAcquired = true;
-                }
-                if ((m_GenerateParamatersValueAcquired == false))
-                {
-                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_GenerateParamaters");
-                    if ((data != null))
-                    {
-                        this._m_GenerateParamatersField = ((bool)(data));
-                    }
-                }
-                bool m_AnimatorControllerMapValueAcquired = false;
-                if (this.Session.ContainsKey("m_AnimatorControllerMap"))
-                {
-                    this._m_AnimatorControllerMapField = ((global::System.Collections.Generic.Dictionary<string, List<AnimatorController>>)(this.Session["m_AnimatorControllerMap"]));
-                    m_AnimatorControllerMapValueAcquired = true;
-                }
-                if ((m_AnimatorControllerMapValueAcquired == false))
-                {
-                    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_AnimatorControllerMap");
-                    if ((data != null))
-                    {
-                        this._m_AnimatorControllerMapField = ((global::System.Collections.Generic.Dictionary<string, List<AnimatorController>>)(data));
-                    }
-                }
 
+					// Layer Names
+                    if (m_GenerateLayerNames)
+                    {
+                        foreach (AnimatorController controller in controllerClass.Value)
+                        {
+                            foreach(var layer in controller.layers)
+                            {
+                                Write("public const string ");
+                                Write(NamingUtility.ToVariableName(layer.name));
+                                Write(" = \"");
+                                Write(layer.name);
+                                WriteLine("\";");
+                            }
+                        }
+                    }
 
+					// Parameters
+
+                }
+				PopIndent();
+				WriteLine("}");
+				WriteLine("");
             }
+			PopIndent();
         }
+    }
+
+	/// <summary>
+    /// Invoked when the enum should be defined by this widget.
+    /// </summary>
+    public override void WriteEnumContent()
+    {
+    }
+
+
+private string _m_EnumNameField;
+
+/// <summary>
+/// Access the m_EnumName parameter of the template.
+/// </summary>
+private string m_EnumName
+{
+    get
+    {
+        return this._m_EnumNameField;
+    }
+}
+
+private bool _m_GenerateClipNamesField;
+
+/// <summary>
+/// Access the m_GenerateClipNames parameter of the template.
+/// </summary>
+private bool m_GenerateClipNames
+{
+    get
+    {
+        return this._m_GenerateClipNamesField;
+    }
+}
+
+private bool _m_GenerateLayerNamesField;
+
+/// <summary>
+/// Access the m_GenerateLayerNames parameter of the template.
+/// </summary>
+private bool m_GenerateLayerNames
+{
+    get
+    {
+        return this._m_GenerateLayerNamesField;
+    }
+}
+
+private bool _m_GenerateParamatersField;
+
+/// <summary>
+/// Access the m_GenerateParamaters parameter of the template.
+/// </summary>
+private bool m_GenerateParamaters
+{
+    get
+    {
+        return this._m_GenerateParamatersField;
+    }
+}
+
+private global::System.Collections.Generic.Dictionary<string, List<AnimatorController>> _m_AnimatorControllerMapField;
+
+/// <summary>
+/// Access the m_AnimatorControllerMap parameter of the template.
+/// </summary>
+private global::System.Collections.Generic.Dictionary<string, List<AnimatorController>> m_AnimatorControllerMap
+{
+    get
+    {
+        return this._m_AnimatorControllerMapField;
+    }
+}
+
+
+/// <summary>
+/// Initialize the template
+/// </summary>
+public override void Initialize()
+{
+    base.Initialize();
+    if ((this.Errors.HasErrors == false))
+    {
+bool m_EnumNameValueAcquired = false;
+if (this.Session.ContainsKey("m_EnumName"))
+{
+    this._m_EnumNameField = ((string)(this.Session["m_EnumName"]));
+    m_EnumNameValueAcquired = true;
+}
+if ((m_EnumNameValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_EnumName");
+    if ((data != null))
+    {
+        this._m_EnumNameField = ((string)(data));
+    }
+}
+bool m_GenerateClipNamesValueAcquired = false;
+if (this.Session.ContainsKey("m_GenerateClipNames"))
+{
+    this._m_GenerateClipNamesField = ((bool)(this.Session["m_GenerateClipNames"]));
+    m_GenerateClipNamesValueAcquired = true;
+}
+if ((m_GenerateClipNamesValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_GenerateClipNames");
+    if ((data != null))
+    {
+        this._m_GenerateClipNamesField = ((bool)(data));
+    }
+}
+bool m_GenerateLayerNamesValueAcquired = false;
+if (this.Session.ContainsKey("m_GenerateLayerNames"))
+{
+    this._m_GenerateLayerNamesField = ((bool)(this.Session["m_GenerateLayerNames"]));
+    m_GenerateLayerNamesValueAcquired = true;
+}
+if ((m_GenerateLayerNamesValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_GenerateLayerNames");
+    if ((data != null))
+    {
+        this._m_GenerateLayerNamesField = ((bool)(data));
+    }
+}
+bool m_GenerateParamatersValueAcquired = false;
+if (this.Session.ContainsKey("m_GenerateParamaters"))
+{
+    this._m_GenerateParamatersField = ((bool)(this.Session["m_GenerateParamaters"]));
+    m_GenerateParamatersValueAcquired = true;
+}
+if ((m_GenerateParamatersValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_GenerateParamaters");
+    if ((data != null))
+    {
+        this._m_GenerateParamatersField = ((bool)(data));
+    }
+}
+bool m_AnimatorControllerMapValueAcquired = false;
+if (this.Session.ContainsKey("m_AnimatorControllerMap"))
+{
+    this._m_AnimatorControllerMapField = ((global::System.Collections.Generic.Dictionary<string, List<AnimatorController>>)(this.Session["m_AnimatorControllerMap"]));
+    m_AnimatorControllerMapValueAcquired = true;
+}
+if ((m_AnimatorControllerMapValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("m_AnimatorControllerMap");
+    if ((data != null))
+    {
+        this._m_AnimatorControllerMapField = ((global::System.Collections.Generic.Dictionary<string, List<AnimatorController>>)(data));
+    }
+}
+
+
+    }
+}
 
 
     }
