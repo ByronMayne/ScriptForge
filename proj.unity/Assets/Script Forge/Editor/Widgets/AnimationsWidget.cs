@@ -1,11 +1,44 @@
 ﻿using System;
+using UnityEditorInternal;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEditor;
+using AnimatorController = UnityEditor.Animations.AnimatorController;
+using AnimatorControllerParameter = UnityEngine.AnimatorControllerParameter;
+using AnimatorControllerLayer = UnityEditor.Animations.AnimatorControllerLayer;
 
 namespace ScriptForge
 {
+    [Serializable]
+    public struct AnimatorData
+    {
+        [SerializeField]
+        public string className;
+
+        [SerializeField]
+        public AnimatorController controller;
+    }
+
     [Serializable, InDevelopment]
     public class AnimationsWidget : ForgeWidget
     {
+        [SerializeField]
+        private bool m_GenerateClipNames;
+
+        [SerializeField]
+        private bool m_GenerateLayerNames;
+
+        [SerializeField]
+        private bool m_GenerateParamaters;
+
+        [SerializeField]
+        private List<AnimatorData> m_AnimatorsData;
+
+
+
+        // Editor Drawing. 
+        private ReorderableList m_DataReorderableList;
+
         public override GUIContent label
         {
             get
@@ -40,8 +73,61 @@ namespace ScriptForge
         {
             get
             {
-                return "Tags";
+                return "Animations";
             }
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            if (m_AnimatorsData == null)
+            {
+                m_AnimatorsData = new List<AnimatorData>();
+            }
+
+            m_DataReorderableList = new ReorderableList(m_AnimatorsData, typeof(AnimatorData));
+            m_DataReorderableList.drawHeaderCallback += OnDrawHeader;
+            m_DataReorderableList.drawElementCallback += OnDrawElement;
+            m_DataReorderableList.onAddCallback += OnAnimatorAdded;
+            m_DataReorderableList.elementHeight = EditorGUIUtility.singleLineHeight;
+        }
+
+
+
+        private void OnDrawHeader(Rect rect)
+        {
+            rect.width /= 2.0f;
+            GUI.Label(rect, "Class Name");
+            rect.x += rect.width;
+            GUI.Label(rect, "Animator");
+        }
+
+        private void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
+        {
+            Rect classNameRect = rect;
+            classNameRect.width /= 2.0f;
+            Rect animatorRect = classNameRect;
+            animatorRect.x += animatorRect.width;
+            AnimatorData data = m_AnimatorsData[index];
+            data.className = EditorGUILayoutEx.ClassNameTextField(classNameRect, data.className, "ClassName");
+            EditorGUI.BeginChangeCheck();
+            {
+                data.controller = EditorGUI.ObjectField(animatorRect, data.controller, typeof(AnimatorController), false) as AnimatorController;
+            }
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (string.IsNullOrEmpty(data.className) && data.controller != null)
+                {
+                    data.className = data.controller.name;
+                }
+            }
+            m_AnimatorsData[index] = data;
+        }
+
+        private void OnAnimatorAdded(ReorderableList list)
+        {
+            AnimatorData data = new AnimatorData();
+            m_AnimatorsData.Add(data);
         }
 
         /// <summary>
@@ -50,6 +136,10 @@ namespace ScriptForge
         protected override void DrawWidgetContent(ScriptForgeStyles style)
         {
             base.DrawWidgetContent(style);
+            m_GenerateClipNames = EditorGUILayout.Toggle(ScriptForgeLabels.generateClipNamesLabel, m_GenerateClipNames);
+            m_GenerateLayerNames = EditorGUILayout.Toggle(ScriptForgeLabels.generateLayerNamesLabel, m_GenerateLayerNames);
+            m_GenerateParamaters = EditorGUILayout.Toggle(ScriptForgeLabels.generateParamatersLabel, m_GenerateParamaters);
+            m_DataReorderableList.DoLayoutList();
         }
 
         /// <summary>
@@ -66,7 +156,49 @@ namespace ScriptForge
         /// </summary>
         public override void OnGenerate(bool forced)
         {
-            base.OnGenerate(forced);
+            if (ShouldRegnerate() || forced)
+            {
+                // Invoke the base.
+                base.OnGenerate(forced);
+                // Build the template
+                //ResourcesTemplate generator = new ResourcesTemplate();
+                // Populate it's session
+                //CreateSession(generator);
+                // Write it to disk. 
+                //WriteToDisk(generator);
+            }
+        }
+
+        protected override void PopulateSession(IDictionary<string, object> session)
+        {
+            base.PopulateSession(session);
+            session["m_GenerateClipNames"] = m_GenerateClipNames;
+            session["m_GenerateLayerNames"] = m_GenerateLayerNames;
+            session["m_GenerateParamaters"] = m_GenerateParamaters;
+
+            Dictionary<string, List<AnimatorController>> animatorControllerMap = new Dictionary<string, List<AnimatorController>>();
+
+            for (int i = 0; i < m_AnimatorsData.Count; i++)
+            {
+                AnimatorData data = m_AnimatorsData[i];
+                if (!animatorControllerMap.ContainsKey(data.className))
+                {
+                    animatorControllerMap[data.className] = new List<AnimatorController>();
+                }
+
+                if (data.controller != null)
+                {
+                    if (animatorControllerMap[data.className].Contains(data.controller))
+                    {
+                        Debug.LogError("The Animator Controller '" + data.controller.name + "' is already defined.");
+                    }
+                    else
+                    {
+                        animatorControllerMap[data.className].Add(data.controller);
+                    }
+                }
+            }
+            session["m_AnimatorControllerMap"] = animatorControllerMap;
         }
     }
 }

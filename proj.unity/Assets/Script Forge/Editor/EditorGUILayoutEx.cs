@@ -32,6 +32,28 @@ namespace ScriptForge
 
         /// <summary>
         /// Creates a text field that a user can modify but when input is confirmed the name
+        /// is validated to make sure it does not have any invalid characters. 
+        /// </summary>
+        public static string ClassNameTextField(Rect rect, string scriptName, string defaultIfNullOrEmpty)
+        {
+            EditorGUI.BeginChangeCheck();
+            {
+                scriptName = EditorGUI.DelayedTextField(rect, scriptName);
+            }
+            if (EditorGUI.EndChangeCheck())
+            {
+                scriptName = Regex.Replace(scriptName, "[^a-zA-Z0-9_]+", "", RegexOptions.Compiled);
+
+                if (string.IsNullOrEmpty(scriptName))
+                {
+                    scriptName = defaultIfNullOrEmpty;
+                }
+            }
+            return scriptName;
+        }
+
+        /// <summary>
+        /// Creates a text field that a user can modify but when input is confirmed the name
         /// is validated to make sure it does not have any invalid characters this is setup for name spaces. 
         /// </summary>
         public static string NamespaceTextField(GUIContent label, string @namespace)

@@ -51,6 +51,11 @@ namespace ScriptForge
         public static readonly GUIContent namespaceContent;
         public static readonly GUIContent changePathContent;
 
+        // Animations Widget
+        public static readonly GUIContent generateClipNamesLabel;
+        public static readonly GUIContent generateLayerNamesLabel;
+        public static readonly GUIContent generateParamatersLabel;
+
         // Scene Forge
         public static readonly GUIContent classNameContent;
         public static readonly GUIContent enumNameContent;
@@ -149,6 +154,10 @@ namespace ScriptForge
 			forgeUpToDateIcon = new GUIContent(FontAwesomeIcons.CHECKBOX, "This forge has already been run and is up to date with the current state of the project. There is no point to run this again");
 			forgeOutOfDateIcon = new GUIContent(FontAwesomeIcons.REFRESH, "This forge is out of date with the current state of the project. You should hit Generate to get the updated output");
 
+            // Animations Widget
+            generateClipNamesLabel = new GUIContent("Generate Clips Names", "If true when the class is generated for this Animator Controller we will include fields for each clip");
+            generateLayerNamesLabel = new GUIContent("Generate Layer Names", "If true when the class is generated for this Animator Controller we will include fields for each layer in the controller");
+            generateParamatersLabel = new GUIContent("Generate Parameters", "If true when the class is generated for this Animator Controller we will include fields for the parameters");
         }
 
     }
