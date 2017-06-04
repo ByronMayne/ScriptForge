@@ -33,77 +33,169 @@ using UnityEngine;
 				WriteLine("{");
 				PushIndent(indent);
                 {
+
 					// Clip Names
 					if(m_GenerateClipNames)
                     {
-						foreach(AnimatorController controller in controllerClass.Value)
-                        {
-							foreach(AnimationClip animationClip in controller.animationClips)
-                            {
-								WriteLine("/// <summary>");
-								Write("/// Length: ");
-								Write(animationClip.length.ToString("0.00"));
-								WriteLine(" Seconds");
-								WriteLine("/// </summary>");
-								Write("public static readonly int ");
-								Write(NamingUtility.ToVariableName(animationClip.name));
-								WriteLine(";");
-                            }
-                        }
-						WriteLine("");
-                    }
-
-					// Layer Names
-                    if (m_GenerateLayerNames)
-                    {
-                        foreach (AnimatorController controller in controllerClass.Value)
-                        {
-                            foreach(var layer in controller.layers)
-                            {
-                                Write("public const string ");
-                                Write(NamingUtility.ToVariableName(layer.name));
-                                Write(" = \"");
-                                Write(layer.name);
-                                WriteLine("\";");
-                            }
-                        }
-                    }
-
-					// Parameters
-
-
-					// Initializer
-#>
+						WriteLine("public static class Clips");
+						WriteLine("{");
+						PushIndent(indent);
+						{
+							// Constants 
+							foreach(AnimatorController controller in controllerClass.Value)
+							{
+								foreach(AnimationClip animationClip in controller.animationClips)
+								{
+									WriteLine("/// <summary>");
+									Write("/// Length: ");
+									Write(animationClip.length.ToString("0.00"));
+									WriteLine(" Seconds");
+									WriteLine("/// </summary>");
+									Write("public static readonly int ");
+									Write(NamingUtility.ToVariableName(animationClip.name));
+									WriteLine(";");
+								}
+							}
+							#>
 
 /// <summary>
 /// Initializes all our Animations Clips with their hash the
 /// first time this class is referenced.
 /// </summary>
 <#+
-					Write("static ");
-                    Write(controllerClass.Key);
-					WriteLine("()");
-                    WriteLine("{");
-					PushIndent(indent);
-                    {
-						// Initialize Animation Hashes.
-						if(m_GenerateClipNames)
-						{
-							foreach(AnimatorController controller in controllerClass.Value)
+							WriteLine("static Clips()");
+							WriteLine("{");
+							PushIndent(indent);
 							{
-								foreach(AnimationClip animationClip in controller.animationClips)
+								// Initialize Animation Hashes.
+								if(m_GenerateClipNames)
 								{
-									Write(NamingUtility.ToVariableName(animationClip.name));
-									Write(" = ");
-									Write("Animator.StringToHash(\"");
-									Write(animationClip.name);
-									WriteLine("\");");
-                                }
+									foreach(AnimatorController controller in controllerClass.Value)
+									{
+										foreach(AnimationClip animationClip in controller.animationClips)
+										{
+											Write(NamingUtility.ToVariableName(animationClip.name));
+											Write(" = ");
+											Write("Animator.StringToHash(\"");
+											Write(animationClip.name);
+											WriteLine("\");");
+										}
+									}
+								}
+							}
+							PopIndent();
+							WriteLine("}");
+						}
+						PopIndent();
+						WriteLine("}");
+						WriteLine("");
+                    }
+
+					// Layer Names
+                    if (m_GenerateLayerNames)
+                    {
+						WriteLine("public static class Layers");
+						WriteLine("{");
+						PushIndent(indent);
+						{
+							foreach (AnimatorController controller in controllerClass.Value)
+							{
+								foreach(var layer in controller.layers)
+								{
+									Write("public const string ");
+									Write(NamingUtility.ToVariableName(layer.name));
+									Write(" = \"");
+									Write(layer.name);
+									WriteLine("\";");
+								}
 							}
                         }
+						PopIndent();
+						WriteLine("}");
+						WriteLine("");
                     }
-					PopIndent();
-					WriteLine("}");
+
+					// Parameters
+					if(m_GenerateParamaters)
+                    {
+						WriteLine("public static class Parameters");
+						WriteLine("{");
+						PushIndent(indent);
+						{
+							// Constants
+							foreach (AnimatorController controller in controllerClass.Value)
+							{
+								foreach (AnimatorControllerParameter parameter in controller.parameters)
+								{
+									WriteLine("/// <summary>");
+									Write("/// Type: ");
+									WriteLine(parameter.type.ToString());
+									WriteLine("/// </summary>");
+									Write("public static int ");
+									Write(NamingUtility.ToVariableName(parameter.name));
+									Write(" = ");
+									Write(parameter.nameHash.ToString());
+									WriteLine(";");
+								}
+							}
+							WriteLine("");
+							// Utility Functions
+							foreach (AnimatorController controller in controllerClass.Value)
+							{
+								foreach (AnimatorControllerParameter parameter in controller.parameters)
+								{
+									Write("public static void Set");
+									Write(NamingUtility.ToVariableName(parameter.name));
+									Write("(Animator animator");
+                                    switch (parameter.type)
+                                    {
+                                        case AnimatorControllerParameterType.Trigger:
+                                            WriteLine(")");
+											WriteLine("{");
+											PushIndent(indent);
+											Write("animator.SetTrigger(");
+											Write(NamingUtility.ToVariableName(parameter.name));
+											WriteLine(");");
+                                            break;
+                                        case AnimatorControllerParameterType.Bool:
+                                            WriteLine(", bool value)");
+											WriteLine("{");
+											PushIndent(indent);
+											Write("animator.SetBool(");
+											Write(NamingUtility.ToVariableName(parameter.name));
+											WriteLine(", value);");
+                                            break;
+                                        case AnimatorControllerParameterType.Int:
+                                            WriteLine(", int value)");
+											WriteLine("{");
+											PushIndent(indent);
+											Write("animator.SetInteger(");
+											Write(NamingUtility.ToVariableName(parameter.name));
+											WriteLine(", value);");
+                                            break;
+                                        case AnimatorControllerParameterType.Float:
+                                            WriteLine(", float value)");
+											WriteLine("{");
+											PushIndent(indent);
+											Write("animator.SetFloat(");
+											Write(NamingUtility.ToVariableName(parameter.name));
+											WriteLine(", value);");
+                                            break;
+                                    }					
+									PopIndent();
+									WriteLine("}");		
+									WriteLine("");	
+								}
+							}
+                        }
+						PopIndent();
+						WriteLine("}");
+						WriteLine("");
+                    }
+
+
+					// Initializer
+
                 }
 				PopIndent();
 				WriteLine("}");
