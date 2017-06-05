@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine; 
+using System.Text;
 using System.Collections.Generic;
 
 namespace ScriptForge.Widgets.Components
@@ -16,7 +17,7 @@ namespace ScriptForge.Widgets.Components
 		/// <summary>
 		/// Invoked when we are creating a hash for the parent Widget. 
 		/// </summary>
-		public abstract string AppendHashInput(string hashInput);
+		public abstract void PopulateHashBuilder(StringBuilder hashInput);
 
 		/// <summary>
 		/// Invoked when this component can draw it's content.

@@ -7,7 +7,6 @@ using ScriptForge.Widgets.Components;
 using System.IO;
 using Type = System.Type;
 using Attribute = System.Attribute;
-using System.Reflection;
 using ScriptForge.Templates;
 
 namespace ScriptForge
@@ -295,25 +294,19 @@ namespace ScriptForge
         }
 
         /// <summary>
-        /// Generates a hash based on all our current assets.
-        /// </summary>
-        protected string CreateAssetHash()
-        {
-            return ComputeAssetHash(GetHashInputString());
-        }
-
-        /// <summary>
         /// Returns one string that contains all the names of all our assets to build
         /// our hash with.
-		protected virtual string GetHashInputString()
+		protected virtual string CreateAssetHash()
         {
-            string hash = string.Empty;
-            for (int i = 0; i < m_Components.Count; i++)
-            {
-                hash = m_Components[i].AppendHashInput(hash);
-            }
-            return hash;
+			// Create a builder
+			StringBuilder hashBuilder = new StringBuilder();
+  			// Invoke our populate function
+			PopulateHashBuilder(hashBuilder);
+			// Return the result. 
+			return hashBuilder.ToString();
         }
+
+
 
         /// <summary>
         /// Takes an input string an computes it's hash code.
@@ -371,7 +364,7 @@ namespace ScriptForge
             }
             else
             {
-                string hash = ComputeAssetHash(GetHashInputString());
+                string hash = ComputeAssetHash(CreateAssetHash());
 
                 if (string.Compare(hash, m_AssetHash) != 0)
                 {
@@ -487,6 +480,27 @@ namespace ScriptForge
             session["m_IsStaticClass"] = true;
             session["m_IsPartialClass"] = false;
         }
+			
+		/// <summary>
+		/// Invoked when we are required to build a new hash code for our forge. All
+		/// unique content should be converted to string and appending to the builder. 
+		/// </summary>
+		protected virtual void PopulateHashBuilder(StringBuilder hashBuilder)
+		{
+			// Add all our components 
+			for (int i = 0; i < m_Components.Count; i++)
+			{
+				m_Components[i].PopulateHashBuilder(hashBuilder);
+			}
+			// And our default values
+			hashBuilder.Append(m_ScriptableForge.indentCount); 
+			hashBuilder.Append(m_ClassName);
+			hashBuilder.Append(m_Namespace);
+			hashBuilder.Append(m_AssetHash);
+			hashBuilder.Append(m_ScriptLocation); 
+			hashBuilder.Append(true);  // Static Class  (placeholder) 
+			hashBuilder.Append(false); // Partial Class (placeholder) 
+		}
 
         /// <summary>
         /// Called when the settings for this forge should be reset to default.

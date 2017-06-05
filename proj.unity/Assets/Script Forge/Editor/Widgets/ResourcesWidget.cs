@@ -138,5 +138,22 @@ namespace ScriptForge
             // Save our paths. 
             session["m_ResourcePaths"] = result.ToArray();
         }
+
+		/// <summary>
+		/// Invoked when we are required to build a new hash code for our forge. All
+		/// unique content should be converted to string and appending to the builder. 
+		/// </summary>
+		protected override void PopulateHashBuilder(System.Text.StringBuilder hashBuilder)
+		{
+			base.PopulateHashBuilder(hashBuilder);
+			// Add our layer names 
+			foreach (var guid in GetResourceAssetGUIDs())
+			{
+				// Convert to our asset path
+				string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+				// Add the path
+				hashBuilder.Append(assetPath);
+			}
+		}
     }
 }

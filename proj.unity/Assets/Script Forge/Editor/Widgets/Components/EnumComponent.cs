@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEditor;
+using System.Text;
 using System.Collections.Generic;
 
 namespace ScriptForge.Widgets.Components
@@ -28,11 +29,10 @@ namespace ScriptForge.Widgets.Components
         /// Invoked when we are creating a hash for the parent Widget.
         /// </summary>
         /// <returns>The appended hash input.</returns>
-        public override string AppendHashInput(string hashInput)
+		public override void PopulateHashBuilder(StringBuilder hashBuilder)
         {
-            hashInput += m_CreateEnum.ToString();
-            hashInput += m_EnumName;
-            return hashInput;
+			hashBuilder.Append(m_CreateEnum);
+			hashBuilder.Append(m_EnumName);
         }
 
         /// <summary>

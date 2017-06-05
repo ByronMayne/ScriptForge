@@ -86,20 +86,19 @@ namespace ScriptForge
             return layers.ToArray();
         }
 
-        /// <summary>
-        /// Returns one string that contains all the names of all our assets to build
-        /// our hash with.
-        protected override string GetHashInputString()
-        {
-            string hashInput = string.Empty;
-            hashInput += m_Namespace;
-            hashInput += m_ClassName;
-            foreach (var layer in GetLayerNames())
-            {
-                hashInput += layer;
-            }
-            return hashInput;
-        }
+		/// <summary>
+		/// Invoked when we are required to build a new hash code for our forge. All
+		/// unique content should be converted to string and appending to the builder. 
+		/// </summary>
+		protected override void PopulateHashBuilder(System.Text.StringBuilder hashBuilder)
+		{
+			base.PopulateHashBuilder(hashBuilder);
+			// Add our layer names 
+			foreach (var layer in GetLayerNames())
+			{
+				hashBuilder.Append(layer);
+			}
+		}
 
         /// <summary>
         /// Invoked when the user adds this widget or resets it. 

@@ -142,14 +142,17 @@ namespace ScriptForge
             m_DataReorderableList.DoLayoutList();
         }
 
-        /// <summary>
-        /// Returns one string that contains all the names of all our assets to build
-        /// our hash with.
-        protected override string GetHashInputString()
-        {
-            return this.name;
-
-        }
+		/// <summary>
+		/// Invoked when we are required to build a new hash code for our forge. All
+		/// unique content should be converted to string and appending to the builder. 
+		/// </summary>
+		protected override void PopulateHashBuilder(System.Text.StringBuilder hashBuilder)
+		{
+			base.PopulateHashBuilder(hashBuilder);
+			hashBuilder.Append(m_GenerateClipNames);
+			hashBuilder.Append(m_GenerateLayerNames);
+			hashBuilder.Append(m_GenerateParamaters);
+		}
 
         /// <summary>
         /// Invoked when this widget should generate it's content. 
